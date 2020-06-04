@@ -71,7 +71,7 @@ public class DataKnight implements GraphicPackage {
 	/**
 	 * Flag is 1 means that this player end his turn.
 	 */
-	public void playing() {
+	public void playing(String order) {
 		update = true;
 		Player curPlayer = currentGamePlayer();
 		int flag = curPlayer.playGame(store, opponent(), log);
@@ -170,6 +170,11 @@ public class DataKnight implements GraphicPackage {
 	@Override
 	public int getRound() {
 		return roundsNumber;
+	}
+
+	public boolean needInput() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
