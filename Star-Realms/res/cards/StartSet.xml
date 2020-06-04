@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<cards>
+	<card type="ship" qty="8" name="Scout" fraction="" cost="0">
+
+		<abilityList type="basic">
+			<item type="T" value="1"></item>
+		</abilityList>
+
+		<abilityList type="ally">
+		</abilityList>
+
+		<abilityList type="scrap">
+		</abilityList>
+	</card>
+
+	<card type="ship" qty="2" name="Viper" fraction="" cost="0">
+
+		<abilityList type="basic">
+			<item type="C" value="1"></item>
+		</abilityList>
+
+		<abilityList type="ally">
+		</abilityList>
+
+		<abilityList type="scrap">
+		</abilityList>
+	</card>
+
+</cards>

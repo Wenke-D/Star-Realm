@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+
+<card type="ship" qty="1" name="Explorer" fraction="" cost="2">
+
+	<abilityList type="basic">
+		<item type="C" value="51"></item>
+	</abilityList>
+
+	<abilityList type="ally">
+	</abilityList>
+
+	<abilityList type="scrap">
+	<item type="C" value="2"></item>
+	</abilityList>
+</card>

@@ -1,0 +1,26 @@
+Player
+	has
+		Trade point;
+		Combat point;
+		Authority point;
+		Deck;
+		Discard pile;
+		Hands;
+		Field;
+		
+	can
+		-----------
+		(with card)
+		Buy a card;
+		Draw a card;
+		Draw cards;
+		Play a card;
+		End his turn by clearing his hands and throwing ships in field;
+		Attack a base(a special card);
+		
+		---------------------
+		(with another player)
+		Attack another player;
+		
+
+
