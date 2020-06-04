@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<config>
+	<paths>
+		<CoreSet path="res/cards/CoreSet.xml"></CoreSet>
+		<StartSet path="res/cards/StartSet.xml"></StartSet>
+		<Explorer path="res/cards/Explorer.xml"></Explorer>
+	</paths>
+</config>
