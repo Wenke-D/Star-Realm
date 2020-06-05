@@ -66,16 +66,29 @@ public class ViewKnight {
 
 	}
 
-	public void displayResult(DataKnight data) {
-		// TODO Auto-generated method stub
+	public void displayResult(GraphicPackage data) {
+		System.out.println("***********");
+		System.out.println(data.getWiner());
+		System.out.println("***********");
 
 	}
-
-	public void askRestart(String string) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * Asking user weather his wants to begin the game again
+	 * @return {@code true} if he want, {@code false} if not
+	 */
+	public boolean askRestart() {
+		System.out.println("Restart? yes or no: ");
+		String answer = "";
+		if (scanner.hasNextLine()) {
+			answer = scanner.nextLine();
+		}
+		return answer.equals("yes");
+			
 
 	}
-
+	
+	
 	public String readInput() {
 		if (scanner.hasNextLine())
 			return scanner.nextLine();

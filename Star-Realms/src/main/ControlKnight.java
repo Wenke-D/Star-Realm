@@ -93,9 +93,7 @@ public class ControlKnight {
 			// if game ends
 			if (data.isEnd()) {
 				view.displayResult(data);
-				view.askRestart("Restart? yes or no: ");
-				String cmd = view.readInput();
-				if (cmd.equals("yes")) {
+				if (view.askRestart()) {
 					data = new DataKnight(mode);
 					view.drawTerminal(data);
 				} else {

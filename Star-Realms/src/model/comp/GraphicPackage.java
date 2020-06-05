@@ -36,4 +36,6 @@ public interface GraphicPackage {
 	public Graphic getOppField();
 
 	public int getRound();
+	
+	public String getWiner();
 }
