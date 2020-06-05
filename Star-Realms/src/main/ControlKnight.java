@@ -10,7 +10,7 @@ public class ControlKnight {
 	/**
 	 * the game mode 1 => PVP 2 => PVE
 	 * this attribute affect the data initialization in begin phrase
-	 * and end phrase
+	 * and end phrase of the game
 	 */
 	private int mode;
 
