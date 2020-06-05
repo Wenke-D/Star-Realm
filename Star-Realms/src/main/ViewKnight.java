@@ -36,7 +36,7 @@ public class ViewKnight {
 	 * 
 	 * @param data game data source
 	 */
-	public void drawTerminal(GraphicPackage data) {
+	public void draw(GraphicPackage data) {
 		painter = new Painter(data);
 		painter.paintRoundNumber();
 		System.out.println("-----------------");

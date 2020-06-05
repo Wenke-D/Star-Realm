@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import model.card.GameCard;
-import model.comp.Buyer;
-import model.comp.Graphic;
-import model.comp.cardSquence.Deck;
 
 /**
  * <p>
@@ -26,10 +23,9 @@ import model.comp.cardSquence.Deck;
  * @author Vincent
  *
  */
-public class Store implements Graphic {
+public class Store{
 
-	private final Deck cards;
-	private final List<GameCard> availables;
+	private final ArrayList<GameCard> cards;
 	private final GameCard explorer;
 
 	/**
@@ -46,18 +42,8 @@ public class Store implements Graphic {
 	 * @param explorer   A ship object who's name is Explorer
 	 */
 	public Store(List<GameCard> storeCards, GameCard explorer) {
-		cards = new Deck(Objects.requireNonNull(storeCards));
+		cards = new ArrayList<GameCard>(storeCards);
 		this.explorer = Objects.requireNonNull(explorer);
-		availables = new ArrayList<GameCard>(5);
-
-		/*
-		 * Take out 5 cards from deck "cardsToSell" and then add them to deck
-		 * "available". this is the first 5 cards which are ready to sell
-		 */
-		for (int i = 0; i < 5; i++) {
-			availables.add(cards.pop());
-		}
-
 	}
 
 	/**
@@ -89,69 +75,20 @@ public class Store implements Graphic {
 	 * @return {@code ArrayList} contains 6 GameCard
 	 */
 	public ArrayList<GameCard> peek() {
-		ArrayList<GameCard> cardsVisible = new ArrayList<GameCard>(availables);
+		ArrayList<GameCard> cardsVisible = new ArrayList<GameCard>();
 		cardsVisible.add(explorer);
 		return cardsVisible;
 	}
 
-	/**
-	 * <p>
-	 * Sell the card based on player's choice which is the order of cards
-	 * </p>
-	 * 
-	 * <p>
-	 * One thing to pay attention, the Explorer giving back is the reference of this
-	 * object, which means if a Explorer is changed from inside, all the others will
-	 * be altered too, so if in the future The GameCard can change his attribute,
-	 * remember to modified here.
-	 * </p>
-	 * 
-	 * @param index start from 0.
-	 */
-	public void sell(int index, Buyer buyer) {
-		if (index > availables.size())
-			return;
-		GameCard cardSold;
-		
-		/*
-		 * if buy a expolrer 
-		 */
-		if (index == availables.size()) {
-			cardSold = explorer;
-			int price = cardSold.getCost();
-			if (buyer.afford(price)) {
-				buyer.pay(price);
-				buyer.get(cardSold);
-			}
-		/*
-		 * other cards
-		 */
-		} else {
-			cardSold = availables.get(index);
-			int price = cardSold.getCost();
-
-			if (buyer.afford(price)) {
-				buyer.pay(price);
-				buyer.get(cardSold);
-				/*
-				 * Update available cards.
-				 */
-				try {
-				availables.set(index, cards.pop());
-				}catch (IndexOutOfBoundsException e) {
-					availables.remove(index);
-				}
-
-			}
-		}
-
-
+	public GameCard get(int i) {
+		int last = cards.size();
+		return cards.get(last-i);
+	}
+	
+	public GameCard remove(int i) {
+		int last = cards.size();
+		return cards.remove(last-i);
 	}
 
-	@Override
-	public void paint() {
-		System.out.println(this);
-
-	}
 
 }

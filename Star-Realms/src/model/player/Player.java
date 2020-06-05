@@ -4,6 +4,7 @@ import model.Log;
 import model.Store;
 import model.card.GameCard;
 import model.comp.Graphic;
+import model.comp.Target;
 
 /**
  * <p>
@@ -18,13 +19,8 @@ import model.comp.Graphic;
  * @author Matth
  *
  */
-public interface Player {
-	/**
-	 * React to a attack
-	 * 
-	 * @param point
-	 */
-	public void sufferDamage(int point);
+public interface Player extends Target {
+
 
 	/**
 	 * React while a base is attacked
@@ -33,18 +29,6 @@ public interface Player {
 	 */
 	public void baseAttacked(int baseIndex, int damagePoint);
 
-	/**
-	 * <p>
-	 * player's act one time during his round. By default each action will update
-	 * the view, player can change it by changing return.
-	 * </p>
-	 * 
-	 * @param store    a place where can buy card
-	 * @param opponent his adversary
-	 * @return 1 means player's round finish. -1 means this action no need to update
-	 *         whole view, just print log.
-	 */
-	public int playGame(Store store, Player opponent, Log log);
 
 	public boolean isDead();
 	
@@ -73,5 +57,20 @@ public interface Player {
 	 * What a player do before his turn begins.
 	 */
 	public void prepare();
+	
+	public void attack(Target otherPlayer);
+	
+	public void endTurn();
+
+	public void beginTurn();
+
+
+	public GameCard put(int index);
+
+
+	void get(GameCard c);
+
+
+	boolean afford(int price);
 
 }

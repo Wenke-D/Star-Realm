@@ -3,6 +3,7 @@ package model.player;
 import java.util.List;
 import java.util.Objects;
 import model.card.GameCard;
+import model.card.ability.Ability;
 import model.comp.Buyer;
 import model.comp.Graphic;
 import model.comp.Target;
@@ -16,7 +17,7 @@ import model.comp.cardSquence.Hand;
  * @author Matth
  *
  */
-public abstract class AbstractPlayer implements Player, Buyer, Target {
+public abstract class AbstractPlayer implements Player, Target {
 
 	/**
 	 * player's trade point. Reset to 0 while {@code endTurn()} is called.
@@ -54,11 +55,6 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	private final Field field; // ·ÅÖÃÇø
 
 	/**
-	 * Mark if player has attacked. Reset while {@code endTurn()} is called.
-	 */
-	private boolean attacked;
-
-	/**
 	 * Mark if player's field's base need to be activated. Reset to true while
 	 * {@code endTurn()} is called.
 	 */
@@ -72,7 +68,6 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 		this.discardPile = new DiscardPile();
 		this.hand = new Hand();
 		this.field = new Field();
-		attacked = false;
 		needActive = true;
 	}
 
@@ -92,14 +87,16 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	 * 
 	 * @param cardsNumber
 	 */
-	public void draw(int cardsNumber) {
+	@Override
+	public void drawCard(int cardsNumber) {
 		for (int i = 0; i < cardsNumber; i++) {
 
 			/*
 			 * If deck does not have enough cards refill it from discard pile and shuffle it
 			 */
 			if (deck.isEmpty()) {
-				deck.refill(discardPile.clear());
+				deck.refill(discardPile.getAll());
+				discardPile.clear();
 			}
 
 			draw();
@@ -107,32 +104,6 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 		}
 	}
 
-	/**
-	 * <p>
-	 * Play a card from his hand by indicating it's index, meanwhile active it's
-	 * ability.
-	 * <p>
-	 * <p>
-	 * The card played will be removed from hand and add to field
-	 * <p>
-	 * 
-	 * 
-	 * @param card
-	 * @return {@code true} if used, {@code false} if this index out of bound.
-	 */
-	public void use(int cardIndex) {
-		GameCard card;
-		card = hand.use(cardIndex);
-
-		card.activeAbility(this, "basic");
-		field.add(card);
-	}
-
-	public void useAll() {
-		while (hand.size() != 0) {
-			use(0);
-		}
-	}
 
 	/**
 	 * <p>
@@ -141,65 +112,49 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	 * put it here.
 	 * </p>
 	 */
+	@Override
 	public void endTurn() {
 
-		// clear hands to discard pile
-		discardPile.addAll(hand.clear());
+		List<GameCard> cardList = hand.getAll();
+		hand.clear();
 
-		// clear ship of field to discard pile
-		discardPile.addAll(field.clearShips());
+		cardList.addAll(field.clearShips());
 
-		field.resetState();
+		discardPile.addAll(cardList);
 
 		combatPoint = 0;
 		tradePoint = 0;
-		attacked = false;
-		needActive = true;
-
 	}
 
-	/**
-	 * <p>
-	 * If this is the begin of turn, this function will active all the base left in
-	 * the field and return true. if not, nothing will be done and return false.
-	 * </p>
-	 * 
-	 * @return return {@code true} if some bases are activated, return {@code flase}
-	 *         if not.
-	 * 
-	 */
-	public boolean activeField() {
-		if (needActive) {
-			field.active(this);
-			needActive = false;
-			return true;
+	@Override
+	public void beginTurn() {
+		for (GameCard card : field) {
+			Ability ability = card.getBasicAbility();
+			ability.affect(this);
 		}
-		return false;
 	}
 
 	public void attack(Player other) {
-		if (!attacked) {
-			other.sufferDamage(combatPoint);
-			attacked = true;
-		}
+
+		other.changeAuthority(-combatPoint);
+
 	}
 
 	public void attack(int baseIndex, Player owner) {
 		owner.baseAttacked(baseIndex, combatPoint);
-		attacked = true;
 	}
 
 	public void active(int cardIndex, String type, Player player) {
 		player.affected(cardIndex, type);
 	}
-
-	/**
-	 * Interface Buyer
-	 */
+	
 	@Override
-	public void pay(int price) {
-		tradePoint -= price;
+	public GameCard put(int index) {
+		GameCard card = hand.remove(index);
+		field.add(card);
+		return card;
 	}
+
 
 	@Override
 	public void get(GameCard c) {
@@ -226,32 +181,8 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	}
 
 	@Override
-	public void drawCard(int number) {
-		draw(number);
-	}
-
-	@Override
 	public void changeTrade(int number) {
 		tradePoint += number;
-
-	}
-
-	/**
-	 * Interface GamePlayer
-	 */
-	@Override
-	public void sufferDamage(int damagePoint) {
-		if (!field.hasOutpostBase()) {
-			authorityPoint -= damagePoint;
-		}
-
-	}
-
-	@Override
-	public void baseAttacked(int baseIndex, int damagePoint) {
-		if (field.isDestoryed(baseIndex, damagePoint)) {
-			discardPile.add(field.remove(baseIndex));
-		}
 
 	}
 
@@ -294,22 +225,18 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	public void affected(int cardIndex, String type) {
 		field.active(cardIndex, type, this);
 	}
-	
+
 	@Override
 	public void prepare() {
 		draw(5);
 		field.active(this);
-		
+
 	}
-	
+
 	@Override
 	public void draw3() {
 		draw(3);
 	}
-	
-	
-	
-	
 
 	@Override
 	public String toString() {

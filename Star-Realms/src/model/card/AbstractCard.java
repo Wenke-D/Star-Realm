@@ -58,19 +58,10 @@ abstract class AbstractCard implements GameCard {
 		}
 
 	}
-
+	
 	@Override
-	public void activeAbility(Target target, String type) {
-		switch (type) {
-		case "basic":
-			basicAbis.affect(target);
-			break;
-		case "ally":
-			allyAbis.affect(target);
-			break;
-		case "scrap":
-			scrapAbis.affect(target);
-		}
+	public Ability getBasicAbility() {
+		return basicAbis;
 	}
 
 

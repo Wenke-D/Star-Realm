@@ -36,21 +36,13 @@ public class ControlKnight {
 		setMode();
 		
 		data = new DataKnight(mode);
-		view.drawTerminal(data);
+		view.draw(data);
 		mainLoop();
 		
 		view.drawMessage("Game finish");
 		view.drawMessage("-----------------");
 	}
 	
-	/**
-	 * Analyst the player's input
-	 * @param order
-	 * @return
-	 */
-	private int parseInput(String input) {
-		return -1;
-	}
 	
 	/**
 	 * 
@@ -79,22 +71,20 @@ public class ControlKnight {
 			String order = null;
 			if (data.needInput()) {
 				order = view.readInput();
-				// -1 means quit the game
-				int result = parseInput(order);
-				if (result == -1)
+				if (order.equals("quit"))
 					break;
 			}
 			data.playing(order);
 
 			// update view
-			view.drawTerminal(data);
+			view.draw(data);
 
 			// if game ends
 			if (data.isEnd()) {
 				view.displayResult(data);
 				if (view.askRestart()) {
 					data = new DataKnight(mode);
-					view.drawTerminal(data);
+					view.draw(data);
 				} else {
 					break;
 				}

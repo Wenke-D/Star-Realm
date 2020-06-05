@@ -4,7 +4,6 @@ package model.card;
 import model.card.ability.Ability;
 import model.card.ability.effect.Effect;
 
-@SuppressWarnings("unused")
 public class Base extends AbstractCard{
 	private final int defense;
 	private final boolean outPost;
@@ -39,6 +38,7 @@ public class Base extends AbstractCard{
 		sb.append("|||Def:").append(defense).append(",outPost:").append(outPost);
 		return sb.toString();
 	}
+
 
 
 

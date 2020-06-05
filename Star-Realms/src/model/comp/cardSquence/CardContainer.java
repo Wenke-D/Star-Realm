@@ -17,34 +17,6 @@ abstract class CardContainer implements Graphic{
 	public void add(GameCard newCard) {
 		cards.add(newCard);
 	}
-	
-	public List<GameCard> clear(){
-		ArrayList<GameCard> cs = new ArrayList<GameCard>(cards);
-		cards.clear();
-		return cs;
-	}
-	
-	public GameCard get(int index) {
-		return cards.get(index);
-	}
-	
-	public GameCard remove(int index) {
-		return cards.remove(index);
-	}
-	
-	public int size() {
-		return cards.size();
-	}
-	
-	public void addAll(List<GameCard> cards) {
-		for(GameCard c: cards) {
-			add(c);
-		}
-	}
-	
-	public GameCard pop() {
-		return cards.remove(size()-1);
-	}
 
 	@Override
 	public String toString() {
