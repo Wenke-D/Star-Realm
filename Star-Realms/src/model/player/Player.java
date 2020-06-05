@@ -32,32 +32,14 @@ public interface Player extends Target {
 
 	public boolean isDead();
 	
-	/**
-	 * This function is been called while the first player begins his first turn.
-	 */
-	public void draw3();
-
 	public int getAuthority();
 
 	public int getTrade();
 
 	public int getCombat();
 
-	public Graphic getHands();
-
-	public Graphic getField();
-
-	public Graphic getDeck();
-
-	public Graphic getDisCardPile();
-
 	public void affected(int cardIndex, String type);
-	
-	/**
-	 * What a player do before his turn begins.
-	 */
-	public void prepare();
-	
+		
 	public void attack(Target otherPlayer);
 	
 	public void endTurn();

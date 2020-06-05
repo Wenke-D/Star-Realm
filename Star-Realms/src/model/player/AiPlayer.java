@@ -12,16 +12,5 @@ public class AiPlayer extends AbstractPlayer {
 		super(tradePoint, combatPoint, authorityPoint, list);
 	}
 
-	@Override
-	public int playGame(Store store, Player opponent, Log log) {
-		System.out.println("Hello");
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		endTurn();
-		return 1;
-	}
 
 }

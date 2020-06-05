@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import model.card.GameCard;
 import model.card.ability.Ability;
-import model.comp.Buyer;
 import model.comp.Graphic;
 import model.comp.Target;
 import model.comp.cardSquence.Deck;
@@ -201,68 +200,8 @@ public abstract class AbstractPlayer implements Player, Target {
 		return combatPoint;
 	}
 
-	@Override
-	public Graphic getHands() {
-		return hand;
-	}
-
-	@Override
-	public Graphic getField() {
-		return field;
-	}
-
-	@Override
-	public Graphic getDeck() {
-		return deck;
-	}
-
-	@Override
-	public Graphic getDisCardPile() {
-		return discardPile;
-	}
-
-	@Override
-	public void affected(int cardIndex, String type) {
-		field.active(cardIndex, type, this);
-	}
-
-	@Override
-	public void prepare() {
-		draw(5);
-		field.active(this);
-
-	}
-
-	@Override
-	public void draw3() {
-		draw(3);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(
-				String.format("->Authority: %d\n->Trade: %d\n->Combat: %d\n", authorityPoint, tradePoint, combatPoint));
-
-		sb.append("Hands:");
-		if (hand.size() == 0) {
-			sb.append("None\n");
-		} else {
-			sb.append("\n" + hand.toString());
-		}
-		sb.append("Field:");
-		if (field.size() == 0) {
-			sb.append("None\n");
-		} else {
-			sb.append("\n" + field.toString());
-		}
-		sb.append("Deck:").append(deck.size()).append('\n');
-		sb.append("Discard Pile:").append(discardPile.size()).append('\n');
-		return sb.toString();
-	}
-
 	public boolean isDead() {
 		return authorityPoint <= 0;
-	};
+	}
 
 }
