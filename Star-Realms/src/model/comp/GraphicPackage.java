@@ -1,14 +1,12 @@
 package model.comp;
 
+/**
+ * The interface between view and data, where view get info to print.
+ * @author Matth
+ *
+ */
 public interface GraphicPackage {
-	
-	/**
-	 * Determiner si on a besoin de mettre ид jour toute l'affiachage,
-	 * sinon, seulement afficher le log.
-	 * @return
-	 */
-	public boolean needUpdate();
-	
+		
 	public Graphic log();
 	
 	public int getCurAuthority();

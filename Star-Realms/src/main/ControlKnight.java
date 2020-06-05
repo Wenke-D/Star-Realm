@@ -83,7 +83,6 @@ public class ControlKnight {
 				int result = parseInput(order);
 				if (result == -1)
 					break;
-
 			}
 			data.playing(order);
 

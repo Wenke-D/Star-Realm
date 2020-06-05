@@ -31,27 +31,32 @@ public class ViewKnight {
 		}
 	}
 
+	/**
+	 * Interface during game
+	 * 
+	 * @param data game data source
+	 */
 	public void drawTerminal(GraphicPackage data) {
-		if (data.needUpdate()) {
-			painter = new Painter(data);
-			painter.paintRoundNumber();
-			System.out.println("-----------------");
-			System.out.println("Opponent");
-			painter.paintOpponent();
+		painter = new Painter(data);
+		painter.paintRoundNumber();
+		System.out.println("-----------------");
+		System.out.println("Opponent");
+		painter.paintOpponent();
 
-			System.out.println("-----------------");
-			System.out.println("Trade Row");
-			painter.paintStore();
+		System.out.println("-----------------");
+		System.out.println("Trade Row");
+		painter.paintStore();
 
-			System.out.println("-----------------");
-			System.out.println("Current Player");
-			painter.paintCurPlayer();
-			System.out.print(">>>");
-		}
+		System.out.println("-----------------");
+		System.out.println("Current Player");
+		painter.paintCurPlayer();
+		System.out.print(">>>");
 		data.log().paint();
-		;
 	}
 
+	/**
+	 * Print the game menu in the screen
+	 */
 	public void drawMenu() {
 		System.out.println("##############");
 		System.out.println("# Star Realm #");
@@ -61,20 +66,31 @@ public class ViewKnight {
 		System.out.print("Votre choix :");
 	}
 
+	/**
+	 * Print text in the screen
+	 * 
+	 * @param message
+	 */
 	public void drawMessage(String message) {
 		System.out.println(message);
 
 	}
 
+	/**
+	 * Display the game result by getting winner info from data
+	 * 
+	 * @param data Interface between view and data.
+	 */
 	public void displayResult(GraphicPackage data) {
 		System.out.println("***********");
 		System.out.println(data.getWiner());
 		System.out.println("***********");
 
 	}
-	
+
 	/**
 	 * Asking user weather his wants to begin the game again
+	 * 
 	 * @return {@code true} if he want, {@code false} if not
 	 */
 	public boolean askRestart() {
@@ -84,11 +100,14 @@ public class ViewKnight {
 			answer = scanner.nextLine();
 		}
 		return answer.equals("yes");
-			
 
 	}
-	
-	
+
+	/**
+	 * Read input of a line from keyboard
+	 * 
+	 * @return {@code String} without '\n' in the end.
+	 */
 	public String readInput() {
 		if (scanner.hasNextLine())
 			return scanner.nextLine();
