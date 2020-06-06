@@ -2,26 +2,18 @@ package main;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.List;
-
-import model.Log;
 import model.Store;
 import model.card.GameCard;
-import model.card.ability.Ability;
-import model.comp.Graphic;
-import model.comp.GraphicPackage;
 import model.io.ResourceReader;
-import model.player.AbstractPlayer;
 import model.player.AiPlayer;
 import model.player.Player;
 import model.player.RealPlayer;
 
-public class DataKnight implements GraphicPackage {
+public class DataKnight  {
 	private int roundsNumber;
 	private final Player player1;
 	private final Player player2;
 	private final Store store;
-	private Log log = new Log();
 
 	private boolean attacked = false;
 
@@ -71,26 +63,29 @@ public class DataKnight implements GraphicPackage {
 	}
 
 	/**
-	 * Flag is 1 means that this player end his turn.
+	 * DataKnight control player to execute player's order.
 	 */
 	public void execute(String order) {
-		update = true;
 		Player curPlayer = currentGamePlayer();
 		Player opponent = opponent();
+
+		/**
+		 * Split order and it's parameters
+		 */
 		String[] cmds = order.split(" ");
 		switch (cmds[0]) {
 
 		case "end": {
 			curPlayer.endTurn();
 			curPlayer.drawCard(5);
-			
+
 			// ResetState()
 			attacked = false;
 			opponent.beginTurn();
 			switchPlayer();
 			break;
 		}
-		
+
 		case "attack": {
 			if (!attacked) {
 				curPlayer.attack(opponent);
@@ -98,25 +93,30 @@ public class DataKnight implements GraphicPackage {
 			}
 			break;
 		}
-		
-		case "play":{
+
+		case "play": {
 			int index = Integer.valueOf(cmds[1]);
 			GameCard card = curPlayer.put(index);
-			Ability ability = card.getBasicAbility();
-			ability.affect(curPlayer, opponent, store);
+			curPlayer.active(card, "basic", opponent, store);
 			break;
 		}
-		
-		case "buy":
+
+		case "buy": {
 			int index = Integer.valueOf(cmds[1]);
 			GameCard card = store.get(index);
-			if(curPlayer.afford(card.getCost())) {
+			if (curPlayer.afford(card.getCost())) {
 				store.remove(index);
 				curPlayer.get(card);
 			}
 
 		}
 
+		case "active": {
+			int cardIndex = Integer.valueOf(cmds[1]);
+			String type = cmds[2];
+			curPlayer.active(cardIndex, type, opponent, store);
+		}
+		}
 	}
 
 	public boolean isEnd() {
@@ -124,9 +124,7 @@ public class DataKnight implements GraphicPackage {
 	}
 
 	private void switchPlayer() {
-		roundsNumber +=1;
+		roundsNumber += 1;
 	}
-
-	
 
 }

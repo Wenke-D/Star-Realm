@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Store;
 import model.card.ability.effect.Effect;
-import model.comp.Target;
+import model.player.Player;
 
 public class Ability {
 	private final List<Effect> abis;
@@ -13,15 +13,15 @@ public class Ability {
 	public Ability(List<Effect> l) {
 		abis = new ArrayList<Effect>(l);
 	}
-
-	public void affect(Target self) {
+	
+	public void affect(Player self) {
 		for (Effect a : abis) {
 			a.affect(self);
 		}
 	}
 	
-	public void affect(Target owner, Target opponent, Store store) {
-		affect(owner);
+	public void affect(Player owner, Player opponent, Store store) {
+		
 	}
 
 }

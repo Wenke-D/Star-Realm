@@ -1,7 +1,7 @@
 package model.card;
 
-import model.card.ability.Ability;
-import model.comp.Target;
+import model.Store;
+import model.player.Player;
 
 /**
  * This interface represent the cards exist in the game.
@@ -19,6 +19,19 @@ public interface GameCard {
 	public String getName();
 	public boolean isBase();
 	public boolean isAlly(GameCard other);
-
-	public Ability getBasicAbility();
+	
+	/**
+	 * Card active his ability
+	 * @param type type of ability
+	 * @param owner card's owner
+	 * @param opponent owner's opponent
+	 * @param store store in the game
+	 */
+	public void affect(String type, Player owner, Player opponent, Store store);
+	
+	/**
+	 * active basic ability to affect owner
+	 * @param self
+	 */
+	public void affect(Player self);
 }

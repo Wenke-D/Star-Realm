@@ -2,19 +2,17 @@ package model.card.ability.effect;
 
 import model.comp.Target;
 
-public class DrawBuff extends AbstractEffect {
+public class DrawBuff extends AbstractSimpleEffect {
 
 
 
-	DrawBuff(Aim target, int value, String text) {
-		super(target, value, text);
-		// TODO Auto-generated constructor stub
+	public DrawBuff(String target, int value) {
+		super(target, value);
 	}
 
 	@Override
 	public void affect(Target target) {
 		target.drawCard(getValue());
-
 	}
 
 }

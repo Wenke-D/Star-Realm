@@ -2,8 +2,6 @@ package model.player;
 
 import java.util.List;
 
-import model.Log;
-import model.Store;
 import model.card.GameCard;
 
 public class AiPlayer extends AbstractPlayer {

@@ -37,6 +37,11 @@ public class Field implements Iterable<GameCard> {
 		cardList.add(card);
 		
 	}
+
+	public GameCard get(int cardIndex) {
+		
+		return cardList.get(cardIndex);
+	}
 	
 	
 	

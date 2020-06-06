@@ -1,12 +1,8 @@
 package model.card;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import model.Store;
 import model.card.ability.Ability;
-import model.card.ability.effect.Effect;
-import model.comp.Target;
+import model.player.Player;
 
 abstract class AbstractCard implements GameCard {
 	private final String name;
@@ -60,8 +56,26 @@ abstract class AbstractCard implements GameCard {
 	}
 	
 	@Override
-	public Ability getBasicAbility() {
-		return basicAbis;
+	public void affect(Player owner) {
+		basicAbis.affect(owner);
+	}
+	
+	@Override
+	public void affect(String type, Player owner, Player opponent, Store store) {
+		switch(type) {
+		case "basic":{
+			basicAbis.affect(owner, opponent, store);
+			break;
+		}
+		case "ally":{
+			allyAbis.affect(owner, opponent, store);
+			break;
+		}
+		case "scrap":{
+			scrapAbis.affect(owner, opponent, store);
+			break;
+		}
+		}
 	}
 
 
@@ -77,5 +91,7 @@ abstract class AbstractCard implements GameCard {
 		builder.append("   ||Scrap::").append(scrapAbis.toString());
 		return builder.toString();
 	}
+	
+
 
 }

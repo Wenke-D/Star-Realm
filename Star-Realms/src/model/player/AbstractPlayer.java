@@ -2,10 +2,11 @@ package model.player;
 
 import java.util.List;
 import java.util.Objects;
+
+import model.Store;
 import model.card.GameCard;
 import model.card.ability.Ability;
 import model.comp.Graphic;
-import model.comp.Target;
 import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
@@ -16,7 +17,7 @@ import model.comp.cardSquence.Hand;
  * @author Matth
  *
  */
-public abstract class AbstractPlayer implements Player, Target {
+public abstract class AbstractPlayer implements Player {
 
 	/**
 	 * player's trade point. Reset to 0 while {@code endTurn()} is called.
@@ -128,8 +129,7 @@ public abstract class AbstractPlayer implements Player, Target {
 	@Override
 	public void beginTurn() {
 		for (GameCard card : field) {
-			Ability ability = card.getBasicAbility();
-			ability.affect(this);
+			card.affect(this);
 		}
 	}
 
@@ -138,10 +138,18 @@ public abstract class AbstractPlayer implements Player, Target {
 		other.changeAuthority(-combatPoint);
 
 	}
+	
+	@Override
+	public void active(int cardIndex, String type, Player opponent, Store store) {
+		GameCard card = field.get(cardIndex);
+		active(card, type, opponent, store);
+		
+	}
 
-
-	public void active(int cardIndex, String type, Player player) {
-		player.affected(cardIndex, type);
+	@Override
+	public void active(GameCard card, String type, Player opponent, Store store) {
+		card.affect(type, this, opponent, store);
+		
 	}
 	
 	@Override

@@ -1,9 +1,7 @@
 package model.player;
 
-import model.Log;
 import model.Store;
 import model.card.GameCard;
-import model.comp.Graphic;
 import model.comp.Target;
 
 /**
@@ -29,9 +27,10 @@ public interface Player extends Target {
 
 	public int getCombat();
 
-	public void affected(int cardIndex, String type);
+	public void active(int cardIndex, String type, Player opponent, Store store);
+	public void active(GameCard card, String type, Player opponent, Store store);
 		
-	public void attack(Target otherPlayer);
+	public void attack(Player otherPlayer);
 	
 	public void endTurn();
 
@@ -45,5 +44,10 @@ public interface Player extends Target {
 
 
 	boolean afford(int price);
+	
+	public void changeAuthority(int number);
+	public void changeCombat(int number);
+	public void changeTrade(int number);
+	public void drawCard(int number);
 
 }

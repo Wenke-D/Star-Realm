@@ -4,4 +4,5 @@ import model.comp.Target;
 
 public interface Effect {
 	public void affect(Target target);
+	public String getTarget();
 }
