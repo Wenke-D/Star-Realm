@@ -36,7 +36,7 @@ public class ControlKnight {
 		mode = setMode();
 		
 		data = new DataKnight(mode);
-		view.draw(data);
+		view.updateView(data);
 		
 		if(mode == 1) {
 			mainLoopPVP();
@@ -75,14 +75,14 @@ public class ControlKnight {
 			data.execute(order);
 
 			// update view
-			view.draw(data);
+			view.updateView(data);
 
 			// if game ends
 			if (data.isEnd()) {
 				view.displayResult(data);
 				if (view.askRestart()) {
 					data = new DataKnight(mode);
-					view.draw(data);
+					view.updateView(data);
 				} else {
 					break;
 				}

@@ -4,12 +4,15 @@ import java.io.File;
 import java.nio.file.Path;
 import model.Store;
 import model.card.GameCard;
+import model.comp.GraphicPackage;
 import model.io.ResourceReader;
 import model.player.AiPlayer;
 import model.player.Player;
 import model.player.RealPlayer;
+import view.GraphicPlayer;
+import view.GraphicStore;
 
-public class DataKnight  {
+public class DataKnight implements GraphicPackage  {
 	private int roundsNumber;
 	private final Player player1;
 	private final Player player2;
@@ -125,6 +128,36 @@ public class DataKnight  {
 
 	private void switchPlayer() {
 		roundsNumber += 1;
+	}
+
+	@Override
+	public int getRound() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getWiner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphicPlayer getCurPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphicPlayer getOpponent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphicStore getStore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

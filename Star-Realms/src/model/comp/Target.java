@@ -2,12 +2,12 @@ package model.comp;
 
 public interface Target {
 
-	void changeAuthority(int value);
+	public void changeAuthority(int number);
 
-	void changeCombat(int value);
+	public void changeCombat(int number);
 
-	void drawCard(int value);
+	public void changeTrade(int number);
 
-	void changeTrade(int value);
+	public void drawCard(int number);
 
 }

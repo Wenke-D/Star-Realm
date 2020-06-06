@@ -6,23 +6,12 @@ import model.comp.GraphicPackage;
 import view.Painter;
 
 public class ViewKnight {
-	private final int pause = 1000;
-	private final Scanner scanner = new Scanner(System.in);
-	Painter painter;
+	private final Scanner scanner;
+	private final Painter painter;
 
 	public ViewKnight() {
-	}
-
-	public void prepare() {
-
-		System.out.println("===================");
-		System.out.println("CHARGING GAME...");
-		System.out.println("DATA YES");
-		System.out.println("VIEW YES");
-		System.out.println("===================");
-		System.out.println("GAME Start !!!");
-		System.out.println("===================");
-
+		 scanner = new Scanner(System.in);
+		 painter = new Painter();
 	}
 
 	/**
@@ -30,22 +19,8 @@ public class ViewKnight {
 	 * 
 	 * @param data game data source
 	 */
-	public void draw(GraphicPackage data) {
-		painter = new Painter(data);
-		painter.paintRoundNumber();
-		System.out.println("-----------------");
-		System.out.println("Opponent");
-		painter.paintOpponent();
-
-		System.out.println("-----------------");
-		System.out.println("Trade Row");
-		painter.paintStore();
-
-		System.out.println("-----------------");
-		System.out.println("Current Player");
-		painter.paintCurPlayer();
-		System.out.print(">>>");
-		data.log().paint();
+	public void updateView(GraphicPackage data) {
+		painter.updateView(data);
 	}
 
 	/**
@@ -66,8 +41,7 @@ public class ViewKnight {
 	 * @param message
 	 */
 	public void drawMessage(String message) {
-		System.out.println(message);
-
+		painter.drawMessage(message);
 	}
 
 	/**

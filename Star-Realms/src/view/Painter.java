@@ -15,8 +15,20 @@ import model.comp.GraphicPackage;
  */
 
 public class Painter {
+	
+	public void updateView(GraphicPackage graphicPackage) {
+		GraphicPlayer opponent = graphicPackage.getOpponent();
+		paintOpponent(opponent);
 		
-	public void paintCurPlayer(GraphicPlayer p) {
+		GraphicStore store = graphicPackage.getStore();
+		paintStore(store);
+		
+		GraphicPlayer curPlayer = graphicPackage.getCurPlayer();
+		paintCurPlayer(curPlayer);
+	
+	}
+		
+	private void paintCurPlayer(GraphicPlayer p) {
 		System.out.println("->Authority: "+p.getAuhtority());
 		System.out.println("->Trade: "+p.getTrade());
 		System.out.println("->Combat: "+p.getCombat());
@@ -75,6 +87,11 @@ public class Painter {
 		System.out.println("#Round "+i+"#");
 		System.out.println("########");
 
+	}
+
+	public void drawMessage(String message) {
+		System.out.println(message);
+		
 	}
 
 }

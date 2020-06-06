@@ -45,9 +45,6 @@ public interface Player extends Target {
 
 	boolean afford(int price);
 	
-	public void changeAuthority(int number);
-	public void changeCombat(int number);
-	public void changeTrade(int number);
-	public void drawCard(int number);
+	
 
 }
