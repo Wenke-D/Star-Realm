@@ -27,21 +27,7 @@ public class ViewKnight {
 	 * Print the game menu in the screen
 	 */
 	public void drawMenu() {
-		System.out.println("##############");
-		System.out.println("# Star Realm #");
-		System.out.println("##############");
-		System.out.println("[1] Player VS Computer");
-		System.out.println("[2] Player VS Player");
-		System.out.print("Votre choix :");
-	}
-
-	/**
-	 * Print text in the screen
-	 * 
-	 * @param message
-	 */
-	public void drawMessage(String message) {
-		painter.drawMessage(message);
+		painter.menu();
 	}
 
 	/**
@@ -50,10 +36,7 @@ public class ViewKnight {
 	 * @param data Interface between view and data.
 	 */
 	public void displayResult(GraphicPackage data) {
-		System.out.println("***********");
-		System.out.println(data.getWiner());
-		System.out.println("***********");
-
+		painter.result(data.getWiner());
 	}
 
 	/**
@@ -62,13 +45,20 @@ public class ViewKnight {
 	 * @return {@code true} if he want, {@code false} if not
 	 */
 	public boolean askRestart() {
-		System.out.println("Restart? yes or no: ");
+		painter.systemMessage("Restart? yes or no: ");
 		String answer = "";
 		if (scanner.hasNextLine()) {
 			answer = scanner.nextLine();
 		}
 		return answer.equals("yes");
 
+	}
+	
+	/**
+	 * Display game is end
+	 */
+	public void finishGame() {
+		painter.systemMessage("Game End!");
 	}
 
 	/**
@@ -80,6 +70,18 @@ public class ViewKnight {
 		if (scanner.hasNextLine())
 			return scanner.nextLine();
 		return null;
+	}
+	
+	/**
+	 * Alert user a bad input.
+	 */
+	public void badInput() {
+		painter.systemMessage("Bad Input");
+	}
+
+	public void free() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

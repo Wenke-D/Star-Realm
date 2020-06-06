@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import model.card.GameCard;
+import view.GraphicStore;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ import model.card.GameCard;
  * @author Vincent
  *
  */
-public class Store{
+public class Store implements GraphicStore{
 
 	private final ArrayList<GameCard> cards;
 	private final GameCard explorer;
