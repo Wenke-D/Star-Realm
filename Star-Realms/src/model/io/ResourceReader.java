@@ -160,23 +160,9 @@ public class ResourceReader {
 	private Ability makeAbilityFromElement(Element e) {
 		ArrayList<Effect> array = new ArrayList<Effect>();
 		for (Element item : e.elements()) {
-			array.add(makeAbilityItemFromElement(item));
+			Effect effect = EffectFactory.makeEffect(item);
+			array.add(effect);
 		}
 		return new Ability(array);
-	}
-
-	/**
-	 * Create a object of AbilityItem from a XML element who's tag is "item under tag
-	 * "arrayList"
-	 * 
-	 * @param e A XML element
-	 * @return A Ability object
-	 */
-	private Effect makeAbilityItemFromElement(Element e) {
-		String value = e.attributeValue("value");
-		String type = e.attributeValue("type");
-		String target = e.attributeValue("target");
-		
-		return EffectFactory.makeEffect(value, type, target);
 	}
 }

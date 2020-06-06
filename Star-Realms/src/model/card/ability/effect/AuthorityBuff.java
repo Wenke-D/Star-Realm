@@ -5,7 +5,7 @@ import model.comp.Target;
 public class AuthorityBuff extends AbstractSimpleEffect {
 
 
-	AuthorityBuff(String target, int value) {
+	public AuthorityBuff(String target, int value) {
 		super(target, value);
 	}
 

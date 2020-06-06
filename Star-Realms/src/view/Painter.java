@@ -1,6 +1,9 @@
 package view;
 
 
+import java.util.List;
+
+import model.card.GameCard;
 import model.comp.GraphicPackage;
 
 
@@ -12,37 +15,62 @@ import model.comp.GraphicPackage;
  */
 
 public class Painter {
-	private final GraphicPackage g;
-	
-	public Painter(GraphicPackage g) {
-		this.g = g;
+		
+	public void paintCurPlayer(GraphicPlayer p) {
+		System.out.println("->Authority: "+p.getAuhtority());
+		System.out.println("->Trade: "+p.getTrade());
+		System.out.println("->Combat: "+p.getCombat());
+		
+		List<GameCard> field = p.getField();
+		paintField(field);
+		
+		List<GameCard> hand = p.getHand();
+		paintHand(hand);
+		
+		List<GameCard> deck = p.getDeck();
+		List<GameCard> discardPile = p.getDiscardPile();
+		paintDeckAndDiscardPile(deck, discardPile);
+		
 	}
 	
-	public void paintCurPlayer() {
-		System.out.println("->Authority: "+g.getCurAuthority());
-		System.out.println("->Trade: "+g.getCurTrade());
-		System.out.println("->Combat: "+g.getCurCombat());
-		
-		g.getCurhands().paint();
-		g.getCurField().paint();
-		g.getCurDeck().paint();
-		
-		g.getCurDisCardPile().paint();
+	private void paintDeckAndDiscardPile(List<GameCard> deck, List<GameCard> discardPile) {
+				
 	}
 
-	public void paintStore() {
-		g.getStore().paint();
+	private void paintField(List<GameCard> list) {
+		
 	}
 	
-	public void paintOpponent() {
-		System.out.println("->Authority: "+g.getOppAuthority());
-		System.out.println("->Trade: "+g.getOppTrade());
-		System.out.println("->Combat: "+g.getOppCombat());
-
-		g.getOppField().paint();
+	private void paintHand(List<GameCard> list) {
+		
 	}
-	public void paintRoundNumber() {
-		int i = g.getRound();
+	
+	private void paintStore(GraphicStore store) {
+		
+	}
+	
+	private void paintOpponent(GraphicPlayer p) {
+		System.out.println("->Authority: "+p.getAuhtority());
+		System.out.println("->Trade: "+p.getTrade());
+		System.out.println("->Combat: "+p.getCombat());
+		
+		List<GameCard> field = p.getField();
+		paintField(field);
+		
+		List<GameCard> hand = p.getHand();
+		paintOpponHand(hand);
+		
+		List<GameCard> deck = p.getDeck();
+		List<GameCard> discardPile = p.getDiscardPile();
+		paintDeckAndDiscardPile(deck, discardPile);
+		
+	}
+	private void paintOpponHand(List<GameCard> hand) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void paintRoundNumber(int i) {
 		System.out.println("########");
 		System.out.println("#Round "+i+"#");
 		System.out.println("########");

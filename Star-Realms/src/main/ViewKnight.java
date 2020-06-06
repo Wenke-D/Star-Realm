@@ -14,21 +14,15 @@ public class ViewKnight {
 	}
 
 	public void prepare() {
-		try {
-			System.out.println("===================");
-			System.out.println("CHARGING GAME...");
-			Thread.sleep(pause);
-			System.out.println("DATA YES");
-			Thread.sleep(pause);
-			System.out.println("VIEW YES");
-			Thread.sleep(pause);
-			System.out.println("===================");
-			System.out.println("GAME Start !!!");
-			System.out.println("===================");
-			Thread.sleep(pause);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		System.out.println("===================");
+		System.out.println("CHARGING GAME...");
+		System.out.println("DATA YES");
+		System.out.println("VIEW YES");
+		System.out.println("===================");
+		System.out.println("GAME Start !!!");
+		System.out.println("===================");
+
 	}
 
 	/**
