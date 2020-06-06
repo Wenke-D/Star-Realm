@@ -139,9 +139,6 @@ public abstract class AbstractPlayer implements Player, Target {
 
 	}
 
-	public void attack(int baseIndex, Player owner) {
-		owner.baseAttacked(baseIndex, combatPoint);
-	}
 
 	public void active(int cardIndex, String type, Player player) {
 		player.affected(cardIndex, type);

@@ -22,7 +22,7 @@ public class DataKnight implements GraphicPackage {
 	private final Player player2;
 	private final Store store;
 	private Log log = new Log();
-	private boolean update = true;
+
 	private boolean attacked = false;
 
 	public DataKnight(int mode) {
@@ -49,7 +49,7 @@ public class DataKnight implements GraphicPackage {
 		else
 			player2 = new RealPlayer(0, 0, 50, reader.makeCardListFromFile(new File(StartSetPath)));
 
-		player1.draw3();
+		player1.drawCard(3);
 	}
 
 	/**
@@ -73,13 +73,12 @@ public class DataKnight implements GraphicPackage {
 	/**
 	 * Flag is 1 means that this player end his turn.
 	 */
-	public void playing(String order) {
+	public void execute(String order) {
 		update = true;
 		Player curPlayer = currentGamePlayer();
 		Player opponent = opponent();
 		String[] cmds = order.split(" ");
 		switch (cmds[0]) {
-
 
 		case "end": {
 			curPlayer.endTurn();
@@ -128,88 +127,6 @@ public class DataKnight implements GraphicPackage {
 		roundsNumber +=1;
 	}
 
-	/**
-	 * Interface Graphic package
-	 */
-	@Override
-	public int getCurAuthority() {
-		return currentGamePlayer().getAuthority();
-	}
-
-	@Override
-	public int getCurTrade() {
-		return currentGamePlayer().getTrade();
-	}
-
-	@Override
-	public int getCurCombat() {
-		return currentGamePlayer().getCombat();
-	}
-
-	@Override
-	public Graphic getCurhands() {
-		return currentGamePlayer().getHands();
-	}
-
-	@Override
-	public Graphic getCurField() {
-		return currentGamePlayer().getField();
-	}
-
-	@Override
-	public Graphic getCurDeck() {
-		return currentGamePlayer().getDeck();
-	}
-
-	@Override
-	public Graphic getCurDisCardPile() {
-		return currentGamePlayer().getDisCardPile();
-	}
-
-
-	@Override
-	public int getOppAuthority() {
-		return opponent().getAuthority();
-	}
-
-	@Override
-	public int getOppTrade() {
-		return opponent().getTrade();
-	}
-
-	@Override
-	public int getOppCombat() {
-		return opponent().getCombat();
-	}
-
-	@Override
-	public Graphic getOppField() {
-		return opponent().getField();
-	}
-
-	@Override
-	public Graphic log() {
-		return log;
-	}
-
-	public boolean needUpdate() {
-		return update;
-	}
-
-	@Override
-	public int getRound() {
-		return roundsNumber;
-	}
-
-	public boolean needInput() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String getWiner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -33,11 +33,15 @@ public class ControlKnight {
 
 	public void game() {
 		view.drawMenu();
-		setMode();
+		mode = setMode();
 		
 		data = new DataKnight(mode);
 		view.draw(data);
-		mainLoop();
+		
+		if(mode == 1) {
+			mainLoopPVP();
+		}
+		
 		
 		view.drawMessage("Game finish");
 		view.drawMessage("-----------------");
@@ -47,13 +51,12 @@ public class ControlKnight {
 	/**
 	 * 
 	 */
-	private void setMode() {
+	private int setMode() {
 		String choix = "";
 		while (true) {
 			choix = view.readInput();
 			if (choix.equals("1") || choix.equals("2")) {
-				mode = Integer.valueOf(choix);
-				break;
+				return Integer.valueOf(choix);
 			}
 			view.drawMessage("Invalide command!");
 		}
@@ -62,19 +65,14 @@ public class ControlKnight {
 	/**
 	 * Center loop of the game
 	 */
-	private void mainLoop() {
+	private void mainLoopPVP() {
 		while (true) {
-			
-			/**
-			 * Let data decide weather need input
-			 */
-			String order = null;
-			if (data.needInput()) {
-				order = view.readInput();
-				if (order.equals("quit"))
-					break;
+
+			String order = view.readInput();
+			if (order.equals("quit")) {
+				break;
 			}
-			data.playing(order);
+			data.execute(order);
 
 			// update view
 			view.draw(data);

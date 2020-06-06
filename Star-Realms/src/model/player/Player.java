@@ -21,15 +21,6 @@ import model.comp.Target;
  */
 public interface Player extends Target {
 
-
-	/**
-	 * React while a base is attacked
-	 * 
-	 * @param point
-	 */
-	public void baseAttacked(int baseIndex, int damagePoint);
-
-
 	public boolean isDead();
 	
 	public int getAuthority();
