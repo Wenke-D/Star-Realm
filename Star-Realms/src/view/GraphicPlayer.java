@@ -12,6 +12,5 @@ public interface GraphicPlayer {
 	public List<GameCard> getField();
 	public List<GameCard> getDiscardPile();
 	public List<GameCard> getDeck();
-	public int roundNumber();
 	
 }

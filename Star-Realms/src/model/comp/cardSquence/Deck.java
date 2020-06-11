@@ -28,4 +28,9 @@ public class Deck{
 		int size = cardList.size();
 		return cardList.remove(size-1);
 	}
+
+
+	public List<GameCard> getAll() {
+		return Collections.unmodifiableList(cardList);
+	}
 }

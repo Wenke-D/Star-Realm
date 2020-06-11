@@ -42,6 +42,11 @@ public class Field implements Iterable<GameCard> {
 		
 		return cardList.get(cardIndex);
 	}
+
+	public List<GameCard> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

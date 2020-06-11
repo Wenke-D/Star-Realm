@@ -1,5 +1,9 @@
 package model.comp;
 
+import java.util.ArrayList;
+
+import model.Store;
+import model.player.Player;
 import view.GraphicPlayer;
 import view.GraphicStore;
 
@@ -9,12 +13,23 @@ import view.GraphicStore;
  *
  */
 public class GraphicPackage {
-	private final int roundNumber;
-	private final String winner;
-	private final Player curPlayer;
-	private final Player opponent;
-	private final Store store;
+	private int roundNumber;
+	private String winner;
+	private Player curPlayer;
+	private Player opponent;
+	private Store store;
+	private ArrayList<String> messages;
+
 		
+	public GraphicPackage(Player curPlayer, Player opponent, Store store) {
+		this.roundNumber = 0;
+		this.winner = null;
+		this.curPlayer = curPlayer;
+		this.opponent = opponent;
+		this.store = store;
+		messages = new ArrayList<String>();
+	}
+
 	public int getRoundNumber() {
 		return roundNumber;
 	}
@@ -23,15 +38,23 @@ public class GraphicPackage {
 		return winner;
 	}
 
-	public GraphicPlayer getCurPlayer();
+	public GraphicPlayer getCurPlayer() {
+		return (GraphicPlayer) curPlayer;
+	}
 
-	public GraphicPlayer getOpponent();
+	public GraphicPlayer getOpponent() {
+		return (GraphicPlayer) opponent;
+	}
 
-	public GraphicStore getStore();
-	
+	public GraphicStore getStore() {
+		return store;
+	}
+
 	/**
-	 * Get messages from Data
+	 * Messages from Data
 	 * @return
 	 */
-	public String getMessage();
+	public String getMessage() {
+		return messages.remove(messages.size()-1);
+	}
 }

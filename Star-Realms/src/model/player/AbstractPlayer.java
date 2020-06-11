@@ -1,5 +1,6 @@
 package model.player;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
 import model.comp.cardSquence.Hand;
+import view.GraphicPlayer;
 
 /**
  * 
@@ -54,12 +56,6 @@ public abstract class AbstractPlayer implements Player {
 	 */
 	private final Field field; // ·ÅÖÃÇø
 
-	/**
-	 * Mark if player's field's base need to be activated. Reset to true while
-	 * {@code endTurn()} is called.
-	 */
-	private boolean needActive;
-
 	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<GameCard> list) {
 		this.tradePoint = tradePoint;
 		this.combatPoint = combatPoint;
@@ -68,7 +64,6 @@ public abstract class AbstractPlayer implements Player {
 		this.discardPile = new DiscardPile();
 		this.hand = new Hand();
 		this.field = new Field();
-		needActive = true;
 	}
 
 	/**
@@ -81,6 +76,8 @@ public abstract class AbstractPlayer implements Player {
 	private void draw() {
 		hand.add(deck.pop());
 	}
+	
+	
 
 	/**
 	 * Let player draw a certain number of cards
@@ -166,8 +163,12 @@ public abstract class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public boolean afford(int price) {
+	public boolean canAfford(int price) {
 		return tradePoint >= price;
+	}
+	
+	public boolean isDead() {
+		return authorityPoint <= 0;
 	}
 
 	/**
@@ -190,23 +191,42 @@ public abstract class AbstractPlayer implements Player {
 
 	}
 
+	/**
+	 * Interface graphicPlayer
+	 */
 	@Override
-	public int getAuthority() {
+	public int getAuhtority() {
 		return authorityPoint;
 	}
-
+	
 	@Override
 	public int getTrade() {
 		return tradePoint;
 	}
-
+	
 	@Override
 	public int getCombat() {
 		return combatPoint;
 	}
 
-	public boolean isDead() {
-		return authorityPoint <= 0;
+	@Override
+	public List<GameCard> getHand() {
+		return hand.getAll();
+	}
+
+	@Override
+	public List<GameCard> getField() {
+		return field.getAll();
+	}
+
+	@Override
+	public List<GameCard> getDiscardPile() {
+		return discardPile.getAll();
+	}
+
+	@Override
+	public List<GameCard> getDeck() {
+		return deck.getAll();
 	}
 
 }

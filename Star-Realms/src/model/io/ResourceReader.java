@@ -36,11 +36,13 @@ import model.card.ability.effect.EffectFactory;
  *
  */
 public class ResourceReader {
+	private final String attrQuantity = "qty";
+	
 
 	/**
 	 * <p>
 	 * Acquire attribute value from the attribute specific with file name and node
-	 * XPath.
+	 * XPath in a XML file.
 	 * </p>
 	 * 
 	 * @param file
@@ -115,7 +117,7 @@ public class ResourceReader {
 	private List<GameCard> makeCardListFromElement(Element e) {
 		ArrayList<GameCard> deck = new ArrayList<GameCard>();
 		for (Element card : e.elements()) {
-			int qty = Integer.parseInt(card.attributeValue("qty"));
+			int qty = Integer.parseInt(card.attributeValue(attrQuantity));
 			for (int i = 0; i < qty; i++) {
 				deck.add(makeCardFromElement(card));
 			}
@@ -135,10 +137,10 @@ public class ResourceReader {
 		String faction = e.attributeValue("fraction");
 		int cost = Integer.valueOf(e.attributeValue("cost"));
 
-		List<Element> abilityLists = e.elements("abilityList");
-		Ability basic = makeAbilityFromElement(abilityLists.get(0));
-		Ability ally = makeAbilityFromElement(abilityLists.get(1));
-		Ability scrap = makeAbilityFromElement(abilityLists.get(2));
+		List<Element> ability = e.elements("Ability");
+		Ability basic = makeAbilityFromElement(ability.get(0));
+		Ability ally = makeAbilityFromElement(ability.get(1));
+		Ability scrap = makeAbilityFromElement(ability.get(2));
 
 		if (e.attributeValue("type").equals("ship")) {
 			return new Ship(name, faction, cost, basic, ally, scrap);

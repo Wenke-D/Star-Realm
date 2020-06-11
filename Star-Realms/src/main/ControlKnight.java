@@ -38,9 +38,9 @@ public class ControlKnight {
 		mode = setMode();
 
 		data = new DataKnight(mode);
-		view.updateView(data);
+		view.updateView(data.getGraphicData());
 
-		if (mode == 1) {
+		if (mode == 2) {
 			mainLoopPVP();
 		}
 
@@ -56,7 +56,7 @@ public class ControlKnight {
 
 
 	/**
-	 * 
+	 * Ask the player to set the game mode
 	 */
 	private int setMode() {
 		String choix = "";
@@ -82,14 +82,15 @@ public class ControlKnight {
 			data.execute(order);
 
 			// update view
-			view.updateView(data);
+			view.updateView(data.getGraphicData());
 
 			// if game ends
 			if (data.isEnd()) {
-				view.displayResult(data);
-				if (view.askRestart()) {
+				view.displayResult(data.getGraphicData());
+				view.askRestart();
+				if (view.check()) {
 					data = new DataKnight(mode);
-					view.updateView(data);
+					view.updateView(data.getGraphicData());
 				} else {
 					break;
 				}

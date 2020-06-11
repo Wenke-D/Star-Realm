@@ -2,6 +2,8 @@ package main;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
+
 import model.Store;
 import model.card.GameCard;
 import model.comp.GraphicPackage;
@@ -25,24 +27,28 @@ public class DataKnight {
 
 		String paths = "/config/paths/";
 		String CoreSetXPath = paths + "CoreSet";
-		String StartSetXPath = paths + "StartSet";
+		String startDeckSetXPath = paths + "StartSet";
 		String ExplorerXPath = paths + "Explorer";
 		ResourceReader reader = new ResourceReader();
 
+		// Read resource file location
 		String CoreSetPath = reader.getAttributeValue(configPath.toFile(), CoreSetXPath, "path");
-		String StartSetPath = reader.getAttributeValue(configPath.toFile(), StartSetXPath, "path");
+		String StartSetPath = reader.getAttributeValue(configPath.toFile(), startDeckSetXPath, "path");
 		String ExplorerPath = reader.getAttributeValue(configPath.toFile(), ExplorerXPath, "path");
 
 		GameCard explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
+		List<GameCard> storeDeck = reader.makeCardListFromFile(new File(CoreSetPath));
+		List<GameCard> deck1 = reader.makeCardListFromFile(new File(StartSetPath));
+		List<GameCard> deck2 = reader.makeCardListFromFile(new File(StartSetPath));
 
 		roundsNumber = 1;
-		store = new Store(reader.makeCardListFromFile(new File(CoreSetPath)), explorer);
-		player1 = new RealPlayer(51, 51, 50, reader.makeCardListFromFile(new File(StartSetPath)));
+		store = new Store(storeDeck, explorer);
+		player1 = new RealPlayer(51, 51, 50, deck1);
 
 		if (mode == 1)
-			player2 = new AiPlayer(0, 0, 50, reader.makeCardListFromFile(new File(StartSetPath)));
+			player2 = new AiPlayer(0, 0, 50, deck2);
 		else
-			player2 = new RealPlayer(0, 0, 50, reader.makeCardListFromFile(new File(StartSetPath)));
+			player2 = new RealPlayer(0, 0, 50, deck2);
 
 		player1.drawCard(3);
 	}
@@ -107,7 +113,7 @@ public class DataKnight {
 		case "buy": {
 			int index = Integer.valueOf(cmds[1]);
 			GameCard card = store.get(index);
-			if (curPlayer.afford(card.getCost())) {
+			if (curPlayer.canAfford(card.getCost())) {
 				store.remove(index);
 				curPlayer.get(card);
 			}
@@ -129,7 +135,13 @@ public class DataKnight {
 	private void switchPlayer() {
 		roundsNumber += 1;
 	}
-	
 
+	public GraphicPackage getGraphicData() {
+		return new GraphicPackage(currentGamePlayer(), opponent(), store);
+	}
+
+	public void free() {
+		;
+	}
 
 }

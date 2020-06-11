@@ -21,7 +21,7 @@ public class Painter {
 	 * @param graphicPackage
 	 */
 	public void updateView(GraphicPackage graphicPackage) {
-		
+		paintRoundNumber(graphicPackage.getRoundNumber());
 		GraphicPlayer opponent = graphicPackage.getOpponent();
 		paintOpponent(opponent);
 		
@@ -31,7 +31,7 @@ public class Painter {
 		GraphicPlayer curPlayer = graphicPackage.getCurPlayer();
 		paintCurPlayer(curPlayer);
 		
-		normalMessage(graphicPackage.getMessage());
+		//normalMessage(graphicPackage.getMessage());
 	
 	}
 	
@@ -59,7 +59,7 @@ public class Painter {
 	 * @param p
 	 */
 	private void paintCurPlayer(GraphicPlayer p) {
-		paintRoundNumber(p.roundNumber());
+		
 		System.out.println("->Authority: "+p.getAuhtority());
 		System.out.println("->Trade: "+p.getTrade());
 		System.out.println("->Combat: "+p.getCombat());
@@ -82,7 +82,7 @@ public class Painter {
 	 * @param discardPile
 	 */
 	private void paintDeckAndDiscardPile(List<GameCard> deck, List<GameCard> discardPile) {
-		String s = String.format("Deck:%D\tDiscardPile: %d", deck.size(), discardPile.size());
+		String s = String.format("Deck:%d\tDiscardPile: %d", deck.size(), discardPile.size());
 		System.out.println(s);
 	}
 

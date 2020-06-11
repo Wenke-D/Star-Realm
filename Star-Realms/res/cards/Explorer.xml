@@ -3,14 +3,14 @@
 
 <card type="ship" qty="1" name="Explorer" fraction="" cost="2">
 
-	<abilityList type="basic">
-		<item type="C" value="51"></item>
-	</abilityList>
+	<Ability type="basic">
+		<Effect type="C" value="51"></Effect>
+	</Ability>
 
-	<abilityList type="ally">
-	</abilityList>
+	<Ability type="ally">
+	</Ability>
 
-	<abilityList type="scrap">
-	<item type="C" value="2"></item>
-	</abilityList>
+	<Ability type="scrap">
+	<Effect type="C" value="2"></Effect>
+	</Ability>
 </card>

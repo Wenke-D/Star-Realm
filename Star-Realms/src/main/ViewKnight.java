@@ -44,14 +44,17 @@ public class ViewKnight {
 	 * 
 	 * @return {@code true} if he want, {@code false} if not
 	 */
-	public boolean askRestart() {
+	public void askRestart() {
 		painter.systemMessage("Restart? yes or no: ");
+		
+	}
+	
+	public boolean check() {
 		String answer = "";
 		if (scanner.hasNextLine()) {
 			answer = scanner.nextLine();
 		}
 		return answer.equals("yes");
-
 	}
 	
 	/**

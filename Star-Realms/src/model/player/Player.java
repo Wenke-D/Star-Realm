@@ -3,6 +3,7 @@ package model.player;
 import model.Store;
 import model.card.GameCard;
 import model.comp.Target;
+import view.GraphicPlayer;
 
 /**
  * <p>
@@ -17,16 +18,10 @@ import model.comp.Target;
  * @author Matth
  *
  */
-public interface Player extends Target {
+public interface Player extends Target, GraphicPlayer {
 
 	public boolean isDead();
 	
-	public int getAuthority();
-
-	public int getTrade();
-
-	public int getCombat();
-
 	public void active(int cardIndex, String type, Player opponent, Store store);
 	public void active(GameCard card, String type, Player opponent, Store store);
 		
@@ -43,7 +38,7 @@ public interface Player extends Target {
 	void get(GameCard c);
 
 
-	boolean afford(int price);
+	boolean canAfford(int price);
 	
 	
 

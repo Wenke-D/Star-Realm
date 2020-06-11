@@ -3,28 +3,28 @@
 <cards>
 	<card type="ship" qty="8" name="Scout" fraction="" cost="0">
 
-		<abilityList type="basic">
-			<item type="T" value="1"></item>
-		</abilityList>
+		<Ability type="basic">
+			<Effect type="T" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
-		</abilityList>
+		<Ability type="ally">
+		</Ability>
 
-		<abilityList type="scrap">
-		</abilityList>
+		<Ability type="scrap">
+		</Ability>
 	</card>
 
 	<card type="ship" qty="2" name="Viper" fraction="" cost="0">
 
-		<abilityList type="basic">
-			<item type="C" value="1"></item>
-		</abilityList>
+		<Ability type="basic">
+			<Effect type="C" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
-		</abilityList>
+		<Ability type="ally">
+		</Ability>
 
-		<abilityList type="scrap">
-		</abilityList>
+		<Ability type="scrap">
+		</Ability>
 	</card>
 
 </cards>
