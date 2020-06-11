@@ -1,11 +1,13 @@
 package model.comp.cardSquence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import model.card.GameCard;
 import model.card.Ship;
+import view.GraphicCard;
 
 public class Field implements Iterable<GameCard> {
 	private final List<GameCard> cardList;
@@ -44,8 +46,7 @@ public class Field implements Iterable<GameCard> {
 	}
 
 	public List<GameCard> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableList(cardList);
 	}
 	
 	

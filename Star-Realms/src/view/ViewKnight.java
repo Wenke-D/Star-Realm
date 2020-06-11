@@ -1,9 +1,8 @@
-package main;
+package view;
 
 import java.util.Scanner;
 
 import model.comp.GraphicPackage;
-import view.Painter;
 
 public class ViewKnight {
 	private final Scanner scanner;
@@ -45,7 +44,7 @@ public class ViewKnight {
 	 * @return {@code true} if he want, {@code false} if not
 	 */
 	public void askRestart() {
-		painter.systemMessage("Restart? yes or no: ");
+		painter.importantMessage("Restart? yes or no: ");
 		
 	}
 	
@@ -61,7 +60,7 @@ public class ViewKnight {
 	 * Display game is end
 	 */
 	public void finishGame() {
-		painter.systemMessage("Game End!");
+		painter.importantMessage("Game End!");
 	}
 
 	/**
@@ -70,6 +69,7 @@ public class ViewKnight {
 	 * @return {@code String} without '\n' in the end.
 	 */
 	public String readInput() {
+		System.out.print(">>> ");
 		if (scanner.hasNextLine())
 			return scanner.nextLine();
 		return null;
@@ -79,7 +79,7 @@ public class ViewKnight {
 	 * Alert user a bad input.
 	 */
 	public void badInput() {
-		painter.systemMessage("Bad Input");
+		painter.importantMessage("Bad Input");
 	}
 
 	public void free() {

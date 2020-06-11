@@ -6,7 +6,10 @@ public class EffectFactory {
 	public static Effect makeEffect(Element e) {
 		int value = Integer.valueOf(e.attributeValue("value"));
 		String type = e.attributeValue("type");
+
 		String target = e.attributeValue("target");
+		if (target == null)
+			target = "self";
 
 		switch (type) {
 		case "A":

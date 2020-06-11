@@ -15,4 +15,9 @@ public class DrawBuff extends AbstractSimpleEffect {
 		target.drawCard(getValue());
 	}
 
+	@Override
+	public String getType() {
+		return "Draw";
+	}
+
 }

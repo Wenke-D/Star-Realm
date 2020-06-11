@@ -1,18 +1,15 @@
-package main;
+package model;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
-import model.Store;
 import model.card.GameCard;
 import model.comp.GraphicPackage;
 import model.io.ResourceReader;
 import model.player.AiPlayer;
 import model.player.Player;
 import model.player.RealPlayer;
-import view.GraphicPlayer;
-import view.GraphicStore;
 
 public class DataKnight {
 	private int roundsNumber;
@@ -117,6 +114,7 @@ public class DataKnight {
 				store.remove(index);
 				curPlayer.get(card);
 			}
+			break;
 
 		}
 
@@ -124,6 +122,7 @@ public class DataKnight {
 			int cardIndex = Integer.valueOf(cmds[1]);
 			String type = cmds[2];
 			curPlayer.active(cardIndex, type, opponent, store);
+			break;
 		}
 		}
 	}
@@ -137,7 +136,14 @@ public class DataKnight {
 	}
 
 	public GraphicPackage getGraphicData() {
-		return new GraphicPackage(currentGamePlayer(), opponent(), store);
+		String winner;
+		if (isEnd()) {
+			winner = player1.isDead() ? "Player2" : "Player1";
+		} else {
+			winner = null;
+		}
+		GraphicPackage p = new GraphicPackage(currentGamePlayer(), opponent(), store, winner);
+		return p;
 	}
 
 	public void free() {

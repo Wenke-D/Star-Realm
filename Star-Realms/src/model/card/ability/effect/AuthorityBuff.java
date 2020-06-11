@@ -1,5 +1,6 @@
 package model.card.ability.effect;
 
+import model.Store;
 import model.comp.Target;
 
 public class AuthorityBuff extends AbstractSimpleEffect {
@@ -13,5 +14,16 @@ public class AuthorityBuff extends AbstractSimpleEffect {
 	public void affect(Target target) {
 		target.changeAuthority(getValue());
 	}
+	
+
+
+	@Override
+	public String getType() {
+		return "Authority";
+	}
+
+
+
+	
 
 }

@@ -1,5 +1,6 @@
 package model.player;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
 import model.comp.cardSquence.Hand;
+import view.GraphicCard;
 import view.GraphicPlayer;
 
 /**
@@ -122,7 +124,10 @@ public abstract class AbstractPlayer implements Player {
 		combatPoint = 0;
 		tradePoint = 0;
 	}
-
+	
+	/**
+	 * On suppose que tous les capacit¨¦s de base n'affecte que joueur lui m¨ºme.
+	 */
 	@Override
 	public void beginTurn() {
 		for (GameCard card : field) {
@@ -210,23 +215,27 @@ public abstract class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public List<GameCard> getHand() {
-		return hand.getAll();
+	public List<GraphicCard> getHand() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(hand.getAll());
+		return list;
 	}
 
 	@Override
-	public List<GameCard> getField() {
-		return field.getAll();
+	public List<GraphicCard> getField() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(field.getAll());
+		return list;
 	}
 
 	@Override
-	public List<GameCard> getDiscardPile() {
-		return discardPile.getAll();
+	public List<GraphicCard> getDiscardPile() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(discardPile.getAll());
+		return list;
 	}
 
 	@Override
-	public List<GameCard> getDeck() {
-		return deck.getAll();
+	public List<GraphicCard> getDeck() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(deck.getAll());
+		return list;
 	}
 
 }

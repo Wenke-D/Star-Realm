@@ -9,6 +9,7 @@ import view.GraphicStore;
 
 /**
  * The package between view and data, where view get info to print.
+ * 
  * @author Matth
  *
  */
@@ -20,10 +21,9 @@ public class GraphicPackage {
 	private Store store;
 	private ArrayList<String> messages;
 
-		
-	public GraphicPackage(Player curPlayer, Player opponent, Store store) {
+	public GraphicPackage(Player curPlayer, Player opponent, Store store, String winner) {
 		this.roundNumber = 0;
-		this.winner = null;
+		this.winner = winner;
 		this.curPlayer = curPlayer;
 		this.opponent = opponent;
 		this.store = store;
@@ -33,8 +33,8 @@ public class GraphicPackage {
 	public int getRoundNumber() {
 		return roundNumber;
 	}
-	
-	public String getWiner(){
+
+	public String getWiner() {
 		return winner;
 	}
 
@@ -52,9 +52,10 @@ public class GraphicPackage {
 
 	/**
 	 * Messages from Data
+	 * 
 	 * @return
 	 */
 	public String getMessage() {
-		return messages.remove(messages.size()-1);
+		return messages.remove(messages.size() - 1);
 	}
 }

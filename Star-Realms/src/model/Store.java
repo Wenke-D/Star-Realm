@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import model.card.GameCard;
+import model.comp.Target;
+import view.GraphicCard;
 import view.GraphicStore;
 
 /**
@@ -25,10 +27,11 @@ import view.GraphicStore;
  * @author Vincent
  *
  */
-public class Store implements GraphicStore{
-	
+public class Store implements GraphicStore, Target {
+
 	/**
-	 * The last 5 cards of this array is the 5 cards of six cards that player can see.
+	 * The last 5 cards of this array is the 5 cards of six cards that player can
+	 * see.
 	 */
 	private final ArrayList<GameCard> cards;
 	private final GameCard explorer;
@@ -46,7 +49,7 @@ public class Store implements GraphicStore{
 		cards = new ArrayList<GameCard>(storeCards);
 		this.explorer = Objects.requireNonNull(explorer);
 	}
-	
+
 	/**
 	 * Get the card specific by number.
 	 * 
@@ -55,29 +58,49 @@ public class Store implements GraphicStore{
 	 */
 	public GameCard get(int i) {
 		int last = cards.size();
-		return cards.get(last-i);
+		return cards.get(last - i);
 	}
-	
+
 	/**
 	 * Remove the card specific by number.
+	 * 
 	 * @param i the number of card in the view of player. begin with 1.
 	 * @return the card removed.
 	 */
 	public GameCard remove(int i) {
 		int last = cards.size();
-		return cards.remove(last-i);
+		return cards.remove(last - i);
 	}
 
 	@Override
-	public List<GameCard> cards() {
+	public List<GraphicCard> cards() {
 		ArrayList<GameCard> cards = new ArrayList<GameCard>();
-		for(int i =1; i<=5;i++) {
+		for (int i = 1; i <= 5; i++) {
 			cards.add(get(i));
 		}
 		cards.add(explorer);
 		return Collections.unmodifiableList(cards);
-		
+
 	}
 
+	@Override
+	public void changeAuthority(int number) {
+
+	}
+
+	@Override
+	public void changeCombat(int number) {
+
+	}
+
+	@Override
+	public void changeTrade(int number) {
+
+	}
+
+	@Override
+	public void drawCard(int number) {
+
+	}
 
 }

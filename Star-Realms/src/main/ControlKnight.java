@@ -1,5 +1,8 @@
 package main;
 
+import model.DataKnight;
+import view.ViewKnight;
+
 /**
  * The controller of the game.
  * 

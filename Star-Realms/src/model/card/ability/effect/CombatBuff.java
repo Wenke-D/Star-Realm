@@ -13,4 +13,10 @@ public class CombatBuff extends AbstractSimpleEffect {
 		target.changeCombat(getValue());
 	}
 
+	@Override
+	public String getType() {
+		
+		return "Combat";
+	}
+
 }

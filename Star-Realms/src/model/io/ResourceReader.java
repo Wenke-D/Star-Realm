@@ -13,6 +13,7 @@ import model.card.Base;
 import model.card.GameCard;
 import model.card.Ship;
 import model.card.ability.Ability;
+import model.card.ability.AndAbility;
 import model.card.ability.effect.Effect;
 import model.card.ability.effect.EffectFactory;
 
@@ -154,7 +155,7 @@ public class ResourceReader {
 	}
 
 	/**
-	 * Create a {@code ArrayList<Ability>} based on a XML tag "AbilityList".
+	 * Create a {@code ArrayList<Ability>} based on a XML tag "Ability".
 	 * if there is no item under this element, it will return a List empty.
 	 * @param e
 	 * @return
@@ -165,6 +166,6 @@ public class ResourceReader {
 			Effect effect = EffectFactory.makeEffect(item);
 			array.add(effect);
 		}
-		return new Ability(array);
+		return new AndAbility(array);
 	}
 }

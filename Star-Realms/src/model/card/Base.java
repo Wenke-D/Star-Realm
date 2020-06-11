@@ -3,6 +3,7 @@ package model.card;
 
 import model.card.ability.Ability;
 import model.card.ability.effect.Effect;
+import view.GraphicAbility;
 
 public class Base extends AbstractCard{
 	private final int defense;
@@ -32,12 +33,9 @@ public class Base extends AbstractCard{
 		return true;
 	}
 	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder(super.toString());
-		sb.append("|||Def:").append(defense).append(",outPost:").append(outPost);
-		return sb.toString();
-	}
+
+
+
 
 
 

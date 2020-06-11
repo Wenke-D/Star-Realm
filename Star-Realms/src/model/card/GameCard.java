@@ -2,13 +2,14 @@ package model.card;
 
 import model.Store;
 import model.player.Player;
+import view.GraphicCard;
 
 /**
  * This interface represent the cards exist in the game.
  * @author Matth
  *
  */
-public interface GameCard {
+public interface GameCard extends GraphicCard {
 	
 	/**
 	 * Get the price of the card

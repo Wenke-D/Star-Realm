@@ -14,4 +14,9 @@ public class TradeBuff extends AbstractSimpleEffect {
 
 	}
 
+	@Override
+	public String getType() {
+		return "Trade";
+	}
+
 }

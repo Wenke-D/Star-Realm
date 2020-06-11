@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import model.card.GameCard;
+import view.GraphicCard;
 
 public class DiscardPile {
 	private final List<GameCard> cardList;

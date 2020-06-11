@@ -3,6 +3,7 @@ package model.card;
 import model.Store;
 import model.card.ability.Ability;
 import model.player.Player;
+import view.GraphicAbility;
 
 abstract class AbstractCard implements GameCard {
 	private final String name;
@@ -90,6 +91,27 @@ abstract class AbstractCard implements GameCard {
 
 		builder.append("   ||Scrap::").append(scrapAbis.toString());
 		return builder.toString();
+	}
+	
+	@Override
+	public String getFaction() {
+		
+		return faction;
+	}
+
+	@Override
+	public GraphicAbility getBasicAbility() {
+		return basicAbis;
+	}
+
+	@Override
+	public GraphicAbility getAllyAbility() {
+		return allyAbis;
+	}
+
+	@Override
+	public GraphicAbility getScrapAbility() {
+		return scrapAbis;
 	}
 	
 

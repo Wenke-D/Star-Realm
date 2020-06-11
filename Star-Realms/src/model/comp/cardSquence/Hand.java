@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.card.GameCard;
 import model.comp.Graphic;
+import view.GraphicCard;
 
 public class Hand {
 	private final List<GameCard> cardList;
