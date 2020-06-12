@@ -9,7 +9,7 @@ import view.GraphicCard;
  * @author Matth
  *
  */
-public interface GameCard extends GraphicCard {
+public interface Card extends GraphicCard {
 	
 	/**
 	 * Get the price of the card
@@ -19,7 +19,7 @@ public interface GameCard extends GraphicCard {
 	public boolean isOutpost();
 	public String getName();
 	public boolean isBase();
-	public boolean isAlly(GameCard other);
+	public boolean isAlly(Card other);
 	
 	/**
 	 * Card active his ability

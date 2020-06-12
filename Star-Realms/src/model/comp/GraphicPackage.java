@@ -39,11 +39,11 @@ public class GraphicPackage {
 	}
 
 	public GraphicPlayer getCurPlayer() {
-		return (GraphicPlayer) curPlayer;
+		return curPlayer;
 	}
 
 	public GraphicPlayer getOpponent() {
-		return (GraphicPlayer) opponent;
+		return opponent;
 	}
 
 	public GraphicStore getStore() {

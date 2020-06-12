@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import model.Store;
-import model.card.GameCard;
+import model.card.Card;
 import model.card.ability.Ability;
 import model.comp.Graphic;
 import model.comp.cardSquence.Deck;
@@ -58,7 +58,7 @@ public abstract class AbstractPlayer implements Player {
 	 */
 	private final Field field; // ·ÅÖÃÇø
 
-	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<GameCard> list) {
+	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<Card> list) {
 		this.tradePoint = tradePoint;
 		this.combatPoint = combatPoint;
 		this.authorityPoint = authorityPoint;
@@ -114,7 +114,7 @@ public abstract class AbstractPlayer implements Player {
 	@Override
 	public void endTurn() {
 
-		List<GameCard> cardList = hand.getAll();
+		List<Card> cardList = new ArrayList<Card>(hand.getAll());
 		hand.clear();
 
 		cardList.addAll(field.clearShips());
@@ -130,7 +130,7 @@ public abstract class AbstractPlayer implements Player {
 	 */
 	@Override
 	public void beginTurn() {
-		for (GameCard card : field) {
+		for (Card card : field) {
 			card.affect(this);
 		}
 	}
@@ -143,34 +143,39 @@ public abstract class AbstractPlayer implements Player {
 	
 	@Override
 	public void active(int cardIndex, String type, Player opponent, Store store) {
-		GameCard card = field.get(cardIndex);
+		Card card = field.get(cardIndex);
 		active(card, type, opponent, store);
 		
 	}
 
 	@Override
-	public void active(GameCard card, String type, Player opponent, Store store) {
+	public void active(Card card, String type, Player opponent, Store store) {
 		card.affect(type, this, opponent, store);
 		
 	}
 	
 	@Override
-	public GameCard put(int index) {
+	public Card put(int index) {
 		index --;
-		GameCard card = hand.remove(index);
+		Card card = hand.remove(index);
 		field.add(card);
 		return card;
 	}
 
 
 	@Override
-	public void get(GameCard c) {
+	public void get(Card c) {
 		discardPile.add(c);
 	}
 
 	@Override
 	public boolean canAfford(int price) {
 		return tradePoint >= price;
+	}
+	
+	@Override
+	public void pay(int cost) {
+		changeTrade(-cost);
 	}
 	
 	public boolean isDead() {

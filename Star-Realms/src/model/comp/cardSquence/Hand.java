@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.card.GameCard;
+import model.card.Card;
 import model.comp.Graphic;
 import view.GraphicCard;
 
 public class Hand {
-	private final List<GameCard> cardList;
+	private final List<Card> cardList;
 	
 	public Hand() {
-		cardList = new ArrayList<GameCard>();
+		cardList = new ArrayList<Card>();
 	}
 	
 	
-	public List<GameCard> getAll() {
+	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
 	
@@ -29,11 +29,11 @@ public class Hand {
 	 * @param index begin with 0
 	 * @return
 	 */
-	public GameCard remove(int index) {
+	public Card remove(int index) {
 		return cardList.remove(index);
 	}
 	
-	public void add(GameCard card) {
+	public void add(Card card) {
 		cardList.add(card);
 	}
 	

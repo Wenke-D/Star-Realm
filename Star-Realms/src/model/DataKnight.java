@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
-import model.card.GameCard;
+import model.card.Card;
 import model.comp.GraphicPackage;
 import model.io.ResourceReader;
 import model.player.AiPlayer;
@@ -33,10 +33,10 @@ public class DataKnight {
 		String StartSetPath = reader.getAttributeValue(configPath.toFile(), startDeckSetXPath, "path");
 		String ExplorerPath = reader.getAttributeValue(configPath.toFile(), ExplorerXPath, "path");
 
-		GameCard explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
-		List<GameCard> storeDeck = reader.makeCardListFromFile(new File(CoreSetPath));
-		List<GameCard> deck1 = reader.makeCardListFromFile(new File(StartSetPath));
-		List<GameCard> deck2 = reader.makeCardListFromFile(new File(StartSetPath));
+		Card explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
+		List<Card> storeDeck = reader.makeCardListFromFile(new File(CoreSetPath));
+		List<Card> deck1 = reader.makeCardListFromFile(new File(StartSetPath));
+		List<Card> deck2 = reader.makeCardListFromFile(new File(StartSetPath));
 
 		roundsNumber = 1;
 		store = new Store(storeDeck, explorer);
@@ -48,6 +48,7 @@ public class DataKnight {
 			player2 = new RealPlayer(0, 0, 50, deck2);
 		
 		player1.drawCard(3);
+		player2.drawCard(5);
 	}
 
 	/**
@@ -102,15 +103,16 @@ public class DataKnight {
 
 		case "play": {
 			int index = Integer.valueOf(cmds[1]);
-			GameCard card = curPlayer.put(index);
+			Card card = curPlayer.put(index);
 			curPlayer.active(card, "basic", opponent, store);
 			break;
 		}
 
 		case "buy": {
 			int index = Integer.valueOf(cmds[1]);
-			GameCard card = store.get(index);
+			Card card = store.get(index);
 			if (curPlayer.canAfford(card.getCost())) {
+				curPlayer.pay(card.getCost());
 				store.remove(index);
 				curPlayer.get(card);
 			}

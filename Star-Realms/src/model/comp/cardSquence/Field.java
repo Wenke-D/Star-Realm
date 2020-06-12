@@ -5,15 +5,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import model.card.GameCard;
+import model.card.Card;
 import model.card.Ship;
 import view.GraphicCard;
 
-public class Field implements Iterable<GameCard> {
-	private final List<GameCard> cardList;
+public class Field implements Iterable<Card> {
+	private final List<Card> cardList;
 
 	public Field() {
-		cardList = new ArrayList<GameCard>();
+		cardList = new ArrayList<Card>();
 	}
 	
 	public List<Ship> clearShips() {
@@ -31,21 +31,21 @@ public class Field implements Iterable<GameCard> {
 	}
 
 	@Override
-	public Iterator<GameCard> iterator() {
+	public Iterator<Card> iterator() {
 		return cardList.iterator();
 	}
 
-	public void add(GameCard card) {
+	public void add(Card card) {
 		cardList.add(card);
 		
 	}
 
-	public GameCard get(int cardIndex) {
+	public Card get(int cardIndex) {
 		
 		return cardList.get(cardIndex);
 	}
 
-	public List<GameCard> getAll() {
+	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
 	

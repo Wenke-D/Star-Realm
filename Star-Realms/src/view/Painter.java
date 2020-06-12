@@ -3,7 +3,6 @@ package view;
 import java.util.List;
 import java.util.Objects;
 
-import model.card.GameCard;
 import model.comp.GraphicPackage;
 
 /**

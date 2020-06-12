@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.card.GameCard;
+import model.card.Card;
 import view.GraphicCard;
 
 public class DiscardPile {
-	private final List<GameCard> cardList;
+	private final List<Card> cardList;
 	
 	public DiscardPile() {
-		cardList = new ArrayList<GameCard>();
+		cardList = new ArrayList<Card>();
 	}
 	
-	public void addAll(List<GameCard> list) {
+	public void addAll(List<Card> list) {
 		cardList.addAll(cardList);
 	}
 	
-	public List<GameCard> getAll() {
+	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
 	
@@ -26,7 +26,7 @@ public class DiscardPile {
 		cardList.clear();
 	}
 
-	public void add(GameCard c) {
+	public void add(Card c) {
 		cardList.add(c);
 		
 	}

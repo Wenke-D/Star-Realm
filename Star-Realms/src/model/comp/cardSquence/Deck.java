@@ -3,13 +3,13 @@ package model.comp.cardSquence;
 import java.util.Collections;
 import java.util.List;
 
-import model.card.GameCard;
+import model.card.Card;
 import view.GraphicCard;
 
 public class Deck{
-	private final List<GameCard> cardList;
+	private final List<Card> cardList;
 	
-	public Deck(List<GameCard> cardList) {
+	public Deck(List<Card> cardList) {
 		this.cardList = cardList; 
 	}
 	
@@ -18,19 +18,19 @@ public class Deck{
 		return cardList.size()==0;
 	}
 	
-	public void refill(List<GameCard> newCards) {
+	public void refill(List<Card> newCards) {
 		Collections.shuffle(newCards);
 		cardList.addAll(newCards);
 	}
 
 
-	public GameCard pop() {
+	public Card pop() {
 		int size = cardList.size();
 		return cardList.remove(size-1);
 	}
 
 
-	public List<GameCard> getAll() {
+	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
 }

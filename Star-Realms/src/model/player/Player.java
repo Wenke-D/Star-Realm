@@ -1,7 +1,7 @@
 package model.player;
 
 import model.Store;
-import model.card.GameCard;
+import model.card.Card;
 import model.comp.Target;
 import view.GraphicPlayer;
 
@@ -23,12 +23,15 @@ public interface Player extends Target, GraphicPlayer {
 	public boolean isDead();
 	
 	public void active(int cardIndex, String type, Player opponent, Store store);
-	public void active(GameCard card, String type, Player opponent, Store store);
+	public void active(Card card, String type, Player opponent, Store store);
 		
 	public void attack(Player otherPlayer);
 	
 	public void endTurn();
-
+	
+	/**
+	 * Active cards ability while his turn begins
+	 */
 	public void beginTurn();
 
 	
@@ -37,13 +40,15 @@ public interface Player extends Target, GraphicPlayer {
 	 * @param index This index begin with 1.
 	 * @return
 	 */
-	public GameCard put(int index);
+	public Card put(int index);
 
 
-	void get(GameCard c);
+	void get(Card c);
 
 
 	boolean canAfford(int price);
+
+	public void pay(int cost);
 	
 	
 

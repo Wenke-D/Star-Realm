@@ -5,7 +5,7 @@ import model.card.ability.Ability;
 import model.player.Player;
 import view.GraphicAbility;
 
-abstract class AbstractCard implements GameCard {
+abstract class AbstractCard implements Card {
 	private final String name;
 	private final String faction;
 	private final int cost;
@@ -44,7 +44,7 @@ abstract class AbstractCard implements GameCard {
 	}
 
 	@Override
-	public boolean isAlly(GameCard other) {
+	public boolean isAlly(Card other) {
 		if(faction.equals(""))
 			return false;
 		if (other instanceof AbstractCard) {

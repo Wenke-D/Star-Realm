@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import model.card.GameCard;
+import model.card.Card;
 import model.comp.Target;
 import view.GraphicCard;
 import view.GraphicStore;
@@ -33,8 +33,8 @@ public class Store implements GraphicStore, Target {
 	 * The last 5 cards of this array is the 5 cards of six cards that player can
 	 * see.
 	 */
-	private final ArrayList<GameCard> cards;
-	private final GameCard explorer;
+	private final ArrayList<Card> cards;
+	private final Card explorer;
 
 	/**
 	 * <p>
@@ -45,8 +45,8 @@ public class Store implements GraphicStore, Target {
 	 * @param storeCards A qualified card deck, which means
 	 * @param explorer   A ship object who's name is Explorer
 	 */
-	public Store(List<GameCard> storeCards, GameCard explorer) {
-		cards = new ArrayList<GameCard>(storeCards);
+	public Store(List<Card> storeCards, Card explorer) {
+		cards = new ArrayList<Card>(storeCards);
 		this.explorer = Objects.requireNonNull(explorer);
 	}
 
@@ -56,7 +56,7 @@ public class Store implements GraphicStore, Target {
 	 * @param i the number of card in the view of player. begin with 1.
 	 * @return the card.
 	 */
-	public GameCard get(int i) {
+	public Card get(int i) {
 		int last = cards.size();
 		return cards.get(last - i);
 	}
@@ -67,14 +67,14 @@ public class Store implements GraphicStore, Target {
 	 * @param i the number of card in the view of player. begin with 1.
 	 * @return the card removed.
 	 */
-	public GameCard remove(int i) {
+	public Card remove(int i) {
 		int last = cards.size();
 		return cards.remove(last - i);
 	}
 
 	@Override
 	public List<GraphicCard> cards() {
-		ArrayList<GameCard> cards = new ArrayList<GameCard>();
+		ArrayList<Card> cards = new ArrayList<Card>();
 		for (int i = 1; i <= 5; i++) {
 			cards.add(get(i));
 		}
