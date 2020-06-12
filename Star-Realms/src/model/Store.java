@@ -85,22 +85,22 @@ public class Store implements GraphicStore, Target {
 
 	@Override
 	public void changeAuthority(int number) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void changeCombat(int number) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void changeTrade(int number) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void drawCard(int number) {
-
+		throw new UnsupportedOperationException();
 	}
 
 }

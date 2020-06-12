@@ -164,7 +164,7 @@ public class Painter {
 	 * @param hand
 	 */
 	private void paintOpponHand(List<GraphicCard> hand) {
-		System.out.printf("Hands: %d", hand.size());
+		System.out.printf("Hands: %d\n", hand.size());
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class Painter {
 	private void paintAbility(GraphicAbility ability, int nbTab) {
 		List<GraphicEffect> list = ability.getEffects();
 		if (list.size() == 0) {
-			System.out.printf("%sNone", tabs(nbTab));
+			System.out.printf("%sNone\n", tabs(nbTab+1));
 			return;
 		}
 		String type = ability.getAbilityType();

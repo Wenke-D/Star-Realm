@@ -1,6 +1,5 @@
 package model.card.ability.effect;
 
-import model.Store;
 import model.comp.Target;
 
 public class AuthorityBuff extends AbstractSimpleEffect {
