@@ -19,8 +19,9 @@ public class Deck{
 	}
 	
 	public void refill(List<Card> newCards) {
-		Collections.shuffle(newCards);
 		cardList.addAll(newCards);
+		Collections.shuffle(cardList);
+		
 	}
 
 

@@ -10,6 +10,5 @@ public interface GraphicCard {
 	public boolean isBase();
 	public boolean isOutpost();
 	public int getDefense();
-	
-	
+		
 }

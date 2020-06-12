@@ -1,21 +1,17 @@
 package model.player;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import model.Store;
 import model.card.Base;
 import model.card.Card;
-import model.card.ability.Ability;
-import model.comp.Graphic;
 import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
 import model.comp.cardSquence.Hand;
 import view.GraphicCard;
-import view.GraphicPlayer;
 
 /**
  * 
