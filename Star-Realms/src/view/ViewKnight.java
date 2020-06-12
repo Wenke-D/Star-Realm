@@ -18,14 +18,14 @@ public class ViewKnight {
 	 * 
 	 * @param data game data source
 	 */
-	public void updateView(GraphicPackage data) {
+	public void displayOrUpdateContent(GraphicPackage data) {
 		painter.updateView(data);
 	}
 
 	/**
 	 * Print the game menu in the screen
 	 */
-	public void drawMenu() {
+	public void displayGameMenu() {
 		painter.menu();
 	}
 
@@ -43,12 +43,12 @@ public class ViewKnight {
 	 * 
 	 * @return {@code true} if he want, {@code false} if not
 	 */
-	public void askRestart() {
+	public void displayRestartQuestion() {
 		painter.importantMessage("Restart? yes or no: ");
 		
 	}
 	
-	public boolean check() {
+	public boolean readBoolean() {
 		String answer = "";
 		if (scanner.hasNextLine()) {
 			answer = scanner.nextLine();
@@ -59,7 +59,7 @@ public class ViewKnight {
 	/**
 	 * Display game is end
 	 */
-	public void finishGame() {
+	public void displayGameFinish() {
 		painter.importantMessage("Game End!");
 	}
 
@@ -78,12 +78,17 @@ public class ViewKnight {
 	/**
 	 * Alert user a bad input.
 	 */
-	public void badInput() {
+	public void displayBadInputAlert() {
 		painter.importantMessage("Bad Input");
 	}
 
 	public void free() {
 		scanner.close();
+		
+	}
+
+	public void displayHelpMessage() {
+		painter.help();
 		
 	}
 

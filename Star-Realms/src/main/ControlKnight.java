@@ -37,17 +37,17 @@ public class ControlKnight {
 	 * Main body of game
 	 */
 	public void game() {
-		view.drawMenu();
+		view.displayGameMenu();
 		mode = setMode();
 
 		data = new DataKnight(mode);
-		view.updateView(data.getGraphicData());
+		view.displayOrUpdateContent(data.getGraphicData());
 
 		if (mode == 2) {
 			mainLoopPVP();
 		}
 
-		view.finishGame();
+		view.displayGameFinish();
 		
 		/**
 		 * Release sources
@@ -68,7 +68,7 @@ public class ControlKnight {
 			if (choix.equals("1") || choix.equals("2")) {
 				return Integer.valueOf(choix);
 			}
-			view.badInput();
+			view.displayBadInputAlert();
 		}
 	}
 
@@ -81,19 +81,23 @@ public class ControlKnight {
 			String order = view.readInput();
 			if (order.equals("quit")) {
 				break;
+			} else if(order.equals("help")) {
+				view.displayHelpMessage();
+				continue;
 			}
 			data.execute(order);
 
 			// update view
-			view.updateView(data.getGraphicData());
+			view.displayOrUpdateContent(data.getGraphicData());
 
 			// if game ends
 			if (data.isEnd()) {
 				view.displayResult(data.getGraphicData());
-				view.askRestart();
-				if (view.check()) {
+				view.displayRestartQuestion();
+				if (view.readBoolean()) {
+					data.free();
 					data = new DataKnight(mode);
-					view.updateView(data.getGraphicData());
+					view.displayOrUpdateContent(data.getGraphicData());
 				} else {
 					break;
 				}

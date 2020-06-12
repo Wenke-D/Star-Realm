@@ -63,8 +63,13 @@ public class Painter {
 		System.out.println("**" + message + "**");
 	}
 	
+	/**
+	 * Print help message in the screen
+	 */
 	public void help() {
 		System.out.println("Entre <<attack>> to attack your opponant. ");
+		System.out.println("Entre <<play index>> to play a card from your hand. ");
+		System.out.println("Entre <<quit>> to end the game directely. ");
 	}
 
 	/**
