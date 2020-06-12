@@ -63,5 +63,22 @@ public class Field implements Iterable<Card> {
 		index--;
 		return cardList.remove(index);
 	}
+	
+	/**
+	 * 
+	 * @param card
+	 * @return
+	 */
+	public boolean remove(Card card) {
+		return cardList.remove(card);
+	}
+
+	public boolean hasAlly(Card other) {
+		for(Card c: cardList) {
+			if(c.isAlly(other))
+				return true;
+		}
+		return false;
+	}
 
 }

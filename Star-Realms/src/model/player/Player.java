@@ -32,7 +32,7 @@ public interface Player extends Target, GraphicPlayer {
 	/**
 	 * Active cards ability while his turn begins
 	 */
-	public void beginTurn();
+	public void beginTurn(Target opponent, Target store);
 
 	
 	/**

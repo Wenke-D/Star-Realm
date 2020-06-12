@@ -7,6 +7,7 @@ import java.util.Objects;
 import model.Store;
 import model.card.Base;
 import model.card.Card;
+import model.comp.Target;
 import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
@@ -75,8 +76,6 @@ public abstract class AbstractPlayer implements Player {
 	private void draw() {
 		hand.add(deck.pop());
 	}
-	
-	
 
 	/**
 	 * Let player draw a certain number of cards
@@ -100,7 +99,6 @@ public abstract class AbstractPlayer implements Player {
 		}
 	}
 
-
 	/**
 	 * <p>
 	 * This function will throw out player's hands, clear ships in the field.
@@ -121,14 +119,14 @@ public abstract class AbstractPlayer implements Player {
 		combatPoint = 0;
 		tradePoint = 0;
 	}
-	
+
 	/**
 	 * On suppose que tous les capacit¨¦s de base n'affecte que joueur lui m¨ºme.
 	 */
 	@Override
-	public void beginTurn() {
+	public void beginTurn(Target opponent, Target store) {
 		for (Card card : field) {
-			card.affect(this);
+			card.affect("basic", this, opponent, store);
 		}
 	}
 
@@ -137,28 +135,35 @@ public abstract class AbstractPlayer implements Player {
 		other.changeAuthority(-combatPoint);
 
 	}
-	
+
 	@Override
 	public void active(int cardIndex, String type, Player opponent, Store store) {
 		Card card = field.get(cardIndex);
 		active(card, type, opponent, store);
-		
+
 	}
 
 	@Override
 	public void active(Card card, String type, Player opponent, Store store) {
-		card.affect(type, this, opponent, store);
-		
+
+		if (type.equals("ally")) {
+			if (field.hasAlly(card))
+				card.affect(type, this, opponent, store);
+		}
+		if (type.equals("scrap")) {
+			card.affect(type, this, opponent, store);
+			field.remove(card);
+		}
+
 	}
-	
+
 	@Override
 	public Card put(int index) {
-		index --;
+		index--;
 		Card card = hand.remove(index);
 		field.add(card);
 		return card;
 	}
-
 
 	@Override
 	public void get(Card c) {
@@ -169,30 +174,30 @@ public abstract class AbstractPlayer implements Player {
 	public boolean canAfford(int price) {
 		return tradePoint >= price;
 	}
-	
+
 	@Override
 	public void pay(int cost) {
 		changeTrade(-cost);
 	}
-	
+
 	@Override
 	public boolean isDead() {
 		return authorityPoint <= 0;
 	}
-	
+
 	@Override
 	public boolean baseIsDestory(int cardIndex, int damage) {
 		Card card = field.get(cardIndex);
-		if(!(card instanceof Base))
+		if (!(card instanceof Base))
 			return false;
 		Base base = (Base) card;
 		return base.idDestroyed(damage);
 	}
-	
+
 	@Override
 	public void destoryCard(int cardIndex) {
 		Card card = field.remove(cardIndex);
-		discardPile.add(card);		
+		discardPile.add(card);
 	}
 
 	/**
@@ -222,12 +227,12 @@ public abstract class AbstractPlayer implements Player {
 	public int getAuhtority() {
 		return authorityPoint;
 	}
-	
+
 	@Override
 	public int getTrade() {
 		return tradePoint;
 	}
-	
+
 	@Override
 	public int getCombat() {
 		return combatPoint;

@@ -2,6 +2,7 @@ package model.card;
 
 import model.Store;
 import model.card.ability.Ability;
+import model.comp.Target;
 import model.player.Player;
 import view.GraphicAbility;
 
@@ -50,14 +51,9 @@ abstract class AbstractCard implements Card {
 		}
 
 	}
-	
+		
 	@Override
-	public void affect(Player owner) {
-		basicAbis.affect(owner);
-	}
-	
-	@Override
-	public void affect(String type, Player owner, Player opponent, Store store) {
+	public void affect(String type, Target owner, Target opponent, Target store) {
 		switch(type) {
 		case "basic":{
 			basicAbis.affect(owner, opponent, store);

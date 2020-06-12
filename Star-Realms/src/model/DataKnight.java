@@ -86,7 +86,7 @@ public class DataKnight {
 
 			// ResetState()
 			attacked = false;
-			opponent.beginTurn();
+			opponent.beginTurn(curPlayer, store);
 			switchPlayer();
 			break;
 		}

@@ -1,6 +1,7 @@
 package model.card;
 
 import model.Store;
+import model.comp.Target;
 import model.player.Player;
 import view.GraphicCard;
 
@@ -27,11 +28,6 @@ public interface Card extends GraphicCard {
 	 * @param opponent owner's opponent
 	 * @param store store in the game
 	 */
-	public void affect(String type, Player owner, Player opponent, Store store);
+	public void affect(String type, Target owner, Target opponent, Target store);
 	
-	/**
-	 * active basic ability to affect owner
-	 * @param self
-	 */
-	public void affect(Player self);
 }
