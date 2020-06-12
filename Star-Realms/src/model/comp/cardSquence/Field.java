@@ -15,7 +15,7 @@ public class Field implements Iterable<Card> {
 	public Field() {
 		cardList = new ArrayList<Card>();
 	}
-	
+
 	public List<Ship> clearShips() {
 		List<Ship> ships = new ArrayList<Ship>();
 
@@ -37,11 +37,16 @@ public class Field implements Iterable<Card> {
 
 	public void add(Card card) {
 		cardList.add(card);
-		
+
 	}
 
+	/**
+	 * 
+	 * @param cardIndex index begin with 1;
+	 * @return
+	 */
 	public Card get(int cardIndex) {
-		
+		cardIndex--;
 		return cardList.get(cardIndex);
 	}
 
@@ -49,7 +54,14 @@ public class Field implements Iterable<Card> {
 		return Collections.unmodifiableList(cardList);
 	}
 	
-	
-	
+	/**
+	 * Remove a card from field
+	 * @param index index begin with 1;
+	 * @return
+	 */
+	public Card remove(int index) {
+		index--;
+		return cardList.remove(index);
+	}
 
 }

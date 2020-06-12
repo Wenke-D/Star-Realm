@@ -25,7 +25,7 @@ abstract class AbstractCard implements Card {
 
 	@Override
 	public boolean isOutpost() {
-		return false;
+		throw new UnsupportedOperationException("This is not a Base");
 	}
 
 	@Override
@@ -36,11 +36,6 @@ abstract class AbstractCard implements Card {
 	@Override
 	public String getName() {
 		return name;
-	}
-
-	@Override
-	public boolean isBase() {
-		return false;
 	}
 
 	@Override
@@ -112,6 +107,16 @@ abstract class AbstractCard implements Card {
 	@Override
 	public GraphicAbility getScrapAbility() {
 		return scrapAbis;
+	}
+	
+	@Override
+	public boolean isBase() {
+		return false;
+	}
+
+	@Override
+	public int getDefense() {
+		throw new UnsupportedOperationException("This is not a base");
 	}
 	
 

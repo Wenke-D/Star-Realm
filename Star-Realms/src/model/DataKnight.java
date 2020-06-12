@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 import model.card.Card;
@@ -16,27 +17,24 @@ public class DataKnight {
 	private final Player player1;
 	private final Player player2;
 	private final Store store;
+	ResourceReader reader = new ResourceReader();
 
 	private boolean attacked = false;
 
 	public DataKnight(int mode) {
 		Path configPath = Path.of("res", "config.xml");
 
-		String paths = "/config/paths/";
-		String CoreSetXPath = paths + "CoreSet";
-		String startDeckSetXPath = paths + "StartSet";
-		String ExplorerXPath = paths + "Explorer";
-		ResourceReader reader = new ResourceReader();
+		String rootPath = "/config/paths/";
+		String CoreSetXPath = rootPath + "CoreSet";
+		String startDeckSetXPath = rootPath + "StartSet";
+		String ExplorerXPath = rootPath + "Explorer";
 
-		// Read resource file location
-		String CoreSetPath = reader.getAttributeValue(configPath.toFile(), CoreSetXPath, "path");
-		String StartSetPath = reader.getAttributeValue(configPath.toFile(), startDeckSetXPath, "path");
+		List<Card> storeDeck = makeCardListFromFile(configPath.toFile(), CoreSetXPath);
+		List<Card> deck1 = makeCardListFromFile(configPath.toFile(), startDeckSetXPath);
+		List<Card> deck2 = makeCardListFromFile(configPath.toFile(), startDeckSetXPath);
+
 		String ExplorerPath = reader.getAttributeValue(configPath.toFile(), ExplorerXPath, "path");
-
 		Card explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
-		List<Card> storeDeck = reader.makeCardListFromFile(new File(CoreSetPath));
-		List<Card> deck1 = reader.makeCardListFromFile(new File(StartSetPath));
-		List<Card> deck2 = reader.makeCardListFromFile(new File(StartSetPath));
 
 		roundsNumber = 1;
 		store = new Store(storeDeck, explorer);
@@ -46,7 +44,7 @@ public class DataKnight {
 			player2 = new AiPlayer(0, 0, 50, deck2);
 		else
 			player2 = new RealPlayer(0, 0, 50, deck2);
-		
+
 		player1.drawCard(3);
 		player2.drawCard(5);
 	}
@@ -126,6 +124,14 @@ public class DataKnight {
 			curPlayer.active(cardIndex, type, opponent, store);
 			break;
 		}
+		
+		case "attackBase":{
+			int cardIndex = Integer.valueOf(cmds[1]);
+			int combatPoint = curPlayer.getCombat();
+			if(opponent.baseIsDestory(cardIndex, combatPoint)) {
+				opponent.destoryCard(cardIndex);
+			}
+		}
 		}
 	}
 
@@ -135,6 +141,20 @@ public class DataKnight {
 
 	private void switchPlayer() {
 		roundsNumber += 1;
+	}
+
+	/**
+	 * Return a random player's deck
+	 * 
+	 * @param f,    configure file
+	 * @param XPath Attribute of card resource file's path
+	 * @return
+	 */
+	private List<Card> makeCardListFromFile(File f, String XPath) {
+		String FilePath = reader.getAttributeValue(f, XPath, "path");
+		List<Card> cardList = reader.makeCardListFromFile(new File(FilePath));
+		Collections.shuffle(cardList);
+		return cardList;
 	}
 
 	public GraphicPackage getGraphicData() {

@@ -21,16 +21,21 @@ public class Base extends AbstractCard{
 		return outPost;
 	}
 	
-	public boolean destroyed(int damagePoint) {
+	public boolean idDestroyed(int damagePoint) {
 		if(damagePoint >= defense) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean isBase() {
 		return true;
+	}
+
+	@Override
+	public int getDefense() {
+		return defense;
 	}
 	
 

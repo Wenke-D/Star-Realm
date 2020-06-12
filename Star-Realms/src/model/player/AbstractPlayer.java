@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import model.Store;
+import model.card.Base;
 import model.card.Card;
 import model.card.ability.Ability;
 import model.comp.Graphic;
@@ -178,8 +179,24 @@ public abstract class AbstractPlayer implements Player {
 		changeTrade(-cost);
 	}
 	
+	@Override
 	public boolean isDead() {
 		return authorityPoint <= 0;
+	}
+	
+	@Override
+	public boolean baseIsDestory(int cardIndex, int damage) {
+		Card card = field.get(cardIndex);
+		if(!(card instanceof Base))
+			return false;
+		Base base = (Base) card;
+		return base.idDestroyed(damage);
+	}
+	
+	@Override
+	public void destoryCard(int cardIndex) {
+		Card card = field.remove(cardIndex);
+		discardPile.add(card);		
 	}
 
 	/**

@@ -50,6 +50,20 @@ public interface Player extends Target, GraphicPlayer {
 
 	public void pay(int cost);
 	
+	/**
+	 * Test if a card in the field can be destroyed with a certain damage
+	 * @param cardIndex the index of the card
+	 * @param damage the damage number
+	 * @return true if it can be destroyed, false if not.
+	 */
+	public boolean baseIsDestory(int cardIndex, int damage);
+	
+	/**
+	 * Move a card from field to discard pile. 
+	 * @param cardIndex card's index
+	 */
+	public void destoryCard(int cardIndex);
+	
 	
 
 }

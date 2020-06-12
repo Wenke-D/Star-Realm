@@ -18,7 +18,6 @@ public interface Card extends GraphicCard {
 	public int getCost();
 	public boolean isOutpost();
 	public String getName();
-	public boolean isBase();
 	public boolean isAlly(Card other);
 	
 	/**

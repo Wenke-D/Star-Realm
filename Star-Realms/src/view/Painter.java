@@ -61,7 +61,7 @@ public class Painter {
 	public void importantMessage(String message) {
 		System.out.println("**" + message + "**");
 	}
-	
+
 	/**
 	 * Print help message in the screen
 	 */
@@ -69,6 +69,7 @@ public class Painter {
 		System.out.println("Entre <<attack>> to attack your opponant. ");
 		System.out.println("Entre <<play index>> to play a card from your hand. ");
 		System.out.println("Entre <<quit>> to end the game directely. ");
+		System.out.println("Entre <<buy index>> to buy a card. ");
 	}
 
 	/**
@@ -144,9 +145,7 @@ public class Painter {
 	 */
 	private void field(List<GraphicCard> list) {
 		System.out.println("Field");
-		for (GraphicCard c : list) {
-			card(c, 1);
-		}
+		cardListWithIndex(list, 0);
 	}
 
 	/**
@@ -176,11 +175,11 @@ public class Painter {
 	private void roundNumber(int i) {
 		title("Round " + i);
 	}
-	
+
 	private void cardListWithIndex(List<GraphicCard> list, int nbTab) {
 		for (int i = 0; i < list.size(); i++) {
 			GraphicCard c = list.get(i);
-			System.out.printf("[%d]", i+1);
+			System.out.printf("[%d]", i + 1);
 			card(c, 1);
 		}
 	}
@@ -192,7 +191,13 @@ public class Painter {
 	 * @param nbTab
 	 */
 	private void card(GraphicCard card, int nbTab) {
-		System.out.printf("%s**%s :%d %s\n", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
+		System.out.printf("%s**%s :%d %s ", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
+
+		if (card.isBase()) {
+			System.out.printf("Defense:%d %s\n", card.getDefense(), card.isOutpost() ? "Outpost" : "");
+		} else {
+			System.out.println();
+		}
 
 		System.out.printf("%sBasic Ability\n", tabs(nbTab + 1));
 		ability(card.getBasicAbility(), nbTab + 1);
@@ -213,7 +218,7 @@ public class Painter {
 	private void ability(GraphicAbility ability, int nbTab) {
 		List<GraphicEffect> list = ability.getEffects();
 		if (list.size() == 0) {
-			System.out.printf("%sNone\n", tabs(nbTab+1));
+			System.out.printf("%sNone\n", tabs(nbTab + 1));
 			return;
 		}
 		String type = ability.getAbilityType();
