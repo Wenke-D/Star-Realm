@@ -19,7 +19,7 @@ public class ViewKnight {
 	 * @param data game data source
 	 */
 	public void displayOrUpdateContent(GraphicPackage data) {
-		painter.updateView(data);
+		painter.playingInterface(data);
 	}
 
 	/**

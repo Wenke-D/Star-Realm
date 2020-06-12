@@ -19,7 +19,7 @@ public class Painter {
 	 * Print the game menu in the screen
 	 */
 	public void menu() {
-		paintTitle("Star Realm");
+		title("Star Realm");
 		System.out.println("[1] Player VS Computer");
 		System.out.println("[2] Player VS Player");
 		System.out.print("Votre choix :");
@@ -30,20 +30,20 @@ public class Painter {
 	 * 
 	 * @param graphicPackage
 	 */
-	public void updateView(GraphicPackage graphicPackage) {
-		paintRoundNumber(graphicPackage.getRoundNumber());
+	public void playingInterface(GraphicPackage graphicPackage) {
+		roundNumber(graphicPackage.getRoundNumber());
 
-		paintTitle("Your Opponant");
+		title("Your Opponant");
 		GraphicPlayer opponent = graphicPackage.getOpponent();
-		paintOpponent(opponent);
+		opponent(opponent);
 
-		paintTitle("Trade Row");
+		title("Trade Row");
 		GraphicStore store = graphicPackage.getStore();
-		paintStore(store);
+		store(store);
 
-		paintTitle("Your Self");
+		title("Your Self");
 		GraphicPlayer curPlayer = graphicPackage.getCurPlayer();
-		paintCurPlayer(curPlayer);
+		curPlayer(curPlayer);
 
 		// normalMessage(graphicPackage.getMessage());
 
@@ -51,7 +51,7 @@ public class Painter {
 
 	public void result(String winner) {
 		Objects.requireNonNull(winner);
-		paintTitle("Winner: " + winner);
+		title("Winner: " + winner);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Painter {
 	 * 
 	 * @param p
 	 */
-	private void paintCurPlayer(GraphicPlayer p) {
+	private void curPlayer(GraphicPlayer p) {
 
 		System.out.println("->Authority: " + p.getAuhtority());
 		System.out.println("->Trade: " + p.getTrade());
@@ -85,15 +85,15 @@ public class Painter {
 
 		List<GraphicCard> field = p.getField();
 		Objects.requireNonNull(field);
-		paintField(field);
+		field(field);
 
 		List<GraphicCard> hand = p.getHand();
 		Objects.requireNonNull(field);
-		paintHand(hand);
+		hand(hand);
 
 		List<GraphicCard> deck = p.getDeck();
 		List<GraphicCard> discardPile = p.getDiscardPile();
-		paintDeckAndDiscardPile(deck, discardPile);
+		deckAndDiscardPile(deck, discardPile);
 
 	}
 
@@ -102,10 +102,9 @@ public class Painter {
 	 * 
 	 * @param store
 	 */
-	private void paintStore(GraphicStore store) {
-		for (GraphicCard c : store.cards()) {
-			paintCard(c, 0);
-		}
+	private void store(GraphicStore store) {
+		List<GraphicCard> list = store.cards();
+		cardListWithIndex(list, 0);
 	}
 
 	/**
@@ -113,20 +112,20 @@ public class Painter {
 	 * 
 	 * @param p
 	 */
-	private void paintOpponent(GraphicPlayer p) {
+	private void opponent(GraphicPlayer p) {
 		System.out.println("->Authority: " + p.getAuhtority());
 		System.out.println("->Trade: " + p.getTrade());
 		System.out.println("->Combat: " + p.getCombat());
 
 		List<GraphicCard> field = p.getField();
-		paintField(field);
+		field(field);
 
 		List<GraphicCard> hand = p.getHand();
-		paintOpponHand(hand);
+		opponantHand(hand);
 
 		List<GraphicCard> deck = p.getDeck();
 		List<GraphicCard> discardPile = p.getDiscardPile();
-		paintDeckAndDiscardPile(deck, discardPile);
+		deckAndDiscardPile(deck, discardPile);
 	}
 
 	/**
@@ -135,7 +134,7 @@ public class Painter {
 	 * @param deck
 	 * @param discardPile
 	 */
-	private void paintDeckAndDiscardPile(List<GraphicCard> deck, List<GraphicCard> discardPile) {
+	private void deckAndDiscardPile(List<GraphicCard> deck, List<GraphicCard> discardPile) {
 		System.out.printf("Deck:%d\tDiscardPile: %d\n", deck.size(), discardPile.size());
 	}
 
@@ -144,10 +143,10 @@ public class Painter {
 	 * 
 	 * @param list
 	 */
-	private void paintField(List<GraphicCard> list) {
+	private void field(List<GraphicCard> list) {
 		System.out.println("Field");
 		for (GraphicCard c : list) {
-			paintCard(c, 1);
+			card(c, 1);
 		}
 	}
 
@@ -156,13 +155,9 @@ public class Painter {
 	 * 
 	 * @param list
 	 */
-	private void paintHand(List<GraphicCard> list) {
+	private void hand(List<GraphicCard> list) {
 		System.out.println("Hand:");
-		for (int i = 0; i < list.size(); i++) {
-			GraphicCard c = list.get(i);
-			System.out.printf("[%d]", i+1);
-			paintCard(c, 1);
-		}
+		cardListWithIndex(list, 0);
 	}
 
 	/**
@@ -170,7 +165,7 @@ public class Painter {
 	 * 
 	 * @param hand
 	 */
-	private void paintOpponHand(List<GraphicCard> hand) {
+	private void opponantHand(List<GraphicCard> hand) {
 		System.out.printf("Hands: %d\n", hand.size());
 	}
 
@@ -179,8 +174,16 @@ public class Painter {
 	 * 
 	 * @param i
 	 */
-	private void paintRoundNumber(int i) {
-		paintTitle("Round " + i);
+	private void roundNumber(int i) {
+		title("Round " + i);
+	}
+	
+	private void cardListWithIndex(List<GraphicCard> list, int nbTab) {
+		for (int i = 0; i < list.size(); i++) {
+			GraphicCard c = list.get(i);
+			System.out.printf("[%d]", i+1);
+			card(c, 1);
+		}
 	}
 
 	/**
@@ -189,17 +192,17 @@ public class Painter {
 	 * @param card
 	 * @param nbTab
 	 */
-	private void paintCard(GraphicCard card, int nbTab) {
+	private void card(GraphicCard card, int nbTab) {
 		System.out.printf("%s**%s :%d %s\n", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
 
 		System.out.printf("%sBasic Ability\n", tabs(nbTab + 1));
-		paintAbility(card.getBasicAbility(), nbTab + 1);
+		ability(card.getBasicAbility(), nbTab + 1);
 
 		System.out.printf("%sAlly Ability\n", tabs(nbTab + 1));
-		paintAbility(card.getAllyAbility(), nbTab + 1);
+		ability(card.getAllyAbility(), nbTab + 1);
 
 		System.out.printf("%sScrap Ability\n", tabs(nbTab + 1));
-		paintAbility(card.getScrapAbility(), nbTab + 1);
+		ability(card.getScrapAbility(), nbTab + 1);
 	}
 
 	/**
@@ -208,7 +211,7 @@ public class Painter {
 	 * @param ability
 	 * @param nbTab
 	 */
-	private void paintAbility(GraphicAbility ability, int nbTab) {
+	private void ability(GraphicAbility ability, int nbTab) {
 		List<GraphicEffect> list = ability.getEffects();
 		if (list.size() == 0) {
 			System.out.printf("%sNone\n", tabs(nbTab+1));
@@ -216,7 +219,7 @@ public class Painter {
 		}
 		String type = ability.getAbilityType();
 		for (GraphicEffect e : list) {
-			paintEffect(e, nbTab + 1);
+			effect(e, nbTab + 1);
 		}
 	}
 
@@ -226,7 +229,7 @@ public class Painter {
 	 * @param e
 	 * @param nbTab
 	 */
-	private void paintEffect(GraphicEffect e, int nbTab) {
+	private void effect(GraphicEffect e, int nbTab) {
 		System.out.printf("%s%s %s, ", tabs(nbTab), "Target", e.getTarget());
 		System.out.printf("%s %s, ", "Type", e.getType());
 		System.out.printf("%s %d\n", "Value", e.getValue());
@@ -241,7 +244,7 @@ public class Painter {
 		System.out.println(message);
 	}
 
-	private void paintTitle(String title) {
+	private void title(String title) {
 		int length = title.length();
 		System.out.println(strMulti("#", length + 4));
 		System.out.printf("# %s #\n", title);
