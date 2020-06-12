@@ -128,6 +128,7 @@ public abstract class AbstractPlayer implements Player {
 		for (Card card : field) {
 			card.affect("basic", this, opponent, store);
 		}
+		field.clearAcvitiedCard();
 	}
 
 	public void attack(Player other) {
@@ -147,8 +148,12 @@ public abstract class AbstractPlayer implements Player {
 	public void active(Card card, String type, Player opponent, Store store) {
 
 		if (type.equals("ally")) {
-			if (field.hasAlly(card))
+			if (field.hasAlly(card) && field.notAcvitied(card)) {
 				card.affect(type, this, opponent, store);
+				field.addAcvitiedCard(card);
+			}
+				
+			
 		}
 		if (type.equals("scrap")) {
 			card.affect(type, this, opponent, store);

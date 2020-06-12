@@ -3,7 +3,9 @@ package model;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import model.card.Card;
 import model.comp.GraphicPackage;
@@ -18,6 +20,8 @@ public class DataKnight {
 	private final Player player2;
 	private final Store store;
 	ResourceReader reader = new ResourceReader();
+	
+	
 
 	private boolean attacked = false;
 
