@@ -24,7 +24,9 @@ public class AndAbility implements Ability {
 	}
 	
 	public void affect(Player owner, Player opponent, Store store) {
-		
+		for (Effect a : abis) {
+			a.affect(owner, opponent, store);
+		}
 	}
 
 	@Override

@@ -24,7 +24,11 @@ public class Hand {
 		cardList.clear();
 	}
 
-
+	/**
+	 * 
+	 * @param index begin with 0
+	 * @return
+	 */
 	public GameCard remove(int index) {
 		return cardList.remove(index);
 	}

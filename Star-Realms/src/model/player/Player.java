@@ -31,7 +31,12 @@ public interface Player extends Target, GraphicPlayer {
 
 	public void beginTurn();
 
-
+	
+	/**
+	 * 
+	 * @param index This index begin with 1.
+	 * @return
+	 */
 	public GameCard put(int index);
 
 

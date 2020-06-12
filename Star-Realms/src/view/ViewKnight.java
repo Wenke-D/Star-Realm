@@ -83,7 +83,7 @@ public class ViewKnight {
 	}
 
 	public void free() {
-		// TODO Auto-generated method stub
+		scanner.close();
 		
 	}
 

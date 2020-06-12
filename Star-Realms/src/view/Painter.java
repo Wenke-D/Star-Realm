@@ -153,7 +153,9 @@ public class Painter {
 	 */
 	private void paintHand(List<GraphicCard> list) {
 		System.out.println("Hand:");
-		for (GraphicCard c : list) {
+		for (int i = 0; i < list.size(); i++) {
+			GraphicCard c = list.get(i);
+			System.out.printf("[%d]", i+1);
 			paintCard(c, 1);
 		}
 	}
@@ -183,7 +185,7 @@ public class Painter {
 	 * @param nbTab
 	 */
 	private void paintCard(GraphicCard card, int nbTab) {
-		System.out.printf("%s**%s %d %s\n", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
+		System.out.printf("%s**%s :%d %s\n", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
 
 		System.out.printf("%sBasic Ability\n", tabs(nbTab + 1));
 		paintAbility(card.getBasicAbility(), nbTab + 1);
@@ -250,7 +252,7 @@ public class Painter {
 	 * 
 	 * @param string a string
 	 * @param nomber a number
-	 * @return
+	 * @return string*number
 	 */
 	private String strMulti(String string, int number) {
 		StringBuilder sb = new StringBuilder();

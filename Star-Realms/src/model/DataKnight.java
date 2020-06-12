@@ -40,13 +40,13 @@ public class DataKnight {
 
 		roundsNumber = 1;
 		store = new Store(storeDeck, explorer);
-		player1 = new RealPlayer(51, 51, 50, deck1);
+		player1 = new RealPlayer(0, 0, 50, deck1);
 
 		if (mode == 1)
 			player2 = new AiPlayer(0, 0, 50, deck2);
 		else
 			player2 = new RealPlayer(0, 0, 50, deck2);
-
+		
 		player1.drawCard(3);
 	}
 

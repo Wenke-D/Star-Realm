@@ -156,6 +156,7 @@ public abstract class AbstractPlayer implements Player {
 	
 	@Override
 	public GameCard put(int index) {
+		index --;
 		GameCard card = hand.remove(index);
 		field.add(card);
 		return card;
