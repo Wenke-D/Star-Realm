@@ -1,6 +1,8 @@
 package model.card;
 
 
+import java.util.List;
+
 import model.card.ability.Ability;
 import model.card.ability.effect.Effect;
 import view.GraphicAbility;
@@ -37,6 +39,8 @@ public class Base extends AbstractCard{
 	public int getDefense() {
 		return defense;
 	}
+
+
 	
 
 

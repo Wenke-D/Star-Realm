@@ -1,5 +1,7 @@
 package main;
 
+import java.util.List;
+
 import model.DataKnight;
 import view.ViewKnight;
 
@@ -85,6 +87,13 @@ public class ControlKnight {
 				view.displayHelpMessage();
 				continue;
 			}
+			
+			List<String> extraInfoType = data.needExtraInput(order);
+			if(extraInfoType != null) {
+				String extraInfo = view.readInputWithMessages(extraInfoType);
+				order = order + " " + extraInfo;
+			}
+			
 			data.execute(order);
 
 			// update view

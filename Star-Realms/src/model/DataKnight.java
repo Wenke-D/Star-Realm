@@ -2,9 +2,13 @@ package model;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import model.card.Card;
@@ -20,8 +24,6 @@ public class DataKnight {
 	private final Player player2;
 	private final Store store;
 	ResourceReader reader = new ResourceReader();
-	
-	
 
 	private boolean attacked = false;
 
@@ -106,7 +108,12 @@ public class DataKnight {
 		case "play": {
 			int index = Integer.valueOf(cmds[1]);
 			Card card = curPlayer.put(index);
-			curPlayer.active(card, "basic", opponent, store);
+
+			ArrayList<String> extraInfos = new ArrayList<String>();
+			for (int i = 2; i < cmds.length; i++) {
+				extraInfos.add(cmds[i]);
+			}
+			curPlayer.active(card, "basic", opponent, store, extraInfos);
 			break;
 		}
 
@@ -125,14 +132,20 @@ public class DataKnight {
 		case "active": {
 			int cardIndex = Integer.valueOf(cmds[1]);
 			String type = cmds[2];
-			curPlayer.active(cardIndex, type, opponent, store);
+
+			ArrayList<String> extraInfos = new ArrayList<String>();
+			for (int i = 3; i < cmds.length; i++) {
+				extraInfos.add(cmds[i]);
+			}
+
+			curPlayer.active(cardIndex, type, opponent, store, extraInfos);
 			break;
 		}
-		
-		case "attackBase":{
+
+		case "attackBase": {
 			int cardIndex = Integer.valueOf(cmds[1]);
 			int combatPoint = curPlayer.getCombat();
-			if(opponent.baseIsDestory(cardIndex, combatPoint)) {
+			if (opponent.baseIsDestory(cardIndex, combatPoint)) {
 				opponent.destoryCard(cardIndex);
 			}
 		}
@@ -174,6 +187,24 @@ public class DataKnight {
 
 	public void free() {
 		;
+	}
+
+	public List<String> needExtraInput(String order) {
+
+		Map<String, String> needExtraInputCmds = new HashMap<String, String>();
+		needExtraInputCmds.put("play", "hand");
+		needExtraInputCmds.put("active", "field");
+
+		String[] paras = order.split(" ");
+		String command = paras[0];
+		int cardIndex = Integer.valueOf(paras[1]);
+
+		if (needExtraInputCmds.containsKey(command)) {
+			String abilityType = command.equals("play") ? "basic" : paras[2];
+			return currentGamePlayer().needExtraInput(needExtraInputCmds.get(command), cardIndex, abilityType);
+		} else {
+			return null;
+		}
 	}
 
 }

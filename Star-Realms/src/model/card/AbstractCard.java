@@ -1,5 +1,7 @@
 package model.card;
 
+import java.util.List;
+
 import model.Store;
 import model.card.ability.Ability;
 import model.comp.Target;
@@ -53,21 +55,26 @@ abstract class AbstractCard implements Card {
 	}
 		
 	@Override
-	public void affect(String type, Target owner, Target opponent, Target store) {
+	public void affect(String type, Target owner, Target opponent, Target store, List<String> extraInfos) {
 		switch(type) {
 		case "basic":{
-			basicAbis.affect(owner, opponent, store);
+			basicAbis.affect(owner, opponent, store, extraInfos);
 			break;
 		}
 		case "ally":{
-			allyAbis.affect(owner, opponent, store);
+			allyAbis.affect(owner, opponent, store, extraInfos);
 			break;
 		}
 		case "scrap":{
-			scrapAbis.affect(owner, opponent, store);
+			scrapAbis.affect(owner, opponent, store, extraInfos);
 			break;
 		}
 		}
+	}
+	
+	@Override
+	public List<String> needExraInfos() {
+		return null;
 	}
 
 

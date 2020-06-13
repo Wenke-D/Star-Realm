@@ -1,5 +1,7 @@
 package model.player;
 
+import java.util.List;
+
 import model.Store;
 import model.card.Card;
 import model.comp.Target;
@@ -22,8 +24,8 @@ public interface Player extends Target, GraphicPlayer {
 
 	public boolean isDead();
 	
-	public void active(int cardIndex, String type, Player opponent, Store store);
-	public void active(Card card, String type, Player opponent, Store store);
+	public void active(int cardIndex, String type, Player opponent, Store store, List<String> extraInfos);
+	public void active(Card card, String type, Player opponent, Store store, List<String> extraInfos);
 		
 	public void attack(Player otherPlayer);
 	
@@ -63,6 +65,8 @@ public interface Player extends Target, GraphicPlayer {
 	 * @param cardIndex card's index
 	 */
 	public void destoryCard(int cardIndex);
+	
+	public List<String> needExtraInput(String place, int cardIndex, String abilityType);
 	
 	
 

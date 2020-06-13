@@ -1,5 +1,7 @@
 package model.card;
 
+import java.util.List;
+
 import model.Store;
 import model.comp.Target;
 import model.player.Player;
@@ -28,6 +30,8 @@ public interface Card extends GraphicCard {
 	 * @param opponent owner's opponent
 	 * @param store store in the game
 	 */
-	public void affect(String type, Target owner, Target opponent, Target store);
+	public void affect(String type, Target owner, Target opponent, Target store, List<String> extraInfos);
+	
+	public List<String> needExraInfos();
 	
 }

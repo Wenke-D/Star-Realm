@@ -1,5 +1,6 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import model.comp.GraphicPackage;
@@ -90,6 +91,15 @@ public class ViewKnight {
 	public void displayHelpMessage() {
 		painter.help();
 		
+	}
+
+	public String readInputWithMessages(List<String> extraInfoType) {
+		String input = null;
+		for(String message:extraInfoType)
+			painter.normalMessage(message);
+		if(scanner.hasNextLine())
+			input = scanner.nextLine();
+		return input;
 	}
 
 }

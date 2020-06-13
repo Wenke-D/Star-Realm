@@ -39,4 +39,10 @@ abstract class AbstractSimpleEffect implements Effect {
 		return value;
 	}
 
+	@Override
+	public String needExraInfo() {
+		return null;
+	}
+
+	public abstract void affect(Target target);
 }

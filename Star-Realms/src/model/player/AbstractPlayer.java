@@ -126,7 +126,7 @@ public abstract class AbstractPlayer implements Player {
 	@Override
 	public void beginTurn(Target opponent, Target store) {
 		for (Card card : field) {
-			card.affect("basic", this, opponent, store);
+			card.affect("basic", this, opponent, store, null);
 		}
 		field.clearAcvitiedCard();
 	}
@@ -138,25 +138,25 @@ public abstract class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public void active(int cardIndex, String type, Player opponent, Store store) {
+	public void active(int cardIndex, String type, Player opponent, Store store, List<String> extraInfos) {
 		Card card = field.get(cardIndex);
-		active(card, type, opponent, store);
+		active(card, type, opponent, store, extraInfos);
 
 	}
 
 	@Override
-	public void active(Card card, String type, Player opponent, Store store) {
+	public void active(Card card, String type, Player opponent, Store store, List<String> extraInfos) {
 
 		if (type.equals("ally")) {
 			if (field.hasAlly(card) && field.notAcvitied(card)) {
-				card.affect(type, this, opponent, store);
+				card.affect(type, this, opponent, store, extraInfos);
 				field.addAcvitiedCard(card);
 			}
 				
 			
 		}
 		if (type.equals("scrap")) {
-			card.affect(type, this, opponent, store);
+			card.affect(type, this, opponent, store, extraInfos);
 			field.remove(card);
 		}
 

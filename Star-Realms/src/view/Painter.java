@@ -244,7 +244,7 @@ public class Painter {
 	 * 
 	 * @param message
 	 */
-	private void normalMessage(String message) {
+	public void normalMessage(String message) {
 		System.out.println(message);
 	}
 
