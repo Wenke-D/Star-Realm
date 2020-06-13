@@ -1,13 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import model.card.GameCard;
-import model.comp.Buyer;
-import model.comp.Graphic;
-import model.comp.cardSquence.Deck;
+import model.card.Card;
+import model.comp.Target;
+import view.GraphicCard;
+import view.GraphicStore;
 
 /**
  * <p>
@@ -26,11 +27,14 @@ import model.comp.cardSquence.Deck;
  * @author Vincent
  *
  */
-public class Store implements Graphic {
+public class Store implements GraphicStore, Target {
 
-	private final Deck cards;
-	private final List<GameCard> availables;
-	private final GameCard explorer;
+	/**
+	 * The last 5 cards of this array is the 5 cards of six cards that player can
+	 * see.
+	 */
+	private final ArrayList<Card> cards;
+	private final Card explorer;
 
 	/**
 	 * <p>
@@ -38,120 +42,65 @@ public class Store implements Graphic {
 	 * and a card Explorer.
 	 * </p>
 	 * 
-	 * <p>
-	 * Once the store has been created, we can request 6 cards from this store.
-	 * </p>
-	 * 
 	 * @param storeCards A qualified card deck, which means
 	 * @param explorer   A ship object who's name is Explorer
 	 */
-	public Store(List<GameCard> storeCards, GameCard explorer) {
-		cards = new Deck(Objects.requireNonNull(storeCards));
+	public Store(List<Card> storeCards, Card explorer) {
+		cards = new ArrayList<Card>(storeCards);
 		this.explorer = Objects.requireNonNull(explorer);
-		availables = new ArrayList<GameCard>(5);
-
-		/*
-		 * Take out 5 cards from deck "cardsToSell" and then add them to deck
-		 * "available". this is the first 5 cards which are ready to sell
-		 */
-		for (int i = 0; i < 5; i++) {
-			availables.add(cards.pop());
-		}
-
 	}
 
 	/**
-	 * This method allows us to visualize all the visible cards
+	 * Get the card specific by number.
+	 * 
+	 * @param i the number of card in the view of player. begin with 1.
+	 * @return the card.
 	 */
+	public Card get(int i) {
+		int last = cards.size();
+		return cards.get(last - i);
+	}
+
+	/**
+	 * Remove the card specific by number.
+	 * 
+	 * @param i the number of card in the view of player. begin with 1.
+	 * @return the card removed.
+	 */
+	public Card remove(int i) {
+		int last = cards.size();
+		return cards.remove(last - i);
+	}
+
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		int i = 1;
-		for (GameCard c : peek()) {
-			sb.append("_____________________________\n");
-			sb.append("[" + i + "]" + c.toString() + '\n');
-			i++;
+	public List<GraphicCard> cards() {
+		ArrayList<Card> cards = new ArrayList<Card>();
+		for (int i = 1; i <= 5; i++) {
+			cards.add(get(i));
 		}
-		return sb.toString();
-	}
-
-	/**
-	 * <p>
-	 * This method return six available cards, the last one will always be the
-	 * Explorer.
-	 * </p>
-	 * 
-	 * <p>
-	 * This method selects last five card in "cardsToSell" as cards available.
-	 * </p>
-	 * 
-	 * 
-	 * @return {@code ArrayList} contains 6 GameCard
-	 */
-	public ArrayList<GameCard> peek() {
-		ArrayList<GameCard> cardsVisible = new ArrayList<GameCard>(availables);
-		cardsVisible.add(explorer);
-		return cardsVisible;
-	}
-
-	/**
-	 * <p>
-	 * Sell the card based on player's choice which is the order of cards
-	 * </p>
-	 * 
-	 * <p>
-	 * One thing to pay attention, the Explorer giving back is the reference of this
-	 * object, which means if a Explorer is changed from inside, all the others will
-	 * be altered too, so if in the future The GameCard can change his attribute,
-	 * remember to modified here.
-	 * </p>
-	 * 
-	 * @param index start from 0.
-	 */
-	public void sell(int index, Buyer buyer) {
-		if (index > availables.size())
-			return;
-		GameCard cardSold;
-		
-		/*
-		 * if buy a expolrer 
-		 */
-		if (index == availables.size()) {
-			cardSold = explorer;
-			int price = cardSold.getCost();
-			if (buyer.afford(price)) {
-				buyer.pay(price);
-				buyer.get(cardSold);
-			}
-		/*
-		 * other cards
-		 */
-		} else {
-			cardSold = availables.get(index);
-			int price = cardSold.getCost();
-
-			if (buyer.afford(price)) {
-				buyer.pay(price);
-				buyer.get(cardSold);
-				/*
-				 * Update available cards.
-				 */
-				try {
-				availables.set(index, cards.pop());
-				}catch (IndexOutOfBoundsException e) {
-					availables.remove(index);
-				}
-
-			}
-		}
-
+		cards.add(explorer);
+		return Collections.unmodifiableList(cards);
 
 	}
 
 	@Override
-	public void paint() {
-		System.out.println(this);
+	public void changeAuthority(int number) {
+		throw new UnsupportedOperationException();
+	}
 
+	@Override
+	public void changeCombat(int number) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void changeTrade(int number) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void drawCard(int number) {
+		throw new UnsupportedOperationException();
 	}
 
 }

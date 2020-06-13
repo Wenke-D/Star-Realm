@@ -2,19 +2,21 @@ package model.card.ability.effect;
 
 import model.comp.Target;
 
-public class TradeBuff extends AbstractEffect {
+public class TradeBuff extends AbstractSimpleEffect {
 
-
-
-	TradeBuff(Aim target, int value, String text) {
-		super(target, value, text);
-		// TODO Auto-generated constructor stub
+	TradeBuff(String target, int value) {
+		super(target, value);
 	}
 
 	@Override
 	public void affect(Target target) {
 		target.changeTrade(getValue());
 
+	}
+
+	@Override
+	public String getType() {
+		return "Trade";
 	}
 
 }

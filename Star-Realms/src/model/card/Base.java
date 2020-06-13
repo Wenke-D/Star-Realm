@@ -1,10 +1,12 @@
 package model.card;
 
 
+import java.util.List;
+
 import model.card.ability.Ability;
 import model.card.ability.effect.Effect;
+import view.GraphicAbility;
 
-@SuppressWarnings("unused")
 public class Base extends AbstractCard{
 	private final int defense;
 	private final boolean outPost;
@@ -21,24 +23,29 @@ public class Base extends AbstractCard{
 		return outPost;
 	}
 	
-	public boolean destroyed(int damagePoint) {
+	public boolean idDestroyed(int damagePoint) {
 		if(damagePoint >= defense) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean isBase() {
 		return true;
 	}
-	
+
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder(super.toString());
-		sb.append("|||Def:").append(defense).append(",outPost:").append(outPost);
-		return sb.toString();
+	public int getDefense() {
+		return defense;
 	}
+
+
+	
+
+
+
+
 
 
 

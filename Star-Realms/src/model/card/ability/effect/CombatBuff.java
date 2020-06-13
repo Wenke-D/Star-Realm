@@ -2,18 +2,21 @@ package model.card.ability.effect;
 
 import model.comp.Target;
 
-public class CombatBuff extends AbstractEffect {
+public class CombatBuff extends AbstractSimpleEffect {
 
-
-
-	CombatBuff(Aim target, int value, String text) {
-		super(target, value, text);
-		// TODO Auto-generated constructor stub
+	CombatBuff(String target, int value) {
+		super(target, value);
 	}
 
 	@Override
 	public void affect(Target target) {
 		target.changeCombat(getValue());
+	}
+
+	@Override
+	public String getType() {
+		
+		return "Combat";
 	}
 
 }

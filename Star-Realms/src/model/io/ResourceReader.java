@@ -10,9 +10,10 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import model.card.Base;
-import model.card.GameCard;
+import model.card.Card;
 import model.card.Ship;
 import model.card.ability.Ability;
+import model.card.ability.AndAbility;
 import model.card.ability.effect.Effect;
 import model.card.ability.effect.EffectFactory;
 
@@ -36,11 +37,13 @@ import model.card.ability.effect.EffectFactory;
  *
  */
 public class ResourceReader {
+	private final String attrQuantity = "qty";
+	
 
 	/**
 	 * <p>
 	 * Acquire attribute value from the attribute specific with file name and node
-	 * XPath.
+	 * XPath in a XML file.
 	 * </p>
 	 * 
 	 * @param file
@@ -71,7 +74,7 @@ public class ResourceReader {
 	 * @param file
 	 * @return
 	 */
-	public List<GameCard> makeCardListFromFile(File file) {
+	public List<Card> makeCardListFromFile(File file) {
 		SAXReader in = new SAXReader();
 		try {
 			Document doc = in.read(file);
@@ -94,7 +97,7 @@ public class ResourceReader {
 	 * @param file
 	 * @return
 	 */
-	public GameCard makeGameCardFromFile(File file) {
+	public Card makeGameCardFromFile(File file) {
 		SAXReader in = new SAXReader();
 		try {
 			Document doc = in.read(file);
@@ -112,10 +115,10 @@ public class ResourceReader {
 	 * @param e
 	 * @return
 	 */
-	private List<GameCard> makeCardListFromElement(Element e) {
-		ArrayList<GameCard> deck = new ArrayList<GameCard>();
+	private List<Card> makeCardListFromElement(Element e) {
+		ArrayList<Card> deck = new ArrayList<Card>();
 		for (Element card : e.elements()) {
-			int qty = Integer.parseInt(card.attributeValue("qty"));
+			int qty = Integer.parseInt(card.attributeValue(attrQuantity));
 			for (int i = 0; i < qty; i++) {
 				deck.add(makeCardFromElement(card));
 			}
@@ -130,15 +133,15 @@ public class ResourceReader {
 	 * @param e
 	 * @return
 	 */
-	private GameCard makeCardFromElement(Element e) {
+	private Card makeCardFromElement(Element e) {
 		String name = e.attributeValue("name");
 		String faction = e.attributeValue("fraction");
 		int cost = Integer.valueOf(e.attributeValue("cost"));
 
-		List<Element> abilityLists = e.elements("abilityList");
-		Ability basic = makeAbilityFromElement(abilityLists.get(0));
-		Ability ally = makeAbilityFromElement(abilityLists.get(1));
-		Ability scrap = makeAbilityFromElement(abilityLists.get(2));
+		List<Element> ability = e.elements("Ability");
+		Ability basic = makeAbilityFromElement(ability.get(0));
+		Ability ally = makeAbilityFromElement(ability.get(1));
+		Ability scrap = makeAbilityFromElement(ability.get(2));
 
 		if (e.attributeValue("type").equals("ship")) {
 			return new Ship(name, faction, cost, basic, ally, scrap);
@@ -152,7 +155,7 @@ public class ResourceReader {
 	}
 
 	/**
-	 * Create a {@code ArrayList<Ability>} based on a XML tag "AbilityList".
+	 * Create a {@code ArrayList<Ability>} based on a XML tag "Ability".
 	 * if there is no item under this element, it will return a List empty.
 	 * @param e
 	 * @return
@@ -160,23 +163,10 @@ public class ResourceReader {
 	private Ability makeAbilityFromElement(Element e) {
 		ArrayList<Effect> array = new ArrayList<Effect>();
 		for (Element item : e.elements()) {
-			array.add(makeAbilityItemFromElement(item));
+			Effect effect = EffectFactory.makeEffect(item);
+			array.add(effect);
 		}
-		return new Ability(array);
+		return new AndAbility(array);
 	}
 
-	/**
-	 * Create a object of AbilityItem from a XML element who's tag is "item under tag
-	 * "arrayList"
-	 * 
-	 * @param e A XML element
-	 * @return A Ability object
-	 */
-	private Effect makeAbilityItemFromElement(Element e) {
-		String value = e.attributeValue("value");
-		String type = e.attributeValue("type");
-		String target = e.attributeValue("target");
-		
-		return EffectFactory.makeEffect(value, type, target);
-	}
 }

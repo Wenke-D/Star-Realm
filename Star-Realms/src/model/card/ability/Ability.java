@@ -1,38 +1,16 @@
 package model.card.ability;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import model.card.ability.effect.Effect;
 import model.comp.Target;
+import view.GraphicAbility;
 
-public class Ability {
-	private final List<Effect> abis;
-
-	public Ability(List<Effect> l) {
-		abis = new ArrayList<Effect>(l);
-	}
-
-	public void affect(Target target) {
-		for (Effect a : abis) {
-			a.affect(target);
-		}
-	}
-
-	@Override
-	public String toString() {
-		if (abis.size() == 0) {
-			return "|  None   |";
-		}
-		StringBuilder sb = new StringBuilder("|");
-		if (abis.size() > 0) {
-			sb.append(abis.get(0).toString());
-			for (int i = 1; i < abis.size() - 1; i++) {
-				sb.append(" & ").append(abis.get(i).toString());
-			}
-		}
-		sb.append("|");
-		return sb.toString();
-
-	}
+public interface Ability extends GraphicAbility  {
+	public void affect(Target owner, Target opponent, Target store, List<String> extraInfos);
+	
+	/**
+	 * Return if this ability need other input to perform his ability
+	 * @return a list of info type, null if this ability need nothing
+	 */
+	public List<String> needExtraInfo();
 }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
+<!-- sets to charge -->
 <config>
 	<paths>
 		<CoreSet path="res/cards/CoreSet.xml"></CoreSet>
-		<StartSet path="res/cards/StartSet.xml"></StartSet>
+		<StartSet path="res/cards/TestSet.xml"></StartSet>
 		<Explorer path="res/cards/Explorer.xml"></Explorer>
 	</paths>
 </config>

@@ -2,26 +2,36 @@ package model.player;
 
 import java.util.List;
 
-import model.Log;
-import model.Store;
-import model.card.GameCard;
+import model.card.Card;
 
+/**
+ * A AiPlayer play the game without receiving input.
+ * @author Matth
+ *
+ */
 public class AiPlayer extends AbstractPlayer {
 
-	public AiPlayer(int tradePoint, int combatPoint, int authorityPoint, List<GameCard> list) {
+	public AiPlayer(int tradePoint, int combatPoint, int authorityPoint, List<Card> list) {
 		super(tradePoint, combatPoint, authorityPoint, list);
 	}
 
 	@Override
-	public int playGame(Store store, Player opponent, Log log) {
-		System.out.println("Hello");
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		endTurn();
-		return 1;
+	public List<String> needExtraInput(String place, int cardIndex, String abilityType) {
+		throw new UnsupportedOperationException("Ai player shouldn't be test if need extra info");
 	}
+
+	@Override
+	public String randomAction() {
+		return "end";
+	}
+
+
+
+
+
+
+	
+
+
 
 }

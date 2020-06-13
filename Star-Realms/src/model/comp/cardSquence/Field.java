@@ -1,36 +1,31 @@
 package model.comp.cardSquence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-import model.card.Base;
-import model.card.GameCard;
+import model.card.Card;
 import model.card.Ship;
-import model.comp.Graphic;
-import model.comp.Target;
+import view.GraphicCard;
 
-public class Field extends CardContainer implements Graphic {
-	private final HashSet<GameCard> allyAbilityUsed;
+public class Field implements Iterable<Card> {
+	private final List<Card> cardList;
+	private Set<Card> acvitiedAllyCard = new HashSet<Card>();
 
 	public Field() {
-		allyAbilityUsed = new HashSet<GameCard>();
+		cardList = new ArrayList<Card>();
 	}
-	
-	/**
-	 * reset card ally ability state.
-	 */
-	public void resetState() {
-		allyAbilityUsed.clear();
-	}
-	
-	public List<GameCard> clearShips() {
 
-		List<GameCard> ships = new ArrayList<GameCard>();
+	public List<Ship> clearShips() {
+		List<Ship> ships = new ArrayList<Ship>();
 
-		for (int i = 0; i < size();) {
-			if (get(i) instanceof Ship) {
-				ships.add(remove(i));
+		for (int i = 0; i < cardList.size();) {
+			if (cardList.get(i) instanceof Ship) {
+				Ship ship = (Ship) cardList.remove(i);
+				ships.add(ship);
 			} else {
 				i++;
 			}
@@ -38,89 +33,70 @@ public class Field extends CardContainer implements Graphic {
 		return ships;
 	}
 
-	public boolean hasOutpostBase() {
+	@Override
+	public Iterator<Card> iterator() {
+		return cardList.iterator();
+	}
 
-		for (int i = 0; i < size(); i++) {
-			if (get(i).isOutpost())
-				return true;
-		}
-		return false;
+	public void add(Card card) {
+		cardList.add(card);
+
 	}
 
 	/**
-	 * Test if card indicated can be destroyed under a damage.
 	 * 
-	 * @param index       card index.
-	 * @param damagePoint damage number
-	 * @return {@code true} if this damage is high enough, {@code false} if damage
-	 *         is too low, or the target card is a ship.
+	 * @param cardIndex index begin with 1;
+	 * @return
 	 */
-	public boolean isDestoryed(int index, int damagePoint) {
-		if (!get(index).isBase()) {
-			return false;
-		}
-
-		Base base = (Base) get(index);
-
-		return base.destroyed(damagePoint);
+	public Card get(int cardIndex) {
+		cardIndex--;
+		return cardList.get(cardIndex);
 	}
-	
+
+	public List<Card> getAll() {
+		return Collections.unmodifiableList(cardList);
+	}
+
 	/**
-	 * This function is used to active a specific ability of a card in the field.
-	 * @param cardIndex
-	 * @param type
-	 * @param target
+	 * Remove a card from field
+	 * 
+	 * @param index index begin with 1;
+	 * @return
 	 */
-	public void active(int cardIndex, String type, Target target) {
-		GameCard card = get(cardIndex);
-		switch (type) {
-		case "ally":
-			if (hasAlly(card) & !allyAbilityUsed.contains(card)) {
-				card.activeAbility(target, type);
-				allyAbilityUsed.add(card);
-			}
-			return;
-		case "scrap":
-			card.activeAbility(target, type);
-			remove(cardIndex);
-			return;
-		}
+	public Card remove(int index) {
+		index--;
+		return cardList.remove(index);
 	}
-	
+
 	/**
-	 * This function will active all the bases's basic ability who are lifted from last turn
+	 * 
+	 * @param card
+	 * @return
 	 */
-	public void active(Target target) {
-		for(int i = 0; i < size(); i ++) {
-			get(i).activeAbility(target, "basic");
-		}
+	public boolean remove(Card card) {
+		acvitiedAllyCard.remove(card);
+		return cardList.remove(card);
 	}
 
-	private boolean hasAlly(GameCard card) {
-		for (int i = 0; i < size(); i++) {
-			if (get(i).isAlly(card))
-				return true;
+	public boolean hasAlly(Card other) {
+		int i = 0;
+		for (Card c : cardList) {
+			if (c.isAlly(other))
+				i++;
 		}
-		return false;
-	}
-	
-	@Override
-	public GameCard remove(int index) {
-		allyAbilityUsed.remove(get(index));
-		return super.remove(index);
+		return i > 1;
 	}
 
-	@Override
-	public void paint() {
-		if (size() != 0) {
-			System.out.println("Field:");
-			super.paint();
-		}
+	public boolean notAcvitied(Card card) {
+		return !(acvitiedAllyCard.contains(card));
+	}
 
-		else {
-			System.out.println("Field: None");
-		}
+	public void addAcvitiedCard(Card card) {
+		acvitiedAllyCard.add(card);
+	}
 
+	public void clearAcvitiedCard() {
+		acvitiedAllyCard.clear();
 	}
 
 }

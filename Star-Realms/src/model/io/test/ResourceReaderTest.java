@@ -14,7 +14,7 @@ import org.dom4j.io.SAXReader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import model.card.GameCard;
+import model.card.Card;
 import model.card.Ship;
 import model.io.ResourceReader;
 
@@ -24,7 +24,7 @@ class ResourceReaderTest {
 	@Test
 	void makeCardListFromFileTest() {
 		Path core = Path.of("res", "cards", "CoreSet.xml");
-		List<GameCard> list = reader.makeCardListFromFile(core.toFile());
+		List<Card> list = reader.makeCardListFromFile(core.toFile());
 		System.out.println(list.size());
 		System.out.println(list);
 	}
@@ -56,7 +56,7 @@ class ResourceReaderTest {
 
 		String ExplorerPath = reader.getAttributeValue(configPath.toFile(), ExplorerXPath, "path");
 
-		GameCard explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
+		Card explorer = reader.makeGameCardFromFile(new File(ExplorerPath));
 		assertNotNull(explorer);
 	}
 }

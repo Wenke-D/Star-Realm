@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xml>
 <cards>
-	<card type="ship" qty="8" name="Scout" fraction="" cost="0">
+	<card type="base" qty="20" name="Blob Wheel" fraction="Blob"
+		cost="3" defense="5" outpost="no">
+		<Ability type="basic">
+			<Effect type="C" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="basic">
-			<item type="T" value="1"></item>
-		</abilityList>
+		<Ability type="ally">
 
-		<abilityList type="ally">
-		</abilityList>
+		</Ability>
 
-		<abilityList type="scrap">
-		</abilityList>
+		<Ability type="scrap">
+			<Effect type="T" value="3"></Effect>
+		</Ability>
+	</card>
+	
+	<card type="ship" qty="1" name="Scout" fraction="" cost="0">
+
+		<Ability type="basic">
+			<Effect type="T" value="1"></Effect>
+		</Ability>
+
+		<Ability type="ally">
+		</Ability>
+
+		<Ability type="scrap">
+		</Ability>
 	</card>
 
-	<card type="ship" qty="2" name="Viper" fraction="" cost="0">
+	<card type="ship" qty="1" name="Viper" fraction="" cost="0">
 
-		<abilityList type="basic">
-			<item type="C" value="1"></item>
-		</abilityList>
+		<Ability type="basic">
+			<Effect type="C" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
-		</abilityList>
+		<Ability type="ally">
+		</Ability>
 
-		<abilityList type="scrap">
-		</abilityList>
+		<Ability type="scrap">
+		</Ability>
 	</card>
 
 </cards>

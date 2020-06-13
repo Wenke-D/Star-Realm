@@ -1,27 +1,31 @@
 package model.card.ability.effect;
 
+import org.dom4j.Element;
+
 public class EffectFactory {
-	public static Effect makeEffect(int value, String type, String target) {
-				
-		if(target == null)
+	public static Effect makeEffect(Element e) {
+		int value = Integer.valueOf(e.attributeValue("value"));
+		String type = e.attributeValue("type");
+
+		String target = e.attributeValue("target");
+		if (target == null)
 			target = "self";
-		Aim aim = Aim.valueOf(target);
+
 		switch (type) {
 		case "A":
-			return new AuthorityBuff(aim, value, "Healty");
-		case "T":
-			return new TradeBuff(aim, value, "Trade");
+			return new AuthorityBuff(target, value);
 		case "C":
-			return new CombatBuff(aim, value, "Combat");
+			return new CombatBuff(target, value);
+
 		case "D":
-			return new DrawBuff(aim, value, "Draw");
+			return new DrawBuff(target, value);
+
+		case "T":
+			return new TradeBuff(target, value);
+
 		default:
-			return null;
+			throw new RuntimeException("Invalied scrouce file");
 		}
+
 	}
-	
-	public static Effect makeEffect(String value, String type, String target) {
-		return makeEffect(Integer.valueOf(value), type, target);
-	}
-	
 }

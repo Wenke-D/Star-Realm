@@ -1,14 +1,14 @@
 package model.card;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import model.Store;
 import model.card.ability.Ability;
-import model.card.ability.effect.Effect;
 import model.comp.Target;
+import model.player.Player;
+import view.GraphicAbility;
 
-abstract class AbstractCard implements GameCard {
+abstract class AbstractCard implements Card {
 	private final String name;
 	private final String faction;
 	private final int cost;
@@ -28,7 +28,7 @@ abstract class AbstractCard implements GameCard {
 
 	@Override
 	public boolean isOutpost() {
-		return false;
+		throw new UnsupportedOperationException("This is not a Base");
 	}
 
 	@Override
@@ -42,12 +42,7 @@ abstract class AbstractCard implements GameCard {
 	}
 
 	@Override
-	public boolean isBase() {
-		return false;
-	}
-
-	@Override
-	public boolean isAlly(GameCard other) {
+	public boolean isAlly(Card other) {
 		if(faction.equals(""))
 			return false;
 		if (other instanceof AbstractCard) {
@@ -58,20 +53,25 @@ abstract class AbstractCard implements GameCard {
 		}
 
 	}
-
+		
 	@Override
-	public void activeAbility(Target target, String type) {
-		switch (type) {
-		case "basic":
-			basicAbis.affect(target);
+	public void affect(String type, Target owner, Target opponent, Target store, List<String> extraInfos) {
+		switch(type) {
+		case "basic":{
+			basicAbis.affect(owner, opponent, store, extraInfos);
 			break;
-		case "ally":
-			allyAbis.affect(target);
+		}
+		case "ally":{
+			allyAbis.affect(owner, opponent, store, extraInfos);
 			break;
-		case "scrap":
-			scrapAbis.affect(target);
+		}
+		case "scrap":{
+			scrapAbis.affect(owner, opponent, store, extraInfos);
+			break;
+		}
 		}
 	}
+	
 
 
 	@Override
@@ -86,5 +86,54 @@ abstract class AbstractCard implements GameCard {
 		builder.append("   ||Scrap::").append(scrapAbis.toString());
 		return builder.toString();
 	}
+	
+	@Override
+	public String getFaction() {
+		
+		return faction;
+	}
+
+	@Override
+	public GraphicAbility getBasicAbility() {
+		return basicAbis;
+	}
+
+	@Override
+	public GraphicAbility getAllyAbility() {
+		return allyAbis;
+	}
+
+	@Override
+	public GraphicAbility getScrapAbility() {
+		return scrapAbis;
+	}
+	
+	@Override
+	public boolean isBase() {
+		return false;
+	}
+
+	@Override
+	public int getDefense() {
+		throw new UnsupportedOperationException("This is not a base");
+	}
+	
+	@Override
+	public List<String> needExraInfos(String type) {
+		switch(type) {
+		case "basic":{
+			return basicAbis.needExtraInfo();
+		}
+		case "ally":{
+			return basicAbis.needExtraInfo();
+		}
+		case "scrap":{
+			return basicAbis.needExtraInfo();
+		}
+		default:
+			throw new RuntimeException("Invalid Type: "+type);
+		}
+	}
+
 
 }

@@ -1,22 +1,25 @@
 package model.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import model.card.GameCard;
-import model.comp.Buyer;
-import model.comp.Graphic;
+
+import model.Store;
+import model.card.Base;
+import model.card.Card;
 import model.comp.Target;
 import model.comp.cardSquence.Deck;
 import model.comp.cardSquence.DiscardPile;
 import model.comp.cardSquence.Field;
 import model.comp.cardSquence.Hand;
+import view.GraphicCard;
 
 /**
  * 
  * @author Matth
  *
  */
-public abstract class AbstractPlayer implements Player, Buyer, Target {
+abstract class AbstractPlayer implements Player {
 
 	/**
 	 * player's trade point. Reset to 0 while {@code endTurn()} is called.
@@ -53,18 +56,7 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	 */
 	private final Field field; // ·ÅÖÃÇø
 
-	/**
-	 * Mark if player has attacked. Reset while {@code endTurn()} is called.
-	 */
-	private boolean attacked;
-
-	/**
-	 * Mark if player's field's base need to be activated. Reset to true while
-	 * {@code endTurn()} is called.
-	 */
-	private boolean needActive;
-
-	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<GameCard> list) {
+	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<Card> list) {
 		this.tradePoint = tradePoint;
 		this.combatPoint = combatPoint;
 		this.authorityPoint = authorityPoint;
@@ -72,8 +64,6 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 		this.discardPile = new DiscardPile();
 		this.hand = new Hand();
 		this.field = new Field();
-		attacked = false;
-		needActive = true;
 	}
 
 	/**
@@ -92,45 +82,20 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	 * 
 	 * @param cardsNumber
 	 */
-	public void draw(int cardsNumber) {
+	@Override
+	public void drawCard(int cardsNumber) {
 		for (int i = 0; i < cardsNumber; i++) {
 
 			/*
 			 * If deck does not have enough cards refill it from discard pile and shuffle it
 			 */
 			if (deck.isEmpty()) {
-				deck.refill(discardPile.clear());
+				deck.refill(discardPile.getAll());
+				discardPile.clear();
 			}
 
 			draw();
 
-		}
-	}
-
-	/**
-	 * <p>
-	 * Play a card from his hand by indicating it's index, meanwhile active it's
-	 * ability.
-	 * <p>
-	 * <p>
-	 * The card played will be removed from hand and add to field
-	 * <p>
-	 * 
-	 * 
-	 * @param card
-	 * @return {@code true} if used, {@code false} if this index out of bound.
-	 */
-	public void use(int cardIndex) {
-		GameCard card;
-		card = hand.use(cardIndex);
-
-		card.activeAbility(this, "basic");
-		field.add(card);
-	}
-
-	public void useAll() {
-		while (hand.size() != 0) {
-			use(0);
 		}
 	}
 
@@ -141,74 +106,111 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	 * put it here.
 	 * </p>
 	 */
+	@Override
 	public void endTurn() {
 
-		// clear hands to discard pile
-		discardPile.addAll(hand.clear());
+		List<Card> cardList = new ArrayList<Card>(hand.getAll());
+		hand.clear();
 
-		// clear ship of field to discard pile
-		discardPile.addAll(field.clearShips());
+		cardList.addAll(field.clearShips());
 
-		field.resetState();
+		discardPile.addAll(cardList);
 
 		combatPoint = 0;
 		tradePoint = 0;
-		attacked = false;
-		needActive = true;
-
 	}
 
 	/**
-	 * <p>
-	 * If this is the begin of turn, this function will active all the base left in
-	 * the field and return true. if not, nothing will be done and return false.
-	 * </p>
-	 * 
-	 * @return return {@code true} if some bases are activated, return {@code flase}
-	 *         if not.
-	 * 
+	 * On suppose que tous les capacit¨¦s de base n'affecte que joueur lui m¨ºme.
 	 */
-	public boolean activeField() {
-		if (needActive) {
-			field.active(this);
-			needActive = false;
-			return true;
+	@Override
+	public void beginTurn(Target opponent, Target store) {
+		for (Card card : field) {
+			card.affect("basic", this, opponent, store, null);
 		}
-		return false;
+		field.clearAcvitiedCard();
 	}
 
 	public void attack(Player other) {
-		if (!attacked) {
-			other.sufferDamage(combatPoint);
-			attacked = true;
+
+		other.changeAuthority(-combatPoint);
+
+	}
+
+	@Override
+	public void active(int cardIndex, String type, Player opponent, Store store, List<String> extraInfos) {
+		Card card = field.get(cardIndex);
+		active(card, type, opponent, store, extraInfos);
+
+	}
+
+	@Override
+	public void active(Card card, String type, Player opponent, Store store, List<String> extraInfos) {
+
+		if (type.equals("ally")) {
+			if (field.hasAlly(card) && field.notAcvitied(card)) {
+				card.affect(type, this, opponent, store, extraInfos);
+				field.addAcvitiedCard(card);
+			}
+		} else if (type.equals("scrap")) {
+			card.affect(type, this, opponent, store, extraInfos);
+			field.remove(card);
+		} else {
+			card.affect(type, this, opponent, store, extraInfos);
 		}
-	}
 
-	public void attack(int baseIndex, Player owner) {
-		owner.baseAttacked(baseIndex, combatPoint);
-		attacked = true;
-	}
-
-	public void active(int cardIndex, String type, Player player) {
-		player.affected(cardIndex, type);
-	}
-
-	/**
-	 * Interface Buyer
-	 */
-	@Override
-	public void pay(int price) {
-		tradePoint -= price;
 	}
 
 	@Override
-	public void get(GameCard c) {
+	public Card put(int index) {
+		index--;
+		Card card = hand.remove(index);
+		field.add(card);
+		return card;
+	}
+
+	@Override
+	public void addToDiscardPile(Card c) {
 		discardPile.add(c);
 	}
 
 	@Override
-	public boolean afford(int price) {
+	public boolean canAfford(int price) {
 		return tradePoint >= price;
+	}
+
+	@Override
+	public void pay(int cost) {
+		changeTrade(-cost);
+	}
+
+	@Override
+	public boolean isDead() {
+		return authorityPoint <= 0;
+	}
+
+	@Override
+	public boolean baseIsDestory(int cardIndex, int damage) {
+		Card card = field.get(cardIndex);
+		if (!(card instanceof Base))
+			return false;
+		Base base = (Base) card;
+		return base.idDestroyed(damage);
+	}
+
+	@Override
+	public void destoryCard(int cardIndex) {
+		Card card = field.remove(cardIndex);
+		discardPile.add(card);
+	}
+
+	public Card getCardFromField(int i) {
+		return field.get(i);
+	}
+
+	public Card getCardFromHand(int cardIndex) {
+
+		return hand.get(cardIndex);
 	}
 
 	/**
@@ -226,37 +228,16 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	}
 
 	@Override
-	public void drawCard(int number) {
-		draw(number);
-	}
-
-	@Override
 	public void changeTrade(int number) {
 		tradePoint += number;
 
 	}
 
 	/**
-	 * Interface GamePlayer
+	 * Interface graphicPlayer
 	 */
 	@Override
-	public void sufferDamage(int damagePoint) {
-		if (!field.hasOutpostBase()) {
-			authorityPoint -= damagePoint;
-		}
-
-	}
-
-	@Override
-	public void baseAttacked(int baseIndex, int damagePoint) {
-		if (field.isDestoryed(baseIndex, damagePoint)) {
-			discardPile.add(field.remove(baseIndex));
-		}
-
-	}
-
-	@Override
-	public int getAuthority() {
+	public int getAuhtority() {
 		return authorityPoint;
 	}
 
@@ -271,71 +252,27 @@ public abstract class AbstractPlayer implements Player, Buyer, Target {
 	}
 
 	@Override
-	public Graphic getHands() {
-		return hand;
+	public List<GraphicCard> getHand() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(hand.getAll());
+		return list;
 	}
 
 	@Override
-	public Graphic getField() {
-		return field;
+	public List<GraphicCard> getField() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(field.getAll());
+		return list;
 	}
 
 	@Override
-	public Graphic getDeck() {
-		return deck;
+	public List<GraphicCard> getDiscardPile() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(discardPile.getAll());
+		return list;
 	}
 
 	@Override
-	public Graphic getDisCardPile() {
-		return discardPile;
+	public List<GraphicCard> getDeck() {
+		List<GraphicCard> list = new ArrayList<GraphicCard>(deck.getAll());
+		return list;
 	}
-
-	@Override
-	public void affected(int cardIndex, String type) {
-		field.active(cardIndex, type, this);
-	}
-	
-	@Override
-	public void prepare() {
-		draw(5);
-		field.active(this);
-		
-	}
-	
-	@Override
-	public void draw3() {
-		draw(3);
-	}
-	
-	
-	
-	
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(
-				String.format("->Authority: %d\n->Trade: %d\n->Combat: %d\n", authorityPoint, tradePoint, combatPoint));
-
-		sb.append("Hands:");
-		if (hand.size() == 0) {
-			sb.append("None\n");
-		} else {
-			sb.append("\n" + hand.toString());
-		}
-		sb.append("Field:");
-		if (field.size() == 0) {
-			sb.append("None\n");
-		} else {
-			sb.append("\n" + field.toString());
-		}
-		sb.append("Deck:").append(deck.size()).append('\n');
-		sb.append("Discard Pile:").append(discardPile.size()).append('\n');
-		return sb.toString();
-	}
-
-	public boolean isDead() {
-		return authorityPoint <= 0;
-	};
 
 }

@@ -1,9 +1,11 @@
 package model.player;
 
-import model.Log;
+import java.util.List;
+
 import model.Store;
-import model.card.GameCard;
-import model.comp.Graphic;
+import model.card.Card;
+import model.comp.Target;
+import view.GraphicPlayer;
 
 /**
  * <p>
@@ -18,60 +20,56 @@ import model.comp.Graphic;
  * @author Matth
  *
  */
-public interface Player {
-	/**
-	 * React to a attack
-	 * 
-	 * @param point
-	 */
-	public void sufferDamage(int point);
-
-	/**
-	 * React while a base is attacked
-	 * 
-	 * @param point
-	 */
-	public void baseAttacked(int baseIndex, int damagePoint);
-
-	/**
-	 * <p>
-	 * player's act one time during his round. By default each action will update
-	 * the view, player can change it by changing return.
-	 * </p>
-	 * 
-	 * @param store    a place where can buy card
-	 * @param opponent his adversary
-	 * @return 1 means player's round finish. -1 means this action no need to update
-	 *         whole view, just print log.
-	 */
-	public int playGame(Store store, Player opponent, Log log);
+public interface Player extends Target, GraphicPlayer {
 
 	public boolean isDead();
 	
-	/**
-	 * This function is been called while the first player begins his first turn.
-	 */
-	public void draw3();
-
-	public int getAuthority();
-
-	public int getTrade();
-
-	public int getCombat();
-
-	public Graphic getHands();
-
-	public Graphic getField();
-
-	public Graphic getDeck();
-
-	public Graphic getDisCardPile();
-
-	public void affected(int cardIndex, String type);
+	public void active(int cardIndex, String type, Player opponent, Store store, List<String> extraInfos);
+	public void active(Card card, String type, Player opponent, Store store, List<String> extraInfos);
+		
+	public void attack(Player otherPlayer);
+	
+	public void endTurn();
 	
 	/**
-	 * What a player do before his turn begins.
+	 * Active cards ability while his turn begins
 	 */
-	public void prepare();
+	public void beginTurn(Target opponent, Target store);
+
+	
+	/**
+	 * 
+	 * @param index This index begin with 1.
+	 * @return
+	 */
+	public Card put(int index);
+
+
+	void addToDiscardPile(Card c);
+
+
+	boolean canAfford(int price);
+
+	public void pay(int cost);
+	
+	/**
+	 * Test if a card in the field can be destroyed with a certain damage
+	 * @param cardIndex the index of the card
+	 * @param damage the damage number
+	 * @return true if it can be destroyed, false if not.
+	 */
+	public boolean baseIsDestory(int cardIndex, int damage);
+
+	/**
+	 * Move a card from field to discard pile. 
+	 * @param cardIndex card's index
+	 */
+	public void destoryCard(int cardIndex);
+	
+	public List<String> needExtraInput(String place, int cardIndex, String abilityType);
+
+	public String randomAction();
+	
+	
 
 }

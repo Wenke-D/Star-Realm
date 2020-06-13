@@ -3,28 +3,35 @@ package model.comp.cardSquence;
 import java.util.Collections;
 import java.util.List;
 
-import model.card.GameCard;
-import model.comp.Graphic;
+import model.card.Card;
+import view.GraphicCard;
 
-public class Deck extends CardContainer implements Graphic{
+public class Deck{
+	private final List<Card> cardList;
 	
-	public Deck(List<GameCard> newCards) {
-		refill(newCards);
+	public Deck(List<Card> cardList) {
+		this.cardList = cardList; 
 	}
+	
 
 	public boolean isEmpty() {
-		return size()==0;
+		return cardList.size()==0;
 	}
 	
-	public void refill(List<GameCard> newCards) {
-		Collections.shuffle(newCards);
-		addAll(newCards);
+	public void refill(List<Card> newCards) {
+		cardList.addAll(newCards);
+		Collections.shuffle(cardList);
 		
 	}
 
 
-	@Override
-	public void paint() {
-		System.out.println("Deck: "+size());
+	public Card pop() {
+		int size = cardList.size();
+		return cardList.remove(size-1);
+	}
+
+
+	public List<Card> getAll() {
+		return Collections.unmodifiableList(cardList);
 	}
 }

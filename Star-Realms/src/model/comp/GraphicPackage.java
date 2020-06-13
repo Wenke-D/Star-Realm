@@ -1,39 +1,61 @@
 package model.comp;
 
-public interface GraphicPackage {
-	
+import java.util.ArrayList;
+
+import model.Store;
+import model.player.Player;
+import view.GraphicPlayer;
+import view.GraphicStore;
+
+/**
+ * The package between view and data, where view get info to print.
+ * 
+ * @author Matth
+ *
+ */
+public class GraphicPackage {
+	private int roundNumber;
+	private String winner;
+	private Player curPlayer;
+	private Player opponent;
+	private Store store;
+	private ArrayList<String> messages;
+
+	public GraphicPackage(Player curPlayer, Player opponent, Store store, String winner, int roundNumber) {
+		this.roundNumber = roundNumber;
+		this.winner = winner;
+		this.curPlayer = curPlayer;
+		this.opponent = opponent;
+		this.store = store;
+		messages = new ArrayList<String>();
+	}
+
+	public int getRoundNumber() {
+		return roundNumber;
+	}
+
+	public String getWiner() {
+		return winner;
+	}
+
+	public GraphicPlayer getCurPlayer() {
+		return curPlayer;
+	}
+
+	public GraphicPlayer getOpponent() {
+		return opponent;
+	}
+
+	public GraphicStore getStore() {
+		return store;
+	}
+
 	/**
-	 * Determiner si on a besoin de mettre ид jour toute l'affiachage,
-	 * sinon, seulement afficher le log.
+	 * Messages from Data
+	 * 
 	 * @return
 	 */
-	public boolean needUpdate();
-	
-	public Graphic log();
-	
-	public int getCurAuthority();
-
-	public int getCurTrade();
-
-	public int getCurCombat();
-	
-	public Graphic getCurhands();
-	
-	public Graphic getCurField();
-
-	public Graphic getCurDeck();
-
-	public Graphic getCurDisCardPile();
-
-	public Graphic getStore();
-
-	public int getOppAuthority();
-
-	public int getOppTrade();
-
-	public int getOppCombat();
-
-	public Graphic getOppField();
-
-	public int getRound();
+	public String getMessage() {
+		return messages.remove(messages.size() - 1);
+	}
 }
