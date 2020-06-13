@@ -4,7 +4,7 @@
 <config>
 	<paths>
 		<CoreSet path="res/cards/CoreSet.xml"></CoreSet>
-		<StartSet path="res/cards/StartSet.xml"></StartSet>
+		<StartSet path="res/cards/TestSet.xml"></StartSet>
 		<Explorer path="res/cards/Explorer.xml"></Explorer>
 	</paths>
 </config>

@@ -2,49 +2,49 @@
 <!DOCTYPE xml>
 <!-- use capital initial represent ability type, for example C = combat -->
 <cards>
-	<card type="ship" qty="2" name="Battle Blob" fraction="Battle Blob"
+	<card type="ship" qty="5" name="Battle Blob" fraction="Blob"
 		cost="6">
 
-		<abilityList type="basic">
-			<item type="C" value="8"></item>
-		</abilityList>
+		<Ability type="basic">
+			<Effect type="C" value="8"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
-			<item type="D" value="1"></item>
-		</abilityList>
+		<Ability type="ally">
+			<Effect type="D" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="scrap">
-			<item type="D" value="4"></item>
-		</abilityList>
+		<Ability type="scrap">
+			<Effect type="D" value="4"></Effect>
+		</Ability>
 	</card>
 
-	<card type="base" qty="2" name="Blob Wheel" fraction="Blob" cost="3"
+	<card type="base" qty="5" name="Blob Wheel" fraction="Blob" cost="3"
 		defense="5" outpost="no">
-		<abilityList type="basic">
-			<item type="C" value="1"></item>
-		</abilityList>
+		<Ability type="basic">
+			<Effect type="C" value="1"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
+		<Ability type="ally">
 
-		</abilityList>
+		</Ability>
 
-		<abilityList type="scrap">
-			<item type="T" value="3"></item>
-		</abilityList>
+		<Ability type="scrap">
+			<Effect type="T" value="3"></Effect>
+		</Ability>
 	</card>
 
-	<card type="ship" qty="1" name="Ram" fraction="Blob" cost="3">
-		<abilityList type="basic">
-			<item type="C" value="5"></item>
-		</abilityList>
+	<card type="ship" qty="5" name="Ram" fraction="Blob" cost="3">
+		<Ability type="basic">
+			<Effect type="C" value="5"></Effect>
+		</Ability>
 
-		<abilityList type="ally">
-			<item type="C" value="2"></item>
-		</abilityList>
+		<Ability type="ally">
+			<Effect type="C" value="2"></Effect>
+		</Ability>
 
-		<abilityList type="scrap">
-			<item type="T" value="3"></item>
-		</abilityList>
+		<Ability type="scrap">
+			<Effect type="T" value="3"></Effect>
+		</Ability>
 	</card>
 
 </cards>

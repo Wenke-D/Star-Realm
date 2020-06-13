@@ -56,9 +56,10 @@ public class Field implements Iterable<Card> {
 	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
-	
+
 	/**
 	 * Remove a card from field
+	 * 
 	 * @param index index begin with 1;
 	 * @return
 	 */
@@ -66,7 +67,7 @@ public class Field implements Iterable<Card> {
 		index--;
 		return cardList.remove(index);
 	}
-	
+
 	/**
 	 * 
 	 * @param card
@@ -79,21 +80,21 @@ public class Field implements Iterable<Card> {
 
 	public boolean hasAlly(Card other) {
 		int i = 0;
-		for(Card c: cardList) {
-			if(c.isAlly(other))
+		for (Card c : cardList) {
+			if (c.isAlly(other))
 				i++;
 		}
-		return i>1;
+		return i > 1;
 	}
-	
+
 	public boolean notAcvitied(Card card) {
 		return !(acvitiedAllyCard.contains(card));
 	}
-	
+
 	public void addAcvitiedCard(Card card) {
 		acvitiedAllyCard.add(card);
 	}
-	
+
 	public void clearAcvitiedCard() {
 		acvitiedAllyCard.clear();
 	}
