@@ -15,7 +15,7 @@ public class DiscardPile {
 	}
 	
 	public void addAll(List<Card> list) {
-		cardList.addAll(cardList);
+		cardList.addAll(list);
 	}
 	
 	public List<Card> getAll() {

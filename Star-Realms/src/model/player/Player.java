@@ -45,7 +45,7 @@ public interface Player extends Target, GraphicPlayer {
 	public Card put(int index);
 
 
-	void get(Card c);
+	void addToDiscardPile(Card c);
 
 
 	boolean canAfford(int price);
@@ -59,7 +59,7 @@ public interface Player extends Target, GraphicPlayer {
 	 * @return true if it can be destroyed, false if not.
 	 */
 	public boolean baseIsDestory(int cardIndex, int damage);
-	
+
 	/**
 	 * Move a card from field to discard pile. 
 	 * @param cardIndex card's index
@@ -67,6 +67,8 @@ public interface Player extends Target, GraphicPlayer {
 	public void destoryCard(int cardIndex);
 	
 	public List<String> needExtraInput(String place, int cardIndex, String abilityType);
+
+	public String randomAction();
 	
 	
 

@@ -19,7 +19,7 @@ import view.GraphicCard;
  * @author Matth
  *
  */
-public abstract class AbstractPlayer implements Player {
+abstract class AbstractPlayer implements Player {
 
 	/**
 	 * player's trade point. Reset to 0 while {@code endTurn()} is called.
@@ -152,12 +152,11 @@ public abstract class AbstractPlayer implements Player {
 				card.affect(type, this, opponent, store, extraInfos);
 				field.addAcvitiedCard(card);
 			}
-				
-			
-		}
-		if (type.equals("scrap")) {
+		} else if (type.equals("scrap")) {
 			card.affect(type, this, opponent, store, extraInfos);
 			field.remove(card);
+		} else {
+			card.affect(type, this, opponent, store, extraInfos);
 		}
 
 	}
@@ -171,7 +170,7 @@ public abstract class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public void get(Card c) {
+	public void addToDiscardPile(Card c) {
 		discardPile.add(c);
 	}
 
@@ -203,6 +202,15 @@ public abstract class AbstractPlayer implements Player {
 	public void destoryCard(int cardIndex) {
 		Card card = field.remove(cardIndex);
 		discardPile.add(card);
+	}
+
+	public Card getCardFromField(int i) {
+		return field.get(i);
+	}
+
+	public Card getCardFromHand(int cardIndex) {
+
+		return hand.get(cardIndex);
 	}
 
 	/**

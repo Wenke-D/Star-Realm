@@ -18,28 +18,35 @@ import view.GraphicEffect;
  *
  */
 public class AndAbility implements Ability {
-	private final List<Effect> abis;
+	private final List<Effect> effects;
 
 	public AndAbility(List<Effect> l) {
 		Objects.requireNonNull(l);
-		abis = new ArrayList<Effect>(l);
+		effects = new ArrayList<Effect>(l);
 	}
 
 	@Override
 	public void affect(Target owner, Target opponent, Target store, List<String> extraInfos) {
-		for (Effect a : abis) {
+		for (Effect a : effects) {
 			a.affect(owner, opponent, store);
 		}
 	}
 
 	@Override
 	public List<String> needExtraInfo() {
-		return null;
+		ArrayList<String> infos = new ArrayList<String>();
+		for (Effect e : effects) {
+			String s = e.needExraInfo();
+			if (s != null)
+				infos.add(s);
+		}
+
+		return infos.size() == 0 ? null : infos;
 	}
 
 	@Override
 	public List<GraphicEffect> getEffects() {
-		List<GraphicEffect> list = new ArrayList<GraphicEffect>(abis);
+		List<GraphicEffect> list = new ArrayList<GraphicEffect>(effects);
 		return list;
 	}
 

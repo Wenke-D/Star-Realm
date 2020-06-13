@@ -36,6 +36,11 @@ public class Hand {
 	public void add(Card card) {
 		cardList.add(card);
 	}
+
+
+	public Card get(int cardIndex) {
+		return cardList.get(cardIndex);
+	}
 	
 	
 	

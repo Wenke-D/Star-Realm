@@ -20,6 +20,11 @@ public class AiPlayer extends AbstractPlayer {
 		throw new UnsupportedOperationException("Ai player shouldn't be test if need extra info");
 	}
 
+	@Override
+	public String randomAction() {
+		return "end";
+	}
+
 
 
 

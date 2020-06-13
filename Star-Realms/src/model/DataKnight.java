@@ -123,7 +123,7 @@ public class DataKnight {
 			if (curPlayer.canAfford(card.getCost())) {
 				curPlayer.pay(card.getCost());
 				store.remove(index);
-				curPlayer.get(card);
+				curPlayer.addToDiscardPile(card);
 			}
 			break;
 
@@ -181,7 +181,7 @@ public class DataKnight {
 		} else {
 			winner = null;
 		}
-		GraphicPackage p = new GraphicPackage(currentGamePlayer(), opponent(), store, winner);
+		GraphicPackage p = new GraphicPackage(currentGamePlayer(), opponent(), store, winner, roundsNumber);
 		return p;
 	}
 
@@ -189,22 +189,52 @@ public class DataKnight {
 		;
 	}
 
+	/**
+	 * While orders is play or active, it will need extra information to perform
+	 * this order. if not, return null.
+	 * 
+	 * @param order
+	 * @return
+	 */
 	public List<String> needExtraInput(String order) {
 
+		/**
+		 * Where store the target card. play means this card is in the hand, active
+		 * means this card is in the field.
+		 */
 		Map<String, String> needExtraInputCmds = new HashMap<String, String>();
 		needExtraInputCmds.put("play", "hand");
 		needExtraInputCmds.put("active", "field");
 
 		String[] paras = order.split(" ");
 		String command = paras[0];
-		int cardIndex = Integer.valueOf(paras[1]);
-
 		if (needExtraInputCmds.containsKey(command)) {
+			int cardIndex = Integer.valueOf(paras[1]);
+
 			String abilityType = command.equals("play") ? "basic" : paras[2];
 			return currentGamePlayer().needExtraInput(needExtraInputCmds.get(command), cardIndex, abilityType);
 		} else {
 			return null;
 		}
+	}
+
+	public boolean needInput() {
+		/**
+		 * If not PVE mode, always need input
+		 */
+		if (!(player2 instanceof AiPlayer))
+			return true;
+
+		/**
+		 * If PVE mode, need input while is not ai player.
+		 */
+		return currentGamePlayer() != player2;
+	}
+
+	public void executeWithoutInput() {
+		String order = player2.randomAction();
+		execute(order);
+
 	}
 
 }

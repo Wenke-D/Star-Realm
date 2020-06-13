@@ -21,8 +21,8 @@ public class GraphicPackage {
 	private Store store;
 	private ArrayList<String> messages;
 
-	public GraphicPackage(Player curPlayer, Player opponent, Store store, String winner) {
-		this.roundNumber = 0;
+	public GraphicPackage(Player curPlayer, Player opponent, Store store, String winner, int roundNumber) {
+		this.roundNumber = roundNumber;
 		this.winner = winner;
 		this.curPlayer = curPlayer;
 		this.opponent = opponent;

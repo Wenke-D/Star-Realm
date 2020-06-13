@@ -72,10 +72,6 @@ abstract class AbstractCard implements Card {
 		}
 	}
 	
-	@Override
-	public List<String> needExraInfos() {
-		return null;
-	}
 
 
 	@Override
@@ -122,6 +118,22 @@ abstract class AbstractCard implements Card {
 		throw new UnsupportedOperationException("This is not a base");
 	}
 	
+	@Override
+	public List<String> needExraInfos(String type) {
+		switch(type) {
+		case "basic":{
+			return basicAbis.needExtraInfo();
+		}
+		case "ally":{
+			return basicAbis.needExtraInfo();
+		}
+		case "scrap":{
+			return basicAbis.needExtraInfo();
+		}
+		default:
+			throw new RuntimeException("Invalid Type: "+type);
+		}
+	}
 
 
 }

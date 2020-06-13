@@ -45,12 +45,10 @@ public class ControlKnight {
 		data = new DataKnight(mode);
 		view.displayOrUpdateContent(data.getGraphicData());
 
-		if (mode == 2) {
-			mainLoopPVP();
-		}
+		loop();
 
 		view.displayGameFinish();
-		
+
 		/**
 		 * Release sources
 		 */
@@ -58,7 +56,6 @@ public class ControlKnight {
 		data.free();
 		this.free();
 	}
-
 
 	/**
 	 * Ask the player to set the game mode
@@ -77,24 +74,28 @@ public class ControlKnight {
 	/**
 	 * Center loop of the game
 	 */
-	private void mainLoopPVP() {
+	private void loop() {
 		while (true) {
 
-			String order = view.readInput();
-			if (order.equals("quit")) {
-				break;
-			} else if(order.equals("help")) {
-				view.displayHelpMessage();
-				continue;
+			if (data.needInput()) {
+				String order = view.readInput();
+				if (order.equals("quit")) {
+					break;
+				} else if (order.equals("help")) {
+					view.displayHelpMessage();
+					continue;
+				}
+
+				List<String> extraInfoType = data.needExtraInput(order);
+				if (extraInfoType != null) {
+					String extraInfo = view.readInputWithMessages(extraInfoType);
+					order = order + " " + extraInfo;
+				}
+
+				data.execute(order);
+			} else {
+				data.executeWithoutInput();
 			}
-			
-			List<String> extraInfoType = data.needExtraInput(order);
-			if(extraInfoType != null) {
-				String extraInfo = view.readInputWithMessages(extraInfoType);
-				order = order + " " + extraInfo;
-			}
-			
-			data.execute(order);
 
 			// update view
 			view.displayOrUpdateContent(data.getGraphicData());
@@ -114,13 +115,13 @@ public class ControlKnight {
 
 		}
 	}
-	
+
 	/**
 	 * Nothing to free
 	 */
 	private void free() {
 		;
-		
+
 	}
 
 }
