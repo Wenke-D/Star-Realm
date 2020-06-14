@@ -1,181 +1,665 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xml>
-<!-- Use capital initial represent ability type, for example C = combat -->
+<!-- use capital initial represent ability type, for example C = combat, 
+	D = draw, T = trade, A = Authority, S = Scrap -->
+<!-- target of Effect are self by default, store, opponent -->
+<!-- relation means the relation of effect -->
 <cards>
-	<card type="ship" qty="2" name="Battle Blob" fraction="Blob"
+	<card type="ship" qty="1" name="Battle Blob" faction="Blob"
 		cost="6">
 
-		<Ability type="basic">
-			<Effect type="C" value="8"></Effect>
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="8"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="D" value="1"></Effect>
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
 		</Ability>
 
-		<Ability type="scrap">
-			<Effect type="D" value="4"></Effect>
+		<Ability type="scrap" relation="and">
+			<Effect type="Combat" value="4"></Effect>
 		</Ability>
 	</card>
 
-	<card type="base" qty="2" name="Blob Wheel" fraction="Blob"
+
+	<card type="ship" qty="2" name="Battle Pod" faction="Blob"
+		cost="2">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="4"></Effect>
+			<Effect type="Scrap" value="1" target="store"
+				extraInfo="number"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Blob Carrier" faction="Blob"
+		cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="7"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="Connected">
+			<Effect type="Remove" value="1" extraInfo="number"></Effect>
+			<Effect type="PutDesk" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="2" name="Blob Destroyer" faction="Blob"
+		cost="4">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="6"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Blob Fighter" faction="Blob"
+		cost="1">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="3"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="3" name="Blob Wheel" faction="Blob"
 		cost="3" defense="5" outpost="no">
 		<Ability type="basic">
-			<Effect type="C" value="1"></Effect>
+			<Effect type="Combat" value="1"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-
+		<Ability type="alley">
 		</Ability>
 
 		<Ability type="scrap">
-			<Effect type="T" value="3"></Effect>
+			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 	</card>
 
-	<card type="ship" qty="1" name="Ram" fraction="Blob" cost="3">
+	<card type="base" qty="1" name="Blob World" faction="Blob"
+		cost="8">
+		<Ability type="basic" relation="or">
+			<Effect type="Combat" value="5"></Effect>
+			<Effect type="Draw" value="999"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Mothership" faction="Blob"
+		cost="7">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="6"></Effect>
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+
+	<card type="ship" qty="2" name="Ram" faction="Blob" cost="3">
 		<Ability type="basic">
-			<Effect type="C" value="5"></Effect>
+			<Effect type="Combat" value="5"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="2"></Effect>
+		<Ability type="alley">
+			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
-			<Effect type="T" value="3"></Effect>
+			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 	</card>
 
-	<card type="ship" qty="3" name="Trade Pod" fraction="Blob"
+	<card type="base" qty="1" name="The Hive" faction="Blob" cost="5">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="3"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Trade Pod" faction="Blob" cost="2">
+		<Ability type="basic">
+			<Effect type="Trade" value="3"></Effect>
+		</Ability>
+
+		<Ability type="alley">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Battle Mech"
+		faction="Machine Cult" cost="5">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="4"></Effect>
+			<Effect type="Scrap" value="1" target="self"
+				extraInfo="hand or discard pile"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="2" name="Battle Station"
+		faction="Machine Cult" cost="3">
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Combat" value="5"></Effect>
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Brain World"
+		faction="Machine Cult" cost="8">
+		<Ability type="basic" relation="connected">
+			<Effect type="Draw" value="999"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Junkyard" faction="Machine Cult"
+		cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Remove" value="1" extraInfo="HandOrDisCard"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Machine Base"
+		faction="Machine Cult" cost="7">
+		<Ability type="basic" relation="or">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Mech World" faction="Machine Cult"
+		cost="5">
+		<Ability type="basic" relation="and">
+			<Effect type="AllyForEveryOne" value="0"></Effect>
+		</Ability>
+		<Ability type="ally" relation="and">
+		</Ability>
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Missile Bot"
+		faction="Machine Cult" cost="2">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Missile Mech"
+		faction="Machine Cult" cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="6"></Effect>
+			<Effect type="Destory" value="1" target="opponent"
+				extraInfo="number"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="2" name="Patrol Mech"
+		faction="Machine Cult" cost="4">
+		<Ability type="basic" relation="or">
+			<Effect type="Trade" value="3"></Effect>
+			<Effect type="Combat" value="5"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="or">
+			<Effect type="Scrap" value="1" extraInfo="HandOrDiscard" ></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Stealth Needle"
+		faction="Machine Cult" cost="4">
+		<Ability type="basic" relation="and">
+			<Effect type="CopyShip" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Supply Bot" faction="Machine Cult"
+		cost="3">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="2"></Effect>
+			<Effect type="Scrap" value="1" extraInfo="HandOrDiscard"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Trade Bot" faction="Machine Cult"
+		cost="1">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="1"></Effect>
+			<Effect type="Scrap" value="1" extraInfo="HandOrDiscard"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Battlecruiser"
+		faction="Star Empire" cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="5"></Effect>
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Discard" value="1" target="opponent" extraInfo="number"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+			<Effect type="Destory" value="1" target="opponent"></Effect>
+		</Ability>
+	</card>
+
+	<card type="ship" qty="2" name="Corvette" faction="Star Empire"
 		cost="2">
 		<Ability type="basic">
-			<Effect type="T" value="3"></Effect>
+			<Effect type="Combat" value="1"></Effect>
+			<Effect type="Draw" value="1"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="2"></Effect>
+		<Ability type="alley">
+			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
 		</Ability>
 	</card>
 
-	<card type="ship" qty="2" name="Corvette" fraction="Star Empire"
-		cost="2">
+	<card type="ship" qty="1" name="Dreadnaught" faction="Star Empire"
+		cost="7">
 		<Ability type="basic">
-			<Effect type="C" value="1"></Effect>
-			<Effect type="D" value="1"></Effect>
+			<Effect type="Combat" value="7"></Effect>
+			<Effect type="Draw" value="1"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="2"></Effect>
-		</Ability>
-
-		<Ability type="scrap">
-		</Ability>
-	</card>
-
-	<card type="ship" qty="1" name="Dreadnaught"
-		fraction="Star Empire" cost="7">
-		<Ability type="basic">
-			<Effect type="C" value="7"></Effect>
-			<Effect type="D" value="1"></Effect>
-		</Ability>
-
-		<Ability type="ally">
+		<Ability type="alley">
 		</Ability>
 
 		<Ability type="scrap">
-			<Effect type="C" value="5"></Effect>
+			<Effect type="Combat" value="5"></Effect>
 		</Ability>
 	</card>
+
+
+	<card type="base" qty="1" name="Fleet HQ" faction="Star Empire"
+		cost="8">
+		<Ability type="basic" relation="and">
+			<Effect type="ShipCombat" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Imperial Fighter"
+		faction="Star Empire" cost="1">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+			<Effect type="Discard" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Imperial Frigate"
+		faction="Star Empire" cost="3">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+			<Effect type="Discard" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+	</card>
+
+	<card type="base" qty="2" name="Recycling Station"
+		faction="Star Empire" cost="4">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="1"></Effect>
+			<Effect type="Discard-Draw" value="-1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Royal Redoubt"
+		faction="Star Empire" cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="3"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Discard" value="1" target="opponent"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
 
 	<card type="base" qty="2" name="Space Station"
-		fraction="Star Empire" cost="4" defense="4" outpost="yes">
+		faction="Star Empire" cost="4" defense="4" outpost="yes">
 		<Ability type="basic">
-			<Effect type="C" value="2"></Effect>
+			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="2"></Effect>
+		<Ability type="alley">
+			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
-			<Effect type="T" value="4"></Effect>
+			<Effect type="Trade" value="4"></Effect>
 		</Ability>
 	</card>
 
-	<card type="base" qty="1" name="War World" fraction="Star Empire"
+	<card type="ship" qty="3" name="Survey Ship" faction="Star Empire"
+		cost="3">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="1"></Effect>
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Discard" value="1" target="opponent"></Effect>
+		</Ability>
+	</card>
+
+
+	<card type="base" qty="1" name="War World" faction="Star Empire"
 		cost="5" defense="4" outpost="yes">
 		<Ability type="basic">
-			<Effect type="C" value="3"></Effect>
+			<Effect type="Combat" value="3"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="4"></Effect>
+		<Ability type="alley">
+			<Effect type="Combat" value="4"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
 		</Ability>
 	</card>
 
-	<card type="ship" qty="3" name="Cutter"
-		fraction="Trade Federation" cost="2">
-		<Ability type="basic">
-			<Effect type="A" value="4"></Effect>
-			<Effect type="T" value="2"></Effect>
+	<card type="base" qty="2" name="Barter World"
+		faction="Trade Federation" cost="4">
+		<Ability type="basic" relation="or">
+			<Effect type="Authority" value="2"></Effect>
+			<Effect type="Trade" value="2"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="C" value="4"></Effect>
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Combat" value="5"></Effect>
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Central Office"
+		faction="Trade Federation" cost="7">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="2"></Effect>
+			<Effect type="NextShipToDeck" value="2"></Effect>
+
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Command Ship"
+		faction="Trade Federation" cost="8">
+		<Ability type="basic" relation="and">
+			<Effect type="Authority" value="4"></Effect>
+			<Effect type="Combat" value="5"></Effect>
+			<Effect type="Draw" value="2"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Destory" value="1" target="opponent"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="ship" qty="3" name="Cutter" faction="Trade Federation"
+		cost="2">
+		<Ability type="basic">
+			<Effect type="Authority" value="4"></Effect>
+			<Effect type="Trade" value="2"></Effect>
+		</Ability>
+
+		<Ability type="alley">
+			<Effect type="Combat" value="4"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Defense Center"
+		faction="Trade Federation" cost="5">
+		<Ability type="basic" relation="or">
+			<Effect type="Authority" value="3"></Effect>
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
 		</Ability>
 	</card>
 
 	<card type="ship" qty="2" name="Embassy Yacht"
-		fraction="Trade Federation" cost="3">
+		faction="Trade Federation" cost="3">
 		<Ability type="basic">
-			<Effect type="A" value="3"></Effect>
-			<Effect type="T" value="2"></Effect>
-			<Effect type="T" value="2">
+			<Effect type="Authority" value="3"></Effect>
+			<Effect type="Trade" value="2"></Effect>
+			<Effect type="Trade" value="2">
 				<precondition nomber="2" object="base"></precondition>
 			</Effect>
 		</Ability>
 
-		<Ability type="ally">
+		<Ability type="alley">
 		</Ability>
 
 		<Ability type="scrap">
 		</Ability>
 	</card>
 
-	<card type="ship" qty="3" name="Federation Shuttle" fraction="Trade Federation" cost="1">
+
+	<card type="ship" qty="3" name="Federation Shuttle"
+		faction="Trade Federation" cost="1">
 		<Ability type="basic">
-			<Effect type="T" value="2"></Effect>
+			<Effect type="Trade" value="2"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="A" value="4"></Effect>
+		<Ability type="alley">
+			<Effect type="Authority" value="4"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
 		</Ability>
 	</card>
 
-	<card type="ship" qty="1" name="Flagship" fraction="Trade Federation" cost="6">
+	<card type="ship" qty="1" name="Flagship"
+		faction="Trade Federation" cost="6">
 		<Ability type="basic">
-			<Effect type="C" value="5"></Effect>
-			<Effect type="D" value="1"></Effect>
+			<Effect type="Combat" value="5"></Effect>
+			<Effect type="Draw" value="1"></Effect>
 		</Ability>
 
-		<Ability type="ally">
-			<Effect type="A" value="5"></Effect>
+		<Ability type="alley">
+			<Effect type="Authority" value="5"></Effect>
 		</Ability>
 
 		<Ability type="scrap">
+		</Ability>
+	</card>
+
+
+	<card type="ship" qty="2" name="Freighter"
+		faction="Trade Federation" cost="4">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="4"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="NextShipToDeck" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="1" name="Port of Call"
+		faction="Trade Federation" cost="6">
+		<Ability type="basic" relation="and">
+			<Effect type="Trade" value="3"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+			<Effect type="destory" value="1"></Effect>
+		</Ability>
+	</card>
+
+	<card type="ship" qty="1" name="Trade Escort"
+		faction="Trade Federation" cost="5">
+		<Ability type="basic" relation="and">
+			<Effect type="Authority" value="4"></Effect>
+			<Effect type="Combat" value="4"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Draw" value="1"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+	<card type="base" qty="2" name="Trading Post"
+		faction="Trade Federation" cost="3">
+		<Ability type="basic" relation="or">
+			<Effect type="Authority" value="4"></Effect>
+			<Effect type="Combat" value="4"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+		</Ability>
+
+		<Ability type="scrap" relation="and">
 		</Ability>
 	</card>
 

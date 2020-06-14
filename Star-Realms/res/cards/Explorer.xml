@@ -4,13 +4,13 @@
 <card type="ship" qty="1" name="Explorer" fraction="" cost="2">
 
 	<Ability type="basic">
-		<Effect type="C" value="51"></Effect>
+		<Effect type="Combat" value="51"></Effect>
 	</Ability>
 
 	<Ability type="ally">
 	</Ability>
 
 	<Ability type="scrap">
-	<Effect type="C" value="2"></Effect>
+	<Effect type="Combat" value="2"></Effect>
 	</Ability>
 </card>

@@ -125,10 +125,10 @@ abstract class AbstractCard implements Card {
 			return basicAbis.needExtraInfo();
 		}
 		case "ally":{
-			return basicAbis.needExtraInfo();
+			return allyAbis.needExtraInfo();
 		}
 		case "scrap":{
-			return basicAbis.needExtraInfo();
+			return scrapAbis.needExtraInfo();
 		}
 		default:
 			throw new RuntimeException("Invalid Type: "+type);

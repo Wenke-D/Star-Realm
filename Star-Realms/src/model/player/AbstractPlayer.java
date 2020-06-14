@@ -232,6 +232,11 @@ abstract class AbstractPlayer implements Player {
 		tradePoint += number;
 
 	}
+	
+	@Override
+	public void scrap(int i) {
+		throw new UnsupportedOperationException();
+	}
 
 	/**
 	 * Interface graphicPlayer

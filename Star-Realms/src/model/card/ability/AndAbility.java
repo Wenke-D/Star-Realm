@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import model.Store;
 import model.card.ability.effect.Effect;
+import model.card.ability.effect.SimpleEffect;
 import model.comp.Target;
 import model.player.Player;
 import view.GraphicEffect;
@@ -27,8 +28,30 @@ public class AndAbility implements Ability {
 
 	@Override
 	public void affect(Target owner, Target opponent, Target store, List<String> extraInfos) {
-		for (Effect a : effects) {
-			a.affect(owner, opponent, store);
+		Target realTarget = null;
+		for (Effect effect : effects) {
+			switch (effect.getTarget()) {
+			case "self":
+				realTarget = owner;
+
+				break;
+			case "opponent":
+				realTarget = opponent;
+				break;
+
+			case "store":
+				realTarget = store;
+				break;
+			default:
+				throw new RuntimeException("Unknown target!");
+
+			}
+			if (effect instanceof SimpleEffect)
+				effect.affect(realTarget);
+			else {
+				effect.affect(realTarget, extraInfos.get(0));
+			}
+
 		}
 	}
 

@@ -135,7 +135,7 @@ public class ResourceReader {
 	 */
 	private Card makeCardFromElement(Element e) {
 		String name = e.attributeValue("name");
-		String faction = e.attributeValue("fraction");
+		String faction = e.attributeValue("faction");
 		int cost = Integer.valueOf(e.attributeValue("cost"));
 
 		List<Element> ability = e.elements("Ability");

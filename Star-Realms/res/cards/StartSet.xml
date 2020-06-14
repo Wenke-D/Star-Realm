@@ -4,7 +4,7 @@
 	<card type="base" qty="20" name="Blob Wheel" fraction="Blob"
 		cost="3" defense="5" outpost="no">
 		<Ability type="basic">
-			<Effect type="C" value="1"></Effect>
+			<Effect type="Combat" value="1"></Effect>
 		</Ability>
 
 		<Ability type="ally">
@@ -12,14 +12,14 @@
 		</Ability>
 
 		<Ability type="scrap">
-			<Effect type="T" value="3"></Effect>
+			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 	</card>
 	
 	<card type="ship" qty="1" name="Scout" fraction="" cost="0">
 
 		<Ability type="basic">
-			<Effect type="T" value="1"></Effect>
+			<Effect type="Trade" value="1"></Effect>
 		</Ability>
 
 		<Ability type="ally">
@@ -32,7 +32,7 @@
 	<card type="ship" qty="1" name="Viper" fraction="" cost="0">
 
 		<Ability type="basic">
-			<Effect type="C" value="1"></Effect>
+			<Effect type="Combat" value="1"></Effect>
 		</Ability>
 
 		<Ability type="ally">

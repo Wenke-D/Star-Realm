@@ -74,12 +74,14 @@ public class Store implements GraphicStore, Target {
 
 	@Override
 	public List<GraphicCard> cards() {
-		ArrayList<Card> cards = new ArrayList<Card>();
-		for (int i = 1; i <= 5; i++) {
-			cards.add(get(i));
+		ArrayList<Card> cardsToPrint = new ArrayList<Card>();
+		int length = cards.size() < 5 ? cards.size() : 5;
+
+		for (int i = 1; i <= length; i++) {
+			cardsToPrint.add(get(i));
 		}
-		cards.add(explorer);
-		return Collections.unmodifiableList(cards);
+		cardsToPrint.add(explorer);
+		return Collections.unmodifiableList(cardsToPrint);
 
 	}
 
@@ -101,6 +103,12 @@ public class Store implements GraphicStore, Target {
 	@Override
 	public void drawCard(int number) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void scrap(int i) {
+		remove(i);
+
 	}
 
 }

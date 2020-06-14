@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<!-- use capital initial represent ability type, for example C = combat -->
+<cards>
+	<card type="ship" qty="20" name="Battle Pod" faction="Blob"
+		cost="2">
+		<Ability type="basic" relation="and">
+			<Effect type="Combat" value="4"></Effect>
+			<Effect type="Scrap" value="1" target="store"
+				extraInfo="number"></Effect>
+		</Ability>
+
+		<Ability type="alley" relation="and">
+			<Effect type="Combat" value="2"></Effect>
+		</Ability>
+
+		<Ability type="scrap" relation="and">
+		</Ability>
+	</card>
+
+</cards>

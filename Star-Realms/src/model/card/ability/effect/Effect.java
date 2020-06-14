@@ -4,7 +4,9 @@ import model.comp.Target;
 import view.GraphicEffect;
 
 public interface Effect extends GraphicEffect {
-	public void affect(Target self, Target opponent, Target store);
+	public void affect(Target target);
+	
+	public void affect(Target target, String extraInfo);
 	
 	/**
 	 * Weather his effect need other info to perform his ability

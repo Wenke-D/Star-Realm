@@ -3,8 +3,8 @@
 <!-- sets to charge -->
 <config>
 	<paths>
-		<CoreSet path="res/cards/CoreSet.xml"></CoreSet>
-		<StartSet path="res/cards/TestSet.xml"></StartSet>
+		<StoreSet path="res/cards/StoreTestSet.xml"></StoreSet>
+		<StartSet path="res/cards/DeckTestSet.xml"></StartSet>
 		<Explorer path="res/cards/Explorer.xml"></Explorer>
 	</paths>
 </config>

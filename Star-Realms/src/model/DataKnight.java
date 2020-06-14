@@ -31,11 +31,11 @@ public class DataKnight {
 		Path configPath = Path.of("res", "config.xml");
 
 		String rootPath = "/config/paths/";
-		String CoreSetXPath = rootPath + "CoreSet";
+		String StoreSetXPath = rootPath + "StoreSet";
 		String startDeckSetXPath = rootPath + "StartSet";
 		String ExplorerXPath = rootPath + "Explorer";
 
-		List<Card> storeDeck = makeCardListFromFile(configPath.toFile(), CoreSetXPath);
+		List<Card> storeDeck = makeCardListFromFile(configPath.toFile(), StoreSetXPath);
 		List<Card> deck1 = makeCardListFromFile(configPath.toFile(), startDeckSetXPath);
 		List<Card> deck2 = makeCardListFromFile(configPath.toFile(), startDeckSetXPath);
 
