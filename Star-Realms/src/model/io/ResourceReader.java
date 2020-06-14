@@ -14,6 +14,8 @@ import model.card.Card;
 import model.card.Ship;
 import model.card.ability.Ability;
 import model.card.ability.AndAbility;
+import model.card.ability.ConnectedAbility;
+import model.card.ability.OrAbility;
 import model.card.ability.effect.Effect;
 import model.card.ability.effect.EffectFactory;
 
@@ -38,7 +40,6 @@ import model.card.ability.effect.EffectFactory;
  */
 public class ResourceReader {
 	private final String attrQuantity = "qty";
-	
 
 	/**
 	 * <p>
@@ -139,6 +140,8 @@ public class ResourceReader {
 		int cost = Integer.valueOf(e.attributeValue("cost"));
 
 		List<Element> ability = e.elements("Ability");
+		if(ability.size()!=3)
+			throw new RuntimeException("Ability number not correcte "+name);
 		Ability basic = makeAbilityFromElement(ability.get(0));
 		Ability ally = makeAbilityFromElement(ability.get(1));
 		Ability scrap = makeAbilityFromElement(ability.get(2));
@@ -146,27 +149,50 @@ public class ResourceReader {
 		if (e.attributeValue("type").equals("ship")) {
 			return new Ship(name, faction, cost, basic, ally, scrap);
 		}
-
-		int defense = Integer.parseInt(e.attributeValue("defense"));
-		boolean outpost = (e.attributeValue("outpost").equals("yes"));
-
-		return new Base(name, faction, cost, basic, ally, scrap, defense, outpost);
+		
+		try {
+			int defense = Integer.parseInt(e.attributeValue("defense"));
+			boolean outpost = (e.attributeValue("outpost").equals("yes"));
+			
+			return new Base(name, faction, cost, basic, ally, scrap, defense, outpost);
+		} catch (Exception e2) {
+			throw new RuntimeException("Card info wrong "+name);
+		}
+		
 
 	}
 
 	/**
-	 * Create a {@code ArrayList<Ability>} based on a XML tag "Ability".
-	 * if there is no item under this element, it will return a List empty.
+	 * Create a {@code ArrayList<Ability>} based on a XML tag "Ability". if there is
+	 * no item under this element, it will return a List empty.
+	 * 
 	 * @param e
 	 * @return
 	 */
 	private Ability makeAbilityFromElement(Element e) {
+		String relation = e.attributeValue("relation");
+		if (relation == null)
+			throw new RuntimeException("Relation missing in card:" + e.getParent().attributeValue("name"));
 		ArrayList<Effect> array = new ArrayList<Effect>();
 		for (Element item : e.elements()) {
 			Effect effect = EffectFactory.makeEffect(item);
 			array.add(effect);
 		}
-		return new AndAbility(array);
+		switch (relation) {
+		case "and":
+			return new AndAbility(array);
+		case "connected":
+			if(array.size()!=2)
+				throw new RuntimeException("Effect number wrong "+e.getParent().attributeValue("name"));
+			return new ConnectedAbility(array);
+		case "or":
+			return new OrAbility(array);
+		default:
+			String info = String.format("Unknown ability relation:%s in Card %s", relation,
+					e.getParent().attributeValue("name"));
+			throw new RuntimeException(info);
+		}
+
 	}
 
 }

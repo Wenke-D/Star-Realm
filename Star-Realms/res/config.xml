@@ -4,7 +4,7 @@
 <config>
 	<paths>
 		<StoreSet path="res/cards/StoreTestSet.xml"></StoreSet>
-		<StartSet path="res/cards/DeckTestSet.xml"></StartSet>
+		<StartSet path="res/cards/CoreSet.xml"></StartSet>
 		<Explorer path="res/cards/Explorer.xml"></Explorer>
 	</paths>
 </config>

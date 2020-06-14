@@ -34,4 +34,9 @@ public class Deck{
 	public List<Card> getAll() {
 		return Collections.unmodifiableList(cardList);
 	}
+
+
+	public void add(Card card) {
+		cardList.add(card);		
+	}
 }

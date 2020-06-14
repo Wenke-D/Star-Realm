@@ -28,7 +28,7 @@ public class ComplexEffect extends AbstractEffect {
 	public void affect(Target target, String extraInfo) {
 		switch (effectType) {
 		case Scrap: {
-			target.scrap(Integer.valueOf(extraInfo));
+			target.remove(Integer.valueOf(extraInfo));
 			break;
 		}
 		}

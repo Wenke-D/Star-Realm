@@ -44,8 +44,9 @@
 			<Effect type="Combat" value="7"></Effect>
 		</Ability>
 
-		<Ability type="alley" relation="Connected">
-			<Effect type="Remove" value="1" extraInfo="number"></Effect>
+		<Ability type="alley" relation="connected">
+			<Effect type="RemoveShip" value="1" extraInfo="number"
+				target="store"></Effect>
 			<Effect type="PutDesk" value="1"></Effect>
 		</Ability>
 
@@ -80,23 +81,23 @@
 
 	<card type="base" qty="3" name="Blob Wheel" faction="Blob"
 		cost="3" defense="5" outpost="no">
-		<Ability type="basic">
+		<Ability type="basic" relation="and">
 			<Effect type="Combat" value="1"></Effect>
 		</Ability>
 
-		<Ability type="alley">
+		<Ability type="alley" relation="and">
 		</Ability>
 
-		<Ability type="scrap">
+		<Ability type="scrap" relation="and">
 			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 	</card>
 
 	<card type="base" qty="1" name="Blob World" faction="Blob"
-		cost="8">
+		cost="8" defense="7" outpost="no">
 		<Ability type="basic" relation="or">
 			<Effect type="Combat" value="5"></Effect>
-			<Effect type="Draw" value="999"></Effect>
+			<Effect type="DrawNbBlob" value="-1"></Effect>
 		</Ability>
 		<Ability type="ally" relation="and">
 		</Ability>
@@ -120,20 +121,21 @@
 
 
 	<card type="ship" qty="2" name="Ram" faction="Blob" cost="3">
-		<Ability type="basic">
+		<Ability type="basic" relation="and">
 			<Effect type="Combat" value="5"></Effect>
 		</Ability>
 
-		<Ability type="alley">
+		<Ability type="alley" relation="and">
 			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 
-		<Ability type="scrap">
+		<Ability type="scrap" relation="and">
 			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 	</card>
 
-	<card type="base" qty="1" name="The Hive" faction="Blob" cost="5">
+	<card type="base" qty="1" name="The Hive" faction="Blob" cost="5"
+		defense="5" outpost="no">
 		<Ability type="basic" relation="and">
 			<Effect type="Combat" value="3"></Effect>
 		</Ability>
@@ -146,11 +148,11 @@
 	</card>
 
 	<card type="ship" qty="3" name="Trade Pod" faction="Blob" cost="2">
-		<Ability type="basic">
+		<Ability type="basic" relation="and">
 			<Effect type="Trade" value="3"></Effect>
 		</Ability>
 
-		<Ability type="alley">
+		<Ability type="alley" relation="and">
 			<Effect type="Combat" value="2"></Effect>
 		</Ability>
 		<Ability type="scrap" relation="and">
@@ -173,19 +175,21 @@
 	</card>
 
 	<card type="base" qty="2" name="Battle Station"
-		faction="Machine Cult" cost="3">
-
-		<Ability type="scrap" relation="and">
-			<Effect type="Combat" value="5"></Effect>
+		faction="Machine Cult" cost="3" defense="5" outpost="yes">
+		<Ability type="basic" relation="and">
+		</Ability>
+		<Ability type="ally" relation="and">
 		</Ability>
 		<Ability type="scrap" relation="and">
+			<Effect type="Combat" value="5"></Effect>
 		</Ability>
 	</card>
 
 	<card type="base" qty="1" name="Brain World"
-		faction="Machine Cult" cost="8">
+		faction="Machine Cult" cost="8" defense="6" outpost="yes">
 		<Ability type="basic" relation="connected">
-			<Effect type="Draw" value="999"></Effect>
+			<Effect type="ScrapHandOrDiscard" value="2" target="self"></Effect>
+			<Effect type="DrawNb" value="-1"></Effect>
 		</Ability>
 		<Ability type="ally" relation="and">
 		</Ability>
@@ -194,9 +198,9 @@
 	</card>
 
 	<card type="base" qty="1" name="Junkyard" faction="Machine Cult"
-		cost="6">
+		cost="6" defense="5" outpost="">
 		<Ability type="basic" relation="and">
-			<Effect type="Remove" value="1" extraInfo="HandOrDisCard"></Effect>
+			<Effect type="ScrapHandOrDiscard" value="1"></Effect>
 		</Ability>
 		<Ability type="ally" relation="and">
 		</Ability>
@@ -205,9 +209,10 @@
 	</card>
 
 	<card type="base" qty="1" name="Machine Base"
-		faction="Machine Cult" cost="7">
-		<Ability type="basic" relation="or">
+		faction="Machine Cult" cost="7" defense="6" outpost="yes">
+		<Ability type="basic" relation="and">
 			<Effect type="Draw" value="1"></Effect>
+			<Effect type="Scrap" value="1" extraInfo="number"></Effect>
 		</Ability>
 		<Ability type="ally" relation="and">
 		</Ability>
@@ -215,8 +220,8 @@
 		</Ability>
 	</card>
 
-	<card type="base" qty="1" name="Mech World" faction="Machine Cult"
-		cost="5">
+	<card type="base" qty="1" name="Mech World" faction="All"
+		cost="5" defense="6" outpost="yes">
 		<Ability type="basic" relation="and">
 			<Effect type="AllyForEveryOne" value="0"></Effect>
 		</Ability>
@@ -264,7 +269,7 @@
 		</Ability>
 
 		<Ability type="alley" relation="or">
-			<Effect type="Scrap" value="1" extraInfo="HandOrDiscard" ></Effect>
+			<Effect type="Scrap" value="1" extraInfo="HandOrDiscard"></Effect>
 		</Ability>
 
 		<Ability type="scrap" relation="and">
@@ -322,7 +327,8 @@
 		</Ability>
 
 		<Ability type="alley" relation="and">
-			<Effect type="Discard" value="1" target="opponent" extraInfo="number"></Effect>
+			<Effect type="Discard" value="1" target="opponent"
+				extraInfo="number"></Effect>
 		</Ability>
 
 		<Ability type="scrap" relation="and">

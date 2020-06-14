@@ -96,7 +96,7 @@ public class ViewKnight {
 	public String readInputWithMessages(List<String> extraInfoType) {
 		String input = null;
 		for(String message:extraInfoType)
-			painter.normalMessage(message);
+			painter.indicateMessage(message);
 		if(scanner.hasNextLine())
 			input = scanner.nextLine();
 		return input;

@@ -89,8 +89,12 @@ abstract class AbstractCard implements Card {
 	
 	@Override
 	public String getFaction() {
-		
 		return faction;
+	}
+	
+	@Override
+	public boolean isFaction(String faction) {
+		return faction.equals(faction);
 	}
 
 	@Override

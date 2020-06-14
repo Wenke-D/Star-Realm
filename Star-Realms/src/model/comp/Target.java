@@ -1,5 +1,7 @@
 package model.comp;
 
+import model.card.Card;
+
 public interface Target {
 
 	public void changeAuthority(int number);
@@ -13,7 +15,16 @@ public interface Target {
 	/**
 	 * Remove permanently a card
 	 * @param i index begins from 1
+	 * @return TODO
 	 */
-	public void scrap(int i);
+	public Card remove(int i);
+
+	public void addToDeck(Card card);
+	
+	/**
+	 * Return number of blob played this round
+	 * @return
+	 */
+	public int nbBlob();
 
 }

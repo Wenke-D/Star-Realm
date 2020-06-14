@@ -67,7 +67,12 @@ public class Store implements GraphicStore, Target {
 	 * @param i the number of card in the view of player. begin with 1.
 	 * @return the card removed.
 	 */
+	@Override
 	public Card remove(int i) {
+		// if remove a explorer
+		if (i == cards().size())
+			return explorer;
+
 		int last = cards.size();
 		return cards.remove(last - i);
 	}
@@ -106,8 +111,13 @@ public class Store implements GraphicStore, Target {
 	}
 
 	@Override
-	public void scrap(int i) {
-		remove(i);
+	public void addToDeck(Card card) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int nbBlob() {
+		throw new UnsupportedOperationException();
 
 	}
 

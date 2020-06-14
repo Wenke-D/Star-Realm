@@ -13,6 +13,7 @@ import model.comp.GraphicPackage;
  */
 
 public class Painter {
+	private final String[] normalType = { "Combat", "Trade", "Authority", "Draw" };
 
 	/**
 	 * Print the game menu in the screen
@@ -70,6 +71,7 @@ public class Painter {
 		System.out.println("Entre <<play index>> to play a card from your hand. ");
 		System.out.println("Entre <<quit>> to end the game directely. ");
 		System.out.println("Entre <<buy index>> to buy a card. ");
+		System.out.println("Entre <<active index ally/scrap>> to active a card's ability. ");
 	}
 
 	/**
@@ -78,10 +80,9 @@ public class Painter {
 	 * @param p
 	 */
 	private void curPlayer(GraphicPlayer p) {
-
-		System.out.println("->Authority: " + p.getAuhtority());
-		System.out.println("->Trade: " + p.getTrade());
-		System.out.println("->Combat: " + p.getCombat());
+		System.out.print("->Authority: " + p.getAuhtority());
+		System.out.print("   ->Trade: " + p.getTrade());
+		System.out.println("   ->Combat: " + p.getCombat());
 
 		List<GraphicCard> field = p.getField();
 		Objects.requireNonNull(field);
@@ -113,9 +114,9 @@ public class Painter {
 	 * @param p
 	 */
 	private void opponent(GraphicPlayer p) {
-		System.out.println("->Authority: " + p.getAuhtority());
-		System.out.println("->Trade: " + p.getTrade());
-		System.out.println("->Combat: " + p.getCombat());
+		System.out.print("->Authority: " + p.getAuhtority());
+		System.out.print("   ->Trade: " + p.getTrade());
+		System.out.println("   ->Combat: " + p.getCombat());
 
 		List<GraphicCard> field = p.getField();
 		field(field);
@@ -181,6 +182,7 @@ public class Painter {
 			GraphicCard c = list.get(i);
 			System.out.printf("[%d]", i + 1);
 			card(c, 1);
+			System.out.println();
 		}
 	}
 
@@ -191,7 +193,7 @@ public class Painter {
 	 * @param nbTab
 	 */
 	private void card(GraphicCard card, int nbTab) {
-		System.out.printf("%s**%s :%d %s ", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
+		System.out.printf("%s**%s** :%d: |%s| ", tabs(nbTab), card.getName(), card.getCost(), card.getFaction());
 
 		if (card.isBase()) {
 			System.out.printf("Defense:%d %s\n", card.getDefense(), card.isOutpost() ? "Outpost" : "");
@@ -199,14 +201,14 @@ public class Painter {
 			System.out.println();
 		}
 
-		System.out.printf("%sBasic Ability\n", tabs(nbTab + 1));
-		ability(card.getBasicAbility(), nbTab + 1);
+		System.out.printf("%sBasic : ", tabs(nbTab + 1));
+		ability(card.getBasicAbility());
 
-		System.out.printf("%sAlly Ability\n", tabs(nbTab + 1));
-		ability(card.getAllyAbility(), nbTab + 1);
+		System.out.printf("%sAlly : ", tabs(nbTab + 1));
+		ability(card.getAllyAbility());
 
-		System.out.printf("%sScrap Ability\n", tabs(nbTab + 1));
-		ability(card.getScrapAbility(), nbTab + 1);
+		System.out.printf("%sScrap : ", tabs(nbTab + 1));
+		ability(card.getScrapAbility());
 	}
 
 	/**
@@ -215,16 +217,17 @@ public class Painter {
 	 * @param ability
 	 * @param nbTab
 	 */
-	private void ability(GraphicAbility ability, int nbTab) {
+	private void ability(GraphicAbility ability) {
 		List<GraphicEffect> list = ability.getEffects();
 		if (list.size() == 0) {
-			System.out.printf("%sNone\n", tabs(nbTab + 1));
+			System.out.printf("None\n");
 			return;
 		}
 		String type = ability.getAbilityType();
 		for (GraphicEffect e : list) {
-			effect(e, nbTab + 1);
+			effect(e);
 		}
+		print();
 	}
 
 	/**
@@ -233,10 +236,16 @@ public class Painter {
 	 * @param e
 	 * @param nbTab
 	 */
-	private void effect(GraphicEffect e, int nbTab) {
-		System.out.printf("%s%s %s, ", tabs(nbTab), "Target", e.getTarget());
-		System.out.printf("%s %s, ", "Type", e.getType());
-		System.out.printf("%s %d\n", "Value", e.getValue());
+	private void effect(GraphicEffect e) {
+		String target = e.getTarget();
+		String type = e.getType();
+		int value = e.getValue();
+		if (isNormalType(type))
+			System.out.printf("Add your %s %d %s", target, value, type);
+		else {
+			System.out.printf("%s %d %s", target, value, type);
+		}
+
 	}
 
 	/**
@@ -244,8 +253,18 @@ public class Painter {
 	 * 
 	 * @param message
 	 */
-	public void normalMessage(String message) {
+	private void normalMessage(String message) {
 		System.out.println(message);
+	}
+
+	public void indicateMessage(String extraInfo) {
+		String message = extraInfo;
+		switch (message) {
+		case "number":
+			message = "Pick a card please";
+			break;
+		}
+		normalMessage(message);
 	}
 
 	private void title(String title) {
@@ -257,6 +276,14 @@ public class Painter {
 
 	private String tabs(int n) {
 		return strMulti("\t", n);
+	}
+
+	private void print(String s) {
+		System.out.println(s);
+	}
+
+	private void print() {
+		System.out.println();
 	}
 
 	/**
@@ -272,6 +299,15 @@ public class Painter {
 			sb.append(string);
 		}
 		return sb.toString();
+	}
+
+	private boolean isNormalType(String type) {
+		Objects.requireNonNull(type);
+		for (String s : normalType) {
+			if (s.equals(type))
+				return true;
+		}
+		return false;
 	}
 
 }

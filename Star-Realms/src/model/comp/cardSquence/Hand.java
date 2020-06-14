@@ -37,8 +37,14 @@ public class Hand {
 		cardList.add(card);
 	}
 
-
+	
+	/**
+	 * 
+	 * @param cardIndex index begin from 1
+	 * @return
+	 */
 	public Card get(int cardIndex) {
+		cardIndex --;
 		return cardList.get(cardIndex);
 	}
 	

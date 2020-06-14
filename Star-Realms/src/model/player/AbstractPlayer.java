@@ -55,6 +55,8 @@ abstract class AbstractPlayer implements Player {
 	 * Field where player puts his card.
 	 */
 	private final Field field; // ·ÅÖÃÇø
+	
+	private int nbBlob;
 
 	AbstractPlayer(int tradePoint, int combatPoint, int authorityPoint, List<Card> list) {
 		this.tradePoint = tradePoint;
@@ -64,6 +66,8 @@ abstract class AbstractPlayer implements Player {
 		this.discardPile = new DiscardPile();
 		this.hand = new Hand();
 		this.field = new Field();
+		
+		this.nbBlob = 0;
 	}
 
 	/**
@@ -118,6 +122,7 @@ abstract class AbstractPlayer implements Player {
 
 		combatPoint = 0;
 		tradePoint = 0;
+		nbBlob = 0;
 	}
 
 	/**
@@ -166,6 +171,8 @@ abstract class AbstractPlayer implements Player {
 		index--;
 		Card card = hand.remove(index);
 		field.add(card);
+		if(card.isFaction("Blob"))
+			nbBlob ++;
 		return card;
 	}
 
@@ -234,8 +241,18 @@ abstract class AbstractPlayer implements Player {
 	}
 	
 	@Override
-	public void scrap(int i) {
+	public Card remove(int i) {
 		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void addToDeck(Card card) {
+		deck.add(card);
+	}
+	
+	@Override
+	public int nbBlob() {
+		return nbBlob;
 	}
 
 	/**

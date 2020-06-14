@@ -2,18 +2,14 @@
 <!DOCTYPE xml>
 <!-- use capital initial represent ability type, for example C = combat -->
 <cards>
-	<card type="ship" qty="20" name="Battle Pod" faction="Blob"
-		cost="2">
-		<Ability type="basic" relation="and">
-			<Effect type="Combat" value="4"></Effect>
-			<Effect type="Scrap" value="1" target="store"
-				extraInfo="number"></Effect>
+	<card type="base" qty="10" name="Blob World" faction="Blob"
+		cost="8" defense="7" outpost="no">
+		<Ability type="basic" relation="or">
+			<Effect type="Combat" value="5"></Effect>
+			<Effect type="DrawNbBlob" value="-1"></Effect>
 		</Ability>
-
-		<Ability type="alley" relation="and">
-			<Effect type="Combat" value="2"></Effect>
+		<Ability type="ally" relation="and">
 		</Ability>
-
 		<Ability type="scrap" relation="and">
 		</Ability>
 	</card>
