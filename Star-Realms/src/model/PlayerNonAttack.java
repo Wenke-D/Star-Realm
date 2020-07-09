@@ -7,13 +7,15 @@ public class PlayerNonAttack implements State {
 	private Player opponent;
 	private Store store;
 	private DataKnight data;
+	private int number;
 	
-	public PlayerNonAttack(Player currentPlayer, Player opponent, Store store, DataKnight data) {
+	public PlayerNonAttack(Player currentPlayer, Player opponent, Store store, DataKnight data, int number) {
 		super();
 		this.currentPlayer = currentPlayer;
 		this.opponent = opponent;
 		this.store = store;
 		this.data = data;
+		this.number = number;
 	}
 	/**
 	 * play this card and active the basic functions
@@ -21,16 +23,17 @@ public class PlayerNonAttack implements State {
 	@Override
 	public void use(int i) {
 		currentPlayer.put(i);
-		currentPlayer.active(i, "basic", opponent, store, extraInfos);
+		currentPlayer.active(i, "basic", opponent, store);
 		
 	}
 
 	/**
 	 * active special functions (allay or scrape)
+	 * type: the type of  ability
 	 */
 	@Override
-	public void active(int i) {
-		currentPlayer.active(i, type, opponent, store, extraInfos);
+	public void active(int i, String type) {
+		currentPlayer.active(i, type, opponent);
 		
 	}
 
@@ -63,7 +66,16 @@ public class PlayerNonAttack implements State {
 
 		// ResetState()
 		opponent.beginTurn(currentPlayer, store);
-		//switchPlayer();
+		State state;
+		if(number == 1) {
+			state = data.player2NonAttack;
+		}
+		if(number == 2) {
+			state = data.player1NonAttack;	
+		}
+		
+		data.switchState(state);
+		
 		
 	}
 	

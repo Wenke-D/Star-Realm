@@ -33,6 +33,12 @@ public interface Card extends GraphicCard {
 	public void affect(String type, Target owner, Target opponent, Target store, List<String> extraInfos);
 	
 	public List<String> needExraInfos(String type);
+	
+	/**
+	 * 
+	 * @param string if is the same faction
+	 * @return true or false
+	 */
 	public boolean isFaction(String string);
 	
 }
