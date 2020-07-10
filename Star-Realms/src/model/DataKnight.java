@@ -23,10 +23,10 @@ public class DataKnight {
 	private final Player player1;
 	private final Player player2;
 	private final Store store;
-	public static final State player1NonAttack;
-	public static final State player2NonAttack;
-	public static final State player1Attack;
-	public static final State player2Attack;
+	public static State player1NonAttack;
+	public static State player2NonAttack;
+	public static State player1Attack;
+	public static State player2Attack;
 	
 	ResourceReader reader = new ResourceReader();
 
