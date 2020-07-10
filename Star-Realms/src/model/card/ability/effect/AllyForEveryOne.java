@@ -1,5 +1,6 @@
 package model.card.ability.effect;
 
+import model.card.ability.effect.simpleEffect.AbstractSimpleEffect;
 import model.comp.Target;
 
 public class AllyForEveryOne extends AbstractSimpleEffect {

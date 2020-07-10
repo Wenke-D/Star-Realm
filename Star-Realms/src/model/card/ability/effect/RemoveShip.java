@@ -1,6 +1,7 @@
 package model.card.ability.effect;
 
 import model.card.Card;
+import model.card.ability.effect.simpleEffect.AbstractSimpleEffect;
 import model.comp.Target;
 
 public class RemoveShip extends AbstractSimpleEffect {

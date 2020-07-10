@@ -1,6 +1,6 @@
-package model.card.ability.effect;
+package model.card.ability.effect.simpleEffect;
 
-import model.card.Card;
+import model.card.ability.effect.Effect;
 import model.comp.Target;
 
 abstract class AbstractSimpleEffect implements Effect {
