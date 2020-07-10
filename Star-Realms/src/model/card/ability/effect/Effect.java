@@ -1,21 +1,41 @@
 package model.card.ability.effect;
 
-import model.card.Card;
+import model.InvalideOperationException;
 import model.comp.Target;
 import view.GraphicEffect;
 
 public interface Effect extends GraphicEffect {
-	public void affect(Target target);
-	
-	public void affect(Target target, String extraInfo);
-	
-	public Object returnAffect(Target target, String extraInfo);
-	
 	/**
-	 * Weather his effect need other info to perform his ability
-	 * @return null if not, info type if need.
+	 * set the infomation needed while execute this effet.
+	 * @param input
 	 */
-	public String needExraInfo();
+	public void setInput(String input);
 
-	public void receiveAffect(Target realTarget2, Object info);
+	/**
+	 * Set target of this execution.
+	 * @param target
+	 */
+	public void setTarget(Target target);
+
+	/**
+	 * Active this effect
+	 * @return the resulat of this execution while this effect has connect with other effect.
+	 * @throws InvalideOperationException effect does not have input or the input is wrong.
+	 */
+	public String execute() throws InvalideOperationException;
+
+	/**
+	 * Weather this effect need player's input before running.
+	 * @return true if need, false if not.
+	 */
+	public boolean needInput();
+
+	/**
+	 * Description of input needed.
+	 * @return String description.
+	 */
+	public String inputHint();
+
+
+
 }

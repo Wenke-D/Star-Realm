@@ -12,29 +12,29 @@ public interface State {
 	 * let current user active a card ability
 	 * @param i card's index, begin from 1.
 	 * @param type ability type
-	 * @throws InvalideOperation if ability active condition doesn't fit, throw.
+	 * @throws InvalideOperationException if ability active condition doesn't fit, throw.
 	 */
-	public void active(int i, String type) throws InvalideOperation;
+	public void active(int i, String type) throws InvalideOperationException;
 	
 	/**
 	 * make current user buy a card from store.
 	 * @param i the index of card that player wants to buy, begin from 1.
-	 * @throws InvalideOperation if player doesn't have enough trade, throw.
+	 * @throws InvalideOperationException if player doesn't have enough trade, throw.
 	 */
-	public void buy(int i) throws InvalideOperation;
+	public void buy(int i) throws InvalideOperationException;
 
 	/**
 	 * make current player attack his opponent.
-	 * @throws InvalideOperation if current player has attacked.
+	 * @throws InvalideOperationException if current player has attacked.
 	 */
-	public void attackPlayer() throws InvalideOperation;
+	public void attackPlayer() throws InvalideOperationException;
 	
 	/**
 	 * make current player attack the base
 	 * @param i index of base, begin from 1
-	 * @throws InvalideOperation if current player has attacked.
+	 * @throws InvalideOperationException if current player has attacked.
 	 */
-	public void attackBase(int i) throws InvalideOperation;
+	public void attackBase(int i) throws InvalideOperationException;
 	
 	/**
 	 * make current player end his turn.
