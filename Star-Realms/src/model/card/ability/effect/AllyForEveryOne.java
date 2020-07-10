@@ -2,7 +2,7 @@ package model.card.ability.effect;
 
 import model.comp.Target;
 
-public class AllyForEveryOne extends AbstractEffect {
+public class AllyForEveryOne extends AbstractSimpleEffect {
 
 	AllyForEveryOne() {
 		super("self", 0);

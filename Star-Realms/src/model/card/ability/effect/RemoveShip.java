@@ -3,7 +3,7 @@ package model.card.ability.effect;
 import model.card.Card;
 import model.comp.Target;
 
-public class RemoveShip extends AbstractEffect{
+public class RemoveShip extends AbstractSimpleEffect {
 
 	
 	RemoveShip(String target, int value) {

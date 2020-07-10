@@ -4,16 +4,11 @@ import model.InvalideOperationException;
 import model.comp.Target;
 import view.GraphicEffect;
 
-public interface Effect extends GraphicEffect {
-	/**
-	 * set the infomation needed while execute this effet.
-	 * @param input
-	 */
-	public void setInput(String input);
+public interface Effect {
 
 	/**
 	 * Set target of this execution.
-	 * @param target
+	 * @param target effect's target.
 	 */
 	public void setTarget(Target target);
 
@@ -35,6 +30,12 @@ public interface Effect extends GraphicEffect {
 	 * @return String description.
 	 */
 	public String inputHint();
+
+	/**
+	 * set the information needed while execute this effet.
+	 * @param input player's input.
+	 */
+	public void setInput(String input);
 
 
 

@@ -1,9 +1,8 @@
 package model.card.ability.effect;
 
-import model.card.Card;
 import model.comp.Target;
 
-public class DrawNb extends AbstractEffect {
+public class DrawNb extends AbstractSimpleEffect {
 
 	
 	DrawNb(String target) {

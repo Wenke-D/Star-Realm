@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import model.Store;
 import model.card.ability.effect.Effect;
-import model.card.ability.effect.SimpleEffect;
 import model.comp.Target;
-import model.player.Player;
 import view.GraphicEffect;
 
 /**

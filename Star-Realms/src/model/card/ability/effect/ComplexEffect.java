@@ -2,7 +2,7 @@ package model.card.ability.effect;
 
 import model.comp.Target;
 
-public class ComplexEffect extends AbstractEffect {
+public class ComplexEffect extends AbstractSimpleEffect {
 
 	private enum Type {
 		Scrap;
