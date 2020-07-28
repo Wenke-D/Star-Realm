@@ -29,7 +29,7 @@ public class ComplexEffect extends AbstractSimpleEffect {
 	public void affect(Target target, String extraInfo) {
 		switch (effectType) {
 		case Scrap: {
-			target.remove(Integer.valueOf(extraInfo));
+			target.remove(Integer.parseInt(extraInfo));
 			break;
 		}
 		}

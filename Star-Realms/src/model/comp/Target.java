@@ -27,4 +27,12 @@ public interface Target {
 	 */
 	public int nbBlob();
 
+	/**
+	 * Scrap a card in trade row specified by index
+	 *
+	 * Only store support this function
+	 *
+	 * @param index card's index in trade row, begin from 1.
+	 */
+    public void scrap(int index);
 }

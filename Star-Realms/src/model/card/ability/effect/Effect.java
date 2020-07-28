@@ -2,7 +2,8 @@ package model.card.ability.effect;
 
 import model.InvalideOperationException;
 import model.comp.Target;
-import view.GraphicEffect;
+
+import java.util.Map;
 
 public interface Effect {
 
@@ -13,11 +14,9 @@ public interface Effect {
 	public void setTarget(Target target);
 
 	/**
-	 * Active this effect
-	 * @return the resulat of this execution while this effect has connect with other effect.
-	 * @throws InvalideOperationException effect does not have input or the input is wrong.
+	 * Execute this effect
 	 */
-	public String execute() throws InvalideOperationException;
+	public void execute();
 
 	/**
 	 * Weather this effect need player's input before running.
@@ -26,17 +25,35 @@ public interface Effect {
 	public boolean needInput();
 
 	/**
-	 * Description of input needed.
-	 * @return String description.
+	 * Hint of input needed.
+	 *
+	 * The first entry is description witch the key name is description.
+	 * The second is type of input wanted witch the key name is valueType.
+	 *
+	 * This function should not be called while the effect it belongs to does not need input
+	 *
+	 * @return Map<String, String>.
 	 */
-	public String inputHint();
+	public Map<String, String> inputHint() ;
 
 	/**
 	 * set the information needed while execute this effet.
 	 * @param input player's input.
 	 */
-	public void setInput(String input);
+	public void setInput(Object input);
 
+	/**
+	 * Return the result of execution.
+	 * @return Object
+	 */
+	public Object getResult();
+
+
+	/**
+	 * The input source, from user or last effect.
+	 * @return String user or effect
+	 */
+	public String getInputType();
 
 
 }

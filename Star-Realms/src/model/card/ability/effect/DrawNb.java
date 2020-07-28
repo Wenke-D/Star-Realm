@@ -1,50 +1,33 @@
 package model.card.ability.effect;
 
-import model.card.ability.effect.simpleEffect.AbstractSimpleEffect;
+import model.InvalideOperationException;
 import model.comp.Target;
 
-public class DrawNb extends AbstractSimpleEffect {
-
-	
-	DrawNb(String target) {
-		super(target, -1);
-	}
+public class DrawNb implements Effect {
 
 
 	@Override
-	public String getType() {
-		return "DrawNb";
+	public void setTarget(Target target) {
+
 	}
 
 	@Override
-	public int getValue() {
-		return -1;
-	}
-
-	@Override
-	public void affect(Target target) {
-		throw new UnsupportedOperationException();
-		
-	}
-
-	@Override
-	public void affect(Target target, String extraInfo) {
-		throw new UnsupportedOperationException();
-	}
-
-
-	@Override
-	public String needExraInfo() {
+	public String execute() throws InvalideOperationException {
 		return null;
 	}
 
-
 	@Override
-	public void receiveAffect(Target realTarget, Object info) {
-		int n = Integer.valueOf((String) info);
-		realTarget.drawCard(n);
+	public boolean needInput() {
+		return false;
 	}
 
+	@Override
+	public String inputHint() {
+		return null;
+	}
 
+	@Override
+	public void setInput(Object input) {
 
+	}
 }

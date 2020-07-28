@@ -3,6 +3,8 @@ package model.card.ability.effect.simpleEffect;
 import model.card.ability.effect.Effect;
 import model.comp.Target;
 
+import java.util.Map;
+
 abstract class AbstractSimpleEffect implements Effect {
 
 	protected Target target;
@@ -25,12 +27,22 @@ abstract class AbstractSimpleEffect implements Effect {
 	}
 
 	@Override
-	public String inputHint() {
+	public Map<String, String> inputHint() {
 		throw new UnsupportedOperationException("This kind of effect doesn't have hint");
 	}
 
 	@Override
-	public void setInput(String input) {
+	public void setInput(Object input) {
 		throw new UnsupportedOperationException("Can not set input in this kind of effect");
+	}
+
+	@Override
+	public Object getResult() {
+		throw new UnsupportedOperationException("This effect does not have result");
+	}
+
+	@Override
+	public String getInputType() {
+		throw new UnsupportedOperationException("This effect does not need input");
 	}
 }
