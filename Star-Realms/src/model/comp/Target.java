@@ -2,6 +2,8 @@ package model.comp;
 
 import model.card.Card;
 
+import java.util.List;
+
 public interface Target {
 
 	public void changeAuthority(int number);
@@ -23,16 +25,20 @@ public interface Target {
 	
 	/**
 	 * Return number of blob played this round
-	 * @return
+	 * @return int number of blob played in this round
 	 */
 	public int nbBlob();
 
 	/**
-	 * Scrap a card in trade row specified by index
+	 * Scrap cards in trade row specified by index
 	 *
 	 * Only store support this function
 	 *
-	 * @param index card's index in trade row, begin from 1.
+	 * @param indexes card's index in trade row, begin from 1.
 	 */
-    public void scrap(int index);
+    public void scrapCards(List<Integer> indexes);
+
+	public void destroyBases(List<Integer> inputs);
+
+    public int numberOfBlobPlayed();
 }

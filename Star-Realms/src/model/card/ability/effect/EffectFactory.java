@@ -1,40 +1,70 @@
 package model.card.ability.effect;
 
-import org.dom4j.Element;
+import com.alibaba.fastjson.JSONObject;
+import model.card.ability.effect.simpleEffect.Authority;
+import model.card.ability.effect.simpleEffect.Combat;
+import model.card.ability.effect.simpleEffect.Draw;
+import model.card.ability.effect.simpleEffect.Trade;
+import model.comp.Target;
+
 
 public class EffectFactory {
+    private final Target self;
+    private final Target store;
+    private final Target opponent;
 
-	public static Effect makeEffect(Element e) {
-		int value = Integer.valueOf(e.attributeValue("value"));
-		String effectType = e.attributeValue("type");
-		String target = e.attributeValue("target");
-		String extraInfo = e.attributeValue("extraInfo");
+    public EffectFactory(Target self, Target store, Target opponent) {
+        this.self = self;
+        this.store = store;
+        this.opponent = opponent;
+    }
 
-		if (target == null)
-			target = "self";
+    public Effect makeEffect(JSONObject effectJSON) {
+        String effectName = effectJSON.getString("name");
+        Effect effect;
 
-		if (effectType.equals("RemoveShip"))
-			return new RemoveShip(target, value);
+        switch (effectName) {
+            case "authority" -> {
+                int value = effectJSON.getIntValue("value");
+                effect = new Authority(value);
+            }
+            case "combat" -> {
+                int value = effectJSON.getIntValue("value");
+                effect = new Combat(value);
+            }
+            case "draw" -> {
+                int value = effectJSON.getIntValue("value");
+                effect = new Draw(value);
+            }
+            case "trade" -> {
+                int value = effectJSON.getIntValue("value");
+                effect = new Trade(value);
+            }
+            case "destroyBase" -> effect = new DestroyBase();
 
-		if (effectType.equals("PutDesk"))
-			return new PutDesk();
-		
-		if (effectType.equals("DrawNbBlob"))
-			return new DrawNbBlob();
-		
-		if(effectType.equals("ScrapHandOrDiscard"))
-			return new ScrapHandOrDiscard(target, value);
-		
-		if (effectType.equals("DrawNb"))
-			return new DrawNb(extraInfo);
-		
-		if (effectType.equals("AllyForEveryOne"))
-			return new AllyForEveryOne();
+            case "scrapCardsInTradeRow" -> effect = new ScrapCardsInTradeRow();
 
-		if (extraInfo == null)
-			return new SimpleEffect(target, value, effectType);
-		else
-			return new ComplexEffect(target, value, effectType, extraInfo);
-	}
+            default -> throw new IllegalStateException("Unexpected value: " + effectName);
+        }
+
+        setTarget(effect, effectJSON);
+        return effect;
+
+    }
+
+    private void setTarget(Effect effect, JSONObject effectJSON) {
+        String target = effectJSON.getString("target");
+        switch (target) {
+            case "self" -> {
+                effect.setTarget(self);
+            }
+            case "store" -> {
+                effect.setTarget(store);
+            }
+            case "opponent" -> {
+                effect.setTarget(opponent);
+            }
+        }
+    }
 
 }
